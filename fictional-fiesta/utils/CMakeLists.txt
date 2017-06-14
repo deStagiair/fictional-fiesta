@@ -1,0 +1,3 @@
+set(UTILS_SRC
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/XmlNode.cpp
+  CACHE INTERNAL "")
