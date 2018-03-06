@@ -5,9 +5,5 @@
 namespace fictionalfiesta
 {
     
-XmlNode::XmlNode(const xmlNodePtr &node):
-  _node(node)
-{
-}
 
 } // namespace fictionalfiesta
