@@ -16,13 +16,13 @@ class Exception : public std::exception
     std::string _logMessage;
 
   public:
-    
+
     /// Constructor that takes the log message.
-    /// \param logMessage message for logging purposes.
+    /// @param logMessage message for logging purposes.
     explicit Exception(const std::string &logMessage);
 
     /// Gets an string identifying the exception.
-    /// \return string identifying the exception.
+    /// @return string identifying the exception.
     const char* what() const noexcept override;
 };
 
