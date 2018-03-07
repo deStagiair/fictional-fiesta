@@ -1,4 +1,4 @@
-/// Implementation of the XmlNode class
+/// Implementation of the XmlNode class.
 
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 

@@ -13,10 +13,10 @@ class XmlNode
   private:
 
     /// Pointer to the node implementation.
-    // We use PIMPL to avoid exposing the XML dependecies.
+    /// We use PIMPL to avoid exposing the XML dependecies.
     std::unique_ptr<XmlNodeImpl> _node;
 };
 
-}
+} // namespace fictionalfiesta
 
 #endif
