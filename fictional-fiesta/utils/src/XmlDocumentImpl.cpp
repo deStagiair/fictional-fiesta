@@ -1,5 +1,7 @@
 #include "fictional-fiesta/utils/src/XmlDocumentImpl.h"
 
+#include "fictional-fiesta/utils/itf/Exception.h"
+
 namespace fictionalfiesta
 {
 
@@ -15,6 +17,7 @@ XmlDocumentImpl::XmlDocumentImpl(const fs::path &documentPath)
 
   if (!result)
   {
+    throw Exception(result.description());
   }
 }
 

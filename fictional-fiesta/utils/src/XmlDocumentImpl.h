@@ -19,7 +19,7 @@ class XmlDocumentImpl
 
   public:
 
-    /// @brief Constructor from the pugi document.
+    /// @brief Constructor from the document path.
     ///
     /// @param documentPath path to the XML document.
     explicit XmlDocumentImpl(const std::experimental::filesystem::path& documentPath);
