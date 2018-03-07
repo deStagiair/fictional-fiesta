@@ -1,0 +1,3 @@
+set(UTILS_TESTS
+  ${CMAKE_CURRENT_SOURCE_DIR}/XmlDocumentTest.cpp
+  CACHE INTERNAL "")
