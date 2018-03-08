@@ -13,11 +13,11 @@ namespace fs = std::experimental::filesystem;
 
 XmlDocumentImpl::XmlDocumentImpl(const fs::path &documentPath)
 {
-  const pugi::xml_parse_result &result = _document.load(documentPath.c_str());
+  const pugi::xml_parse_result &result = _document.load_file(documentPath.c_str());
 
   if (!result)
   {
-    throw Exception(result.description());
+    throw Exception("Error loading XML file '" + documentPath.string() + "':" + std::string(result.description()));
   }
 }
 
