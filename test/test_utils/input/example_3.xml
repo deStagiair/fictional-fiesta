@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Example>
+  <Node1>
+    <SubNode1>
+      Content
+    </SubNode1>
+    <Subnode2/>
+  </Node1>
+  <Node2>
+  </Node2>
+</Example>
