@@ -65,7 +65,7 @@ bool diffFiles(const fs::path& firstFile, const fs::path& secondFile, const fs::
   const std::string command = "diff " + firstFile.string() + " " + secondFile.string() +
       " > " + diffFile.string();
 
-  return (runCommand(command) == 0);
+  return (runCommand(command) != -1);
 }
 
 } // namespace testutils

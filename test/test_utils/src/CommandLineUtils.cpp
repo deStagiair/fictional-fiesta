@@ -7,7 +7,7 @@ namespace testutils
 
 bool commandLineAccessible()
 {
-  return !system(nullptr);
+  return system(nullptr) != 0;
 }
 
 int runCommand(const std::string& command)

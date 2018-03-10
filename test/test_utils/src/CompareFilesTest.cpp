@@ -8,6 +8,7 @@ namespace fs = std::experimental::filesystem;
 
 using namespace testutils;
 
+
 static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
     / fs::path("test_utils/input");
 
@@ -100,7 +101,7 @@ TEST_CASE("Test diff different files", "[CompareFilesTest][TestDiffFiles]")
     const fs::path input_file_1 = input_directory / fs::path("example_2.xml");
     const fs::path result_file_0 = result_directory / fs::path("diff_1.diff");
 
-    const bool success = (diffFiles(input_file_0, input_file_1, result_file_0) == 0);
+    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
 
     if (success)
     {
@@ -113,7 +114,7 @@ TEST_CASE("Test diff different files", "[CompareFilesTest][TestDiffFiles]")
     const fs::path input_file_1 = input_directory / fs::path("example_2.xml");
     const fs::path result_file_0 = result_directory / fs::path("diff_2.diff");
 
-    const bool success = (diffFiles(input_file_0, input_file_1, result_file_0) == 0);
+    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
 
     if (success)
     {
