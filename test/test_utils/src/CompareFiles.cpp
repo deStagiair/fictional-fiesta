@@ -2,6 +2,7 @@
 
 #include "test/test_utils/itf/CompareFiles.h"
 
+#include <cstdlib>
 #include <fstream>
 
 namespace fs = std::experimental::filesystem;
@@ -55,7 +56,15 @@ bool filesAreEqual(const fs::path& firstFile, const fs::path& secondFile)
 
 bool diffFiles(const fs::path& firstFile, const fs::path& secondFile, const fs::path& diffFile)
 {
-  return false;
+  if (!system(nullptr))
+  {
+    return false;
+  }
+
+  const std::string command = "diff " + firstFile.string() + " " + secondFile.string() +
+      " > " + diffFile.string();
+
+  return (system(command.c_str()) == 0);
 }
 
 } // namespace testutils

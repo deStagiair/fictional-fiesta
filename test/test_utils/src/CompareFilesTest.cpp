@@ -11,6 +11,12 @@ using namespace testutils;
 static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
     / fs::path("test_utils/input");
 
+static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("test_utils/benchmark");
+
+static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
+    / fs::path("test_utils/result");
+
 TEST_CASE("3: Test comparing the same file twice (pass)", "[multi-file:3]")
 {
   const fs::path input_file = input_directory / fs::path("example_0.xml");
@@ -55,4 +61,64 @@ TEST_CASE("Test comparing equal files", "[multi-file:3]")
   const fs::path input_file_1 = input_directory / fs::path("example_5.xml");
   REQUIRE(filesAreEqual(input_file_0, input_file_0));
   REQUIRE(filesAreEqual(input_file_1, input_file_1));
+}
+
+TEST_CASE("Test diff equal files", "[multi-file:3]")
+{
+  {
+    const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
+    const fs::path input_file_1 = input_directory / fs::path("example_1.xml");
+    const fs::path result_file_0 = result_directory / fs::path("diff_0.diff");
+
+    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
+
+    if (success)
+    {
+      const fs::path benchmark_file_0 = benchmark_directory / fs::path("diff_0.diff");
+      REQUIRE(filesAreEqual(result_file_0, benchmark_file_0));
+    }
+  }
+  {
+    const fs::path input_file_0 = input_directory / fs::path("example_2.xml");
+    const fs::path input_file_1 = input_directory / fs::path("example_5.xml");
+    const fs::path result_file_0 = result_directory / fs::path("diff_3.diff");
+
+    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
+
+    if (success)
+    {
+      const fs::path benchmark_file_0 = benchmark_directory / fs::path("diff_3.diff");
+      REQUIRE(filesAreEqual(result_file_0, benchmark_file_0));
+    }
+  }
+}
+
+TEST_CASE("Test diff different files", "[multi-file:3]")
+{
+  {
+    const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
+    const fs::path input_file_1 = input_directory / fs::path("example_2.xml");
+    const fs::path result_file_0 = result_directory / fs::path("diff_1.diff");
+
+    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
+
+    if (success)
+    {
+      const fs::path benchmark_file_0 = benchmark_directory / fs::path("diff_1.diff");
+      REQUIRE(filesAreEqual(result_file_0, benchmark_file_0));
+    }
+  }
+  {
+    const fs::path input_file_0 = input_directory / fs::path("example_3.xml");
+    const fs::path input_file_1 = input_directory / fs::path("example_2.xml");
+    const fs::path result_file_0 = result_directory / fs::path("diff_2.diff");
+
+    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
+
+    if (success)
+    {
+      const fs::path benchmark_file_0 = benchmark_directory / fs::path("diff_2.diff");
+      REQUIRE(filesAreEqual(result_file_0, benchmark_file_0));
+    }
+  }
 }
