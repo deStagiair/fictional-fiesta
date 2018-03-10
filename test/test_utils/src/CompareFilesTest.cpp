@@ -17,13 +17,13 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
     / fs::path("test_utils/result");
 
-TEST_CASE("3: Test comparing the same file twice (pass)", "[multi-file:3]")
+TEST_CASE("3: Test comparing the same file twice (pass)", "[TestCompareFiles][TestFilesAreEqual]")
 {
   const fs::path input_file = input_directory / fs::path("example_0.xml");
   REQUIRE(filesAreEqual(input_file, input_file));
 }
 
-TEST_CASE("Test comparing with unexisting files (throws)", "[multi-file:3]")
+TEST_CASE("Test comparing with unexisting files (throws)", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
   const fs::path input_file_1 = input_directory / fs::path("no_example_0.xml");
@@ -32,14 +32,14 @@ TEST_CASE("Test comparing with unexisting files (throws)", "[multi-file:3]")
   REQUIRE_THROWS(filesAreEqual(input_file_1, input_file_1));
 }
 
-TEST_CASE("Test comparing two empty files (pass)", "[multi-file:3]")
+TEST_CASE("Test comparing two empty files (pass)", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
   const fs::path input_file_1 = input_directory / fs::path("example_1.xml");
   REQUIRE(filesAreEqual(input_file_0, input_file_1));
 }
 
-TEST_CASE("Test comparing files that differ in a charachter (same size)", "[multi-file:3]")
+TEST_CASE("Test comparing files that differ in a charachter (same size)", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file_0 = input_directory / fs::path("example_2.xml");
   const fs::path input_file_1 = input_directory / fs::path("example_3.xml");
@@ -47,7 +47,7 @@ TEST_CASE("Test comparing files that differ in a charachter (same size)", "[mult
   REQUIRE(!filesAreEqual(input_file_1, input_file_0));
 }
 
-TEST_CASE("Test comparing files that differ size", "[multi-file:3]")
+TEST_CASE("Test comparing files that differ size", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file_0 = input_directory / fs::path("example_3.xml");
   const fs::path input_file_1 = input_directory / fs::path("example_4.xml");
@@ -55,7 +55,7 @@ TEST_CASE("Test comparing files that differ size", "[multi-file:3]")
   REQUIRE(!filesAreEqual(input_file_1, input_file_0));
 }
 
-TEST_CASE("Test comparing equal files", "[multi-file:3]")
+TEST_CASE("Test comparing equal files", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file_0 = input_directory / fs::path("example_2.xml");
   const fs::path input_file_1 = input_directory / fs::path("example_5.xml");
@@ -63,7 +63,7 @@ TEST_CASE("Test comparing equal files", "[multi-file:3]")
   REQUIRE(filesAreEqual(input_file_1, input_file_1));
 }
 
-TEST_CASE("Test diff equal files", "[multi-file:3]")
+TEST_CASE("Test diff equal files", "[CompareFilesTest][TestDiffFiles]")
 {
   {
     const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
@@ -93,14 +93,14 @@ TEST_CASE("Test diff equal files", "[multi-file:3]")
   }
 }
 
-TEST_CASE("Test diff different files", "[multi-file:3]")
+TEST_CASE("Test diff different files", "[CompareFilesTest][TestDiffFiles]")
 {
   {
     const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
     const fs::path input_file_1 = input_directory / fs::path("example_2.xml");
     const fs::path result_file_0 = result_directory / fs::path("diff_1.diff");
 
-    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
+    const bool success = (diffFiles(input_file_0, input_file_1, result_file_0) == 0);
 
     if (success)
     {
@@ -113,7 +113,7 @@ TEST_CASE("Test diff different files", "[multi-file:3]")
     const fs::path input_file_1 = input_directory / fs::path("example_2.xml");
     const fs::path result_file_0 = result_directory / fs::path("diff_2.diff");
 
-    const bool success = diffFiles(input_file_0, input_file_1, result_file_0);
+    const bool success = (diffFiles(input_file_0, input_file_1, result_file_0) == 0);
 
     if (success)
     {
