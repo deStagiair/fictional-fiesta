@@ -11,7 +11,7 @@ namespace fs = std::experimental::filesystem;
 namespace testutils
 {
 
-bool BenchmarkFiles(const fs::path& firstFile, const fs::path& secondFile, const fs::path& resultsPath)
+bool benchmarkFiles(const fs::path& firstFile, const fs::path& secondFile, const fs::path& resultsPath)
 {
   if (filesAreEqual(firstFile, secondFile))
   {

@@ -24,6 +24,13 @@ class XmlDocumentImpl
     /// @param documentPath path to the XML document.
     explicit XmlDocumentImpl(const std::experimental::filesystem::path& documentPath);
 
+    /// @brief Save the document to a file in disk.
+    ///
+    /// @param savePath path where the XML document will be written.
+    /// @param prettyPrint whether the document will be saved formated or not.
+    ///   Defaults to true.
+    /// @return true if the file was written successfully and false otherwise.
+    bool save(const std::experimental::filesystem::path& savePath, bool prettyPrint = true) const;
 };
 
 } // namespace fictionalfiesta

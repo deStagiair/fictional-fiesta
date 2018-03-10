@@ -16,7 +16,7 @@ namespace testutils
 /// @param secondFile Second file to be checked.
 /// @param resultsPath Directory where the diff file will be created.
 /// @return true if the content of both files is exactly the same and false if not.
-bool BenchmarkFiles(const std::experimental::filesystem::path& firstFile,
+bool benchmarkFiles(const std::experimental::filesystem::path& firstFile,
     const std::experimental::filesystem::path& secondFile,
     const std::experimental::filesystem::path& resultsPath);
 

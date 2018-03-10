@@ -26,6 +26,14 @@ class XmlDocument
     explicit XmlDocument(const std::experimental::filesystem::path& documentPath);
 
     ~XmlDocument();
+
+    /// @brief Save the document to a file in disk.
+    ///
+    /// @param savePath path where the XML document will be written.
+    /// @param prettyPrint whether the document will be saved formated or not.
+    ///   Defaults to true.
+    /// @throw Exception if the file could not be written.
+    void save(const std::experimental::filesystem::path& savePath, bool prettyPrint = true) const;
 };
 
 }
