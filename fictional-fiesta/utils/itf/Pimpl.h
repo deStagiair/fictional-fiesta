@@ -21,15 +21,25 @@ class Pimpl
     /// @brief Default constructor.
     Pimpl();
 
+    /// @brief Forward constructor.
+    /// Construct directly the underlaying class from the corresponding arguments.
+    /// @param args Arguments to be forwarded to the underlaying class constructor.
     template<typename ...Args>
-    Pimpl(Args&& ...);
+    Pimpl(Args&& ...args);
 
     ~Pimpl();
 
+    /// @brief Arrow derreference operator.
+    /// @{
     T* operator->();
     const T* operator->() const;
+    /// @}
+
+    /// @brief Star derreference operator.
+    /// @{
     T& operator*();
     const T& operator*() const;
+    /// @}
 };
 
 } // namespace fictionalfiesta

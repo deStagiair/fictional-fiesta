@@ -20,6 +20,7 @@ constexpr const char* INDENT_STRING = "  ";
 
 } // anonymous namespace
 
+/// @brief Implementation of the XmlDocument class.
 class XmlDocument::Impl
 {
   public:
@@ -34,6 +35,7 @@ class XmlDocument::Impl
     pugi::xml_document _document;
 };
 
+/// @brief Implementation of the XmlNode class.
 class XmlNode::Impl
 {
   public:

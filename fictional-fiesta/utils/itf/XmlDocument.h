@@ -31,6 +31,8 @@ class XmlDocument
     /// @throw Exception if the file could not be written.
     void save(const std::experimental::filesystem::path& savePath, bool prettyPrint = true) const;
 
+    /// @brief Obtain the root node of the document.
+    /// @return Root node of the document.
     XmlNode getRootNode() const;
 
   private:
