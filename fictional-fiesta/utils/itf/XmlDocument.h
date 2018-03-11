@@ -10,6 +10,7 @@ namespace fictionalfiesta
 
 class XmlDocumentImpl;
 
+/// @brief Class that represents a XML document
 class XmlDocument
 {
   private:

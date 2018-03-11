@@ -1,4 +1,4 @@
-/// @file Test of the file comparation test utilities.
+/// @file CompareFilesTest.cpp Test of the file comparation test utilities.
 
 #include "catch/catch.hpp"
 

@@ -1,4 +1,4 @@
-/// @file Implementation of the XmlDocument class.
+/// @file XmlDocument.cpp Implementation of the XmlDocument class.
 
 #include "fictional-fiesta/utils/itf/XmlDocument.h"
 

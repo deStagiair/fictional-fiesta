@@ -8,6 +8,7 @@ namespace fictionalfiesta
 
 class XmlNodeImpl;
 
+/// @brief Class to represent a node in an XML document.
 class XmlNode
 {
   private:

@@ -1,4 +1,4 @@
-/// @file Implementation of the file comparation test utilities.
+/// @file CompareFiles.cpp Implementation of the file comparation test utilities.
 
 #include "test/test_utils/itf/CompareFiles.h"
 

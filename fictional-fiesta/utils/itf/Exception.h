@@ -8,6 +8,7 @@
 namespace fictionalfiesta
 {
 
+/// @brief Class to represent a general exception in the project.
 class Exception : public std::exception
 {
   private:

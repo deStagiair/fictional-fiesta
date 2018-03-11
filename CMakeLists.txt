@@ -9,5 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_path(PUGIXML_INCLUDE_DIR NAMES pugixml.hpp)
 find_library(PUGIXML_LIBRARIES NAMES pugixml)
 
+find_package(Doxygen REQUIRED dot OPTIONAL_COMPONENTS mscgen dia)
+
 add_subdirectory(fictional-fiesta)
 add_subdirectory(test)

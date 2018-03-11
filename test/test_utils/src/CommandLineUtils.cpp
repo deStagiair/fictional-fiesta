@@ -1,4 +1,4 @@
-/// @file Implementation of the command line utilities.
+/// @file CommandLineUtils.cpp Implementation of the command line utilities.
 
 #include "test/test_utils/itf/CommandLineUtils.h"
 

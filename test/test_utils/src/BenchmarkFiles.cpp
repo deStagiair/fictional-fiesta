@@ -1,4 +1,4 @@
-/// @file Test of the file comparation test utilities.
+/// @file BenchmarkFiles.cpp Test of the file comparation test utilities.
 
 #include "test/test_utils/itf/BenchmarkFiles.h"
 

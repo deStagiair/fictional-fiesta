@@ -1,4 +1,4 @@
-/// @file Implementation of the public class XmlDocument.
+/// @file XmlDocumentImpl.cpp Implementation of the public class XmlDocument.
 ///   In this case we use pugixml.
 
 #include "fictional-fiesta/utils/src/XmlDocumentImpl.h"
