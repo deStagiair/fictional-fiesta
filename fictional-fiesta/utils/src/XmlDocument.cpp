@@ -4,12 +4,7 @@
 
 #include "fictional-fiesta/utils/itf/Exception.h"
 
-#include "fictional-fiesta/utils/itf/XmlDocument.h"
-//#include "fictional-fiesta/utils/itf/XmlNode.h"
-
-//#include "fictional-fiesta/utils/src/XmlDocumentImpl.h"
-
-#include "fictional-fiesta/utils/itf/PimplImpl.h"
+#include "fictional-fiesta/utils/src/PimplImpl.h"
 
 #include <pugixml.hpp>
 
