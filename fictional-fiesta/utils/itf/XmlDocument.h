@@ -44,35 +44,6 @@ class XmlDocument
     Pimpl<Impl> _pimpl;
 };
 
-/// @brief Class to represent a node in an XML document.
-class XmlNode
-{
-  public:
-
-    class Impl;
-
-  public:
-
-    /// @brief Constructor from a node implementation class instance.
-    /// This constructor should only be used internally.
-    ///
-    /// @param node node implementation from which to construct this instance.
-    explicit XmlNode(const Impl& node);
-
-    /// @brief Default destructor.
-    ~XmlNode();
-
-    /// @brief Get the name of the node.
-    /// @return returns a string with the name of the node.
-    std::string getName() const;
-
-  private:
-
-    /// Pointer to the node implementation.
-    /// We use PIMPL to avoid exposing the XML dependecies.
-    Pimpl<Impl> _pimpl;
-};
-
 }
 
 #endif

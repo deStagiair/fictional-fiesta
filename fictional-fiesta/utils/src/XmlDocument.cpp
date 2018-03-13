@@ -3,8 +3,10 @@
 #include "fictional-fiesta/utils/itf/XmlDocument.h"
 
 #include "fictional-fiesta/utils/itf/Exception.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
 
 #include "fictional-fiesta/utils/src/PimplImpl.h"
+#include "fictional-fiesta/utils/src/XmlNodeImpl.h"
 
 #include <pugixml.hpp>
 
@@ -35,19 +37,6 @@ class XmlDocument::Impl
     pugi::xml_document _document;
 };
 
-/// @brief Implementation of the XmlNode class.
-class XmlNode::Impl
-{
-  public:
-    /// @brief Constructor from the pugi xml_node.
-    ///
-    /// @param node pugi xml_node
-    Impl(const pugi::xml_node& node);
-
-    /// Internal XML document from pugi.
-    pugi::xml_node _node;
-};
-
 XmlDocument::Impl::Impl(const fs::path& documentPath)
 {
   const pugi::xml_parse_result &result = _document.load_file(documentPath.c_str());
@@ -76,24 +65,7 @@ void XmlDocument::save(const fs::path& savePath, bool prettyPrint) const
 
 XmlNode XmlDocument::getRootNode() const
 {
-  return XmlNode{_pimpl->_document.first_child()};
-}
-
-XmlNode::XmlNode(const XmlNode::Impl& node):
-  _pimpl(node._node)
-{
-}
-
-XmlNode::~XmlNode() = default;
-
-std::string XmlNode::getName() const
-{
-   return (*_pimpl)._node.name();
-}
-
-XmlNode::Impl::Impl(const pugi::xml_node& node) :
-  _node(node)
-{
+  return XmlNode{XmlNodeImpl(_pimpl->_document.first_child())};
 }
 
 } // namespace fictionalfiesta
