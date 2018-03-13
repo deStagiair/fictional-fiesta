@@ -18,7 +18,7 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
     / fs::path("test_utils/result");
 
-TEST_CASE("3: Test comparing the same file twice (pass)", "[TestCompareFiles][TestFilesAreEqual]")
+TEST_CASE("Test comparing the same file twice (pass)", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file = input_directory / fs::path("example_0.xml");
   REQUIRE(filesAreEqual(input_file, input_file));

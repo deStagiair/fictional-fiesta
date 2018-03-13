@@ -22,9 +22,38 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 TEST_CASE("Test getting names of XML nodes", "[XmlNodeTest][TestGetName]")
 {
   {
-    const fs::path input_file = input_directory / fs::path("example_0.xml");
-    const XmlDocument document{input_file};
-    const XmlNode root_node = document.getRootNode();
+    const auto& input_file = input_directory / fs::path("example_0.xml");
+    const auto& document = XmlDocument {input_file};
+    const auto& root_node = document.getRootNode();
+
     REQUIRE(std::string(root_node.getName()) == "Example");
+
+    const auto& child_node = root_node.getChildNode();
+    REQUIRE(std::string(child_node.getName()) == "Node1");
+  }
+}
+
+TEST_CASE("Test getting child nodes of other XML nodes", "[XmlNodeTest][TestGetChild]")
+{
+  {
+    const auto& input_file = input_directory / fs::path("example_0.xml");
+    const auto& document = XmlDocument {input_file};
+    const auto& root_node = document.getRootNode();
+
+    REQUIRE(std::string(root_node.getName()) == "Example");
+
+    REQUIRE(root_node.hasChildNodes());
+
+    const auto& child_node = root_node.getChildNode();
+    REQUIRE(std::string(child_node.getName()) == "Node1");
+
+    REQUIRE(child_node.hasChildNodes());
+
+    const auto& grand_child_node = child_node.getChildNode();
+    REQUIRE(std::string(grand_child_node.getName()) == "SubNode1");
+
+    REQUIRE(!grand_child_node.hasChildNodes());
+
+    REQUIRE_THROWS(grand_child_node.getChildNode());
   }
 }
