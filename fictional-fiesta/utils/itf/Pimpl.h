@@ -21,6 +21,8 @@ class Pimpl
     /// @brief Default constructor.
     Pimpl();
 
+    Pimpl(Pimpl&&);
+
     /// @brief Forward constructor.
     /// Construct directly the underlaying class from the corresponding arguments.
     /// @param args Arguments to be forwarded to the underlaying class constructor.

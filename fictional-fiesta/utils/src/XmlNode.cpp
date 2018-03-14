@@ -15,6 +15,8 @@ XmlNode::XmlNode(const XmlNodeImpl& node):
 {
 }
 
+XmlNode::XmlNode(XmlNode&&) = default;
+
 XmlNode::~XmlNode() = default;
 
 std::string XmlNode::getName() const
@@ -25,6 +27,12 @@ std::string XmlNode::getName() const
 bool XmlNode::hasChildNode() const
 {
   const auto child = _pimpl->_node.first_child();
+  return child.type() == pugi::node_element;
+}
+
+bool XmlNode::hasChildNode(const std::string& name) const
+{
+  const auto child = _pimpl->_node.child(name.c_str());
   return child.type() == pugi::node_element;
 }
 
@@ -40,12 +48,6 @@ XmlNode XmlNode::getChildNode() const
   return XmlNode(child);
 }
 
-bool XmlNode::hasChildNode(const std::string& name) const
-{
-  const auto child = _pimpl->_node.child(name.c_str());
-  return child.type() == pugi::node_element;
-}
-
 XmlNode XmlNode::getChildNode(const std::string& name) const
 {
   if (!hasChildNode(name))
@@ -56,6 +58,32 @@ XmlNode XmlNode::getChildNode(const std::string& name) const
   const auto child = _pimpl->_node.child(name.c_str());
 
   return XmlNode(child);
+}
+
+std::vector<XmlNode> XmlNode::getChildNodes() const
+{
+  std::vector<XmlNode> result;
+  for (auto child = _pimpl->_node.first_child(); child; child = child.next_sibling())
+  {
+    if (child.type() == pugi::node_element)
+    {
+      result.emplace_back(child);
+    }
+  }
+  return result;
+}
+
+std::vector<XmlNode> XmlNode::getChildNodes(const std::string& name) const
+{
+  std::vector<XmlNode> result;
+  for (auto child = _pimpl->_node.child(name.c_str()); child; child = child.next_sibling(name.c_str()))
+  {
+    if (child.type() == pugi::node_element)
+    {
+      result.emplace_back(child);
+    }
+  }
+  return result;
 }
 
 std::string XmlNode::getText() const

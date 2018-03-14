@@ -62,32 +62,69 @@ TEST_CASE("Test getting child nodes of other XML nodes", "[XmlNodeTest][TestGetC
 
 TEST_CASE("Test getting named child nodes of other XML nodes", "[XmlNodeTest][TestGetNamedChild]")
 {
+  const auto& input_file = input_directory / fs::path("example_0.xml");
+  const auto& document = XmlDocument {input_file};
+  const auto& root_node = document.getRootNode();
+
+  REQUIRE(root_node.getName() == "Example");
+
+  REQUIRE(root_node.hasChildNode("Node1"));
+  REQUIRE(!root_node.hasChildNode("NoNode1"));
+  REQUIRE_THROWS(root_node.getChildNode("NoNode1"));
+
+  const auto& child_node_1 = root_node.getChildNode("Node1");
+  REQUIRE(child_node_1.getName() == "Node1");
+
+  REQUIRE(child_node_1.hasChildNode("SubNode1"));
+
+  const auto& grand_child_node_1 = child_node_1.getChildNode("SubNode1");
+  REQUIRE(grand_child_node_1.getName() == "SubNode1");
+
+  REQUIRE(!grand_child_node_1.hasChildNode("Something"));
+  REQUIRE_THROWS(grand_child_node_1.getChildNode());
+
+  REQUIRE(root_node.hasChildNode("Node2"));
+
+  const auto& child_node_2 = root_node.getChildNode("Node2");
+  REQUIRE(child_node_2.getName() == "Node2");
+}
+
+TEST_CASE("Test getting multiple child nodes of other XML nodes", "[XmlNodeTest][TestGetChildren]")
+{
+  const auto& input_file = input_directory / fs::path("example_2.xml");
+  const auto& document = XmlDocument {input_file};
+  const auto& root_node = document.getRootNode();
+
   {
-    const auto& input_file = input_directory / fs::path("example_0.xml");
-    const auto& document = XmlDocument {input_file};
-    const auto& root_node = document.getRootNode();
+    const std::vector<std::string> benchmark = {"N1_1", "N1_2", "N2_1", "N1_3"};
+    const auto&& children = root_node.getChildNodes();
+    REQUIRE(children.size() == benchmark.size());
 
-    REQUIRE(root_node.getName() == "Example");
+    for (size_t i = 0; i < children.size(); ++i)
+    {
+      REQUIRE(children[i].getText() == benchmark[i]);
+    }
+  }
 
-    REQUIRE(root_node.hasChildNode("Node1"));
-    REQUIRE(!root_node.hasChildNode("NoNode1"));
-    REQUIRE_THROWS(root_node.getChildNode("NoNode1"));
+  {
+    const std::vector<std::string> benchmark = {"N1_1", "N1_2", "N1_3"};
+    const auto&& children = root_node.getChildNodes("Node1");
+    REQUIRE(children.size() == benchmark.size());
 
-    const auto& child_node_1 = root_node.getChildNode("Node1");
-    REQUIRE(child_node_1.getName() == "Node1");
+    for (size_t i = 0; i < children.size(); ++i)
+    {
+      REQUIRE(children[i].getText() == benchmark[i]);
+    }
+  }
 
-    REQUIRE(child_node_1.hasChildNode("SubNode1"));
+  {
+    const std::vector<std::string> benchmark = {"N2_1"};
+    const auto&& children = root_node.getChildNodes("Node2");
+    REQUIRE(children.size() == benchmark.size());
 
-    const auto& grand_child_node_1 = child_node_1.getChildNode("SubNode1");
-    REQUIRE(grand_child_node_1.getName() == "SubNode1");
-
-    REQUIRE(!grand_child_node_1.hasChildNode("Something"));
-    REQUIRE_THROWS(grand_child_node_1.getChildNode());
-
-    REQUIRE(root_node.hasChildNode("Node2"));
-
-
-    const auto& child_node_2 = root_node.getChildNode("Node2");
-    REQUIRE(child_node_2.getName() == "Node2");
+    for (size_t i = 0; i < children.size(); ++i)
+    {
+      REQUIRE(children[i].getText() == benchmark[i]);
+    }
   }
 }

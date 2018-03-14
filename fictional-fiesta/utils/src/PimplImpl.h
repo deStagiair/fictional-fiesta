@@ -13,6 +13,9 @@ Pimpl<T>::Pimpl():
 }
 
 template <typename T>
+Pimpl<T>::Pimpl(Pimpl<T>&&) = default;
+
+template <typename T>
 template <typename ...Args>
 Pimpl<T>::Pimpl(Args&& ...args):
   _pointer{new T{std::forward<Args>(args)...}}

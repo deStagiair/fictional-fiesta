@@ -13,7 +13,6 @@ class XmlNodeImpl
 {
   public:
     /// @brief Constructor from the pugi xml_node.
-    ///
     /// @param node pugi xml_node
     XmlNodeImpl(const pugi::xml_node& node);
 
