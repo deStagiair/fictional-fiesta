@@ -27,16 +27,21 @@ class XmlNode
     /// @return returns a string with the name of the node.
     std::string getName() const;
 
-    /// @brief Checks whether the node has children nodes.
+    /// @brief Checks whether the node has any child node.
     /// Note that only element nodes are cosidered for this method.
     /// @return true if the current node has at least one element child node.
-    bool hasChildNodes() const;
+    bool hasChildNode() const;
 
     /// @brief Get the first child node of the current node.
     ///
     /// @return First child node of the current node.
     /// @throw Exception if the node has no children.
     XmlNode getChildNode() const;
+
+    /// @brief Checks whether the node has at least a child node with the given @p name.
+    /// Note that only element nodes are cosidered for this method.
+    /// @return true if the current node has at least one element child node with the given @p name.
+    bool hasChildNode(const std::string& name) const;
 
   private:
 
