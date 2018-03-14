@@ -40,8 +40,15 @@ class XmlNode
 
     /// @brief Checks whether the node has at least a child node with the given @p name.
     /// Note that only element nodes are cosidered for this method.
+    /// @param name name of the child node.
     /// @return true if the current node has at least one element child node with the given @p name.
     bool hasChildNode(const std::string& name) const;
+
+    /// @brief Get the first child node of the current node with the given @p name.
+    /// @param name name of the child node.
+    /// @return First child node of the current node with the given @p name .
+    /// @throw Exception if the node has no children with the given name.
+    XmlNode getChildNode(const std::string& name) const;
 
   private:
 

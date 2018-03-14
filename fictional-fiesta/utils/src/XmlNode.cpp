@@ -28,7 +28,6 @@ bool XmlNode::hasChildNode() const
   return child.type() == pugi::node_element;
 }
 
-
 XmlNode XmlNode::getChildNode() const
 {
   if (!hasChildNode())
@@ -45,6 +44,18 @@ bool XmlNode::hasChildNode(const std::string& name) const
 {
   const auto child = _pimpl->_node.child(name.c_str());
   return child.type() == pugi::node_element;
+}
+
+XmlNode XmlNode::getChildNode(const std::string& name) const
+{
+  if (!hasChildNode(name))
+  {
+    throw Exception("The current node '" + getName() + "' has no children with the name '" + name + "'.");
+  }
+
+  const auto child = _pimpl->_node.child(name.c_str());
+
+  return XmlNode(child);
 }
 
 } // namespace fictionalfiesta
