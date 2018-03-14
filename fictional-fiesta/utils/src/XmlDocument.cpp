@@ -31,8 +31,6 @@ class XmlDocument::Impl
     /// @param documentPath path to the XML document.
     Impl(const fs::path& documentPath);
 
-    Impl(const Impl&) = delete;
-
     /// Internal XML document from pugi.
     pugi::xml_document _document;
 };

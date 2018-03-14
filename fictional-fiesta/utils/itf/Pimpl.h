@@ -30,12 +30,14 @@ class Pimpl
     ~Pimpl();
 
     /// @brief Arrow derreference operator.
+    /// @return pointer to the internal member.
     /// @{
     T* operator->();
     const T* operator->() const;
     /// @}
 
     /// @brief Star derreference operator.
+    /// @return reference to the internal member.
     /// @{
     T& operator*();
     const T& operator*() const;

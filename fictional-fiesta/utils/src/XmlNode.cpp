@@ -58,4 +58,15 @@ XmlNode XmlNode::getChildNode(const std::string& name) const
   return XmlNode(child);
 }
 
+std::string XmlNode::getText() const
+{
+  const auto text = _pimpl->_node.text();
+  if (!text)
+  {
+    throw Exception("The current node '" + getName() + "' has no text content.");
+  }
+
+  return text.get();
+}
+
 } // namespace fictionalfiesta

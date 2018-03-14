@@ -50,6 +50,11 @@ class XmlNode
     /// @throw Exception if the node has no children with the given name.
     XmlNode getChildNode(const std::string& name) const;
 
+    /// @brief Get the text of the node.
+    /// @return String with the text contents of the node.
+    /// @throw Exception if the node has no text.
+    std::string getText() const;
+
   private:
 
     /// Pointer to the node implementation.
