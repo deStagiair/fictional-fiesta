@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Example>
+  <Int>42</Int>
+  <UInt>12</UInt>
+  <Double>-34.99</Double>
+  <Float>1e-4</Float>
+  <LongLong>-123456789</LongLong>
+  <Bool>False</Bool>
+  <ULongLong>555</ULongLong>
+</Example>
+

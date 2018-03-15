@@ -70,6 +70,12 @@ class XmlNode
     /// @throw Exception if the node has no text.
     std::string getText() const;
 
+    /// @brief Get the text of the node and transform it to @p type.
+    /// @return value resulting of the conversion.
+    /// @throw Exception if the node has no text.
+    template <typename T>
+    T getTextAs() const;
+
   private:
 
     /// Pointer to the node implementation.
@@ -77,6 +83,6 @@ class XmlNode
     Pimpl<XmlNodeImpl> _pimpl;
 };
 
-}
+} // namespace fictional-fiesta
 
 #endif

@@ -21,6 +21,7 @@ class Pimpl
     /// @brief Default constructor.
     Pimpl();
 
+    /// @brief Move constructor.
     Pimpl(Pimpl&&);
 
     /// @brief Forward constructor.
