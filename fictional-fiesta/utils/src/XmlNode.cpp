@@ -12,7 +12,12 @@ namespace fictionalfiesta
 
 namespace
 {
-const pugi::xml_text& get_mandatory_text(const pugi::xml_node& node);
+
+pugi::xml_text get_mandatory_text(const pugi::xml_node& node);
+
+template <typename T>
+T text_to(const pugi::xml_text& text);
+
 } // anonymous namespace
 
 XmlNode::XmlNode(const XmlNodeImpl& node):
@@ -93,89 +98,73 @@ std::vector<XmlNode> XmlNode::getChildNodes(const std::string& name) const
 
 std::string XmlNode::getText() const
 {
-  const auto text = _pimpl->_node.text();
+  return get_mandatory_text(_pimpl->_node).get();
+}
+
+std::string XmlNode::getOptionalText(const std::string& defaultValue) const
+{
+  const auto& text = _pimpl->_node.text();
+
   if (!text)
   {
-    throw Exception("The current node '" + getName() + "' has no text content.");
+    return defaultValue;
   }
 
   return text.get();
 }
 
-/// @brief Get the text of the node and pase it into an \c int.
-/// @return \c int resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-int XmlNode::getTextAs() const
+std::string XmlNode::getChildText() const
 {
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_int();
+  return getChildNode().getText();
 }
 
-/// @brief Get the text of the node and pase it into an \c unsigned \c int.
-/// @return \c unsigned \c int resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-unsigned int XmlNode::getTextAs() const
+std::string XmlNode::getOptionalChildText(const std::string &defaultValue) const
 {
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_uint();
+  if (!hasChildNode())
+  {
+    return defaultValue;
+  }
+
+  return getChildNode().getOptionalText(defaultValue);
 }
 
-/// @brief Get the text of the node and pase it into a \c double.
-/// @return \c double resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-double XmlNode::getTextAs() const
+template int XmlNode::getTextAs() const;
+template unsigned int XmlNode::getTextAs() const;
+template double XmlNode::getTextAs() const;
+template float XmlNode::getTextAs() const;
+template bool XmlNode::getTextAs() const;
+template long long XmlNode::getTextAs() const;
+template unsigned long long XmlNode::getTextAs() const;
+
+template <typename T>
+T XmlNode::getTextAs() const
 {
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_double();
+  return text_to<T>(get_mandatory_text(_pimpl->_node));
 }
 
-/// @brief Get the text of the node and pase it into a \c float.
-/// @return \c float resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-float XmlNode::getTextAs<float>() const
+template int XmlNode::getChildNodeTextAs() const;
+template unsigned int XmlNode::getChildNodeTextAs() const;
+template double XmlNode::getChildNodeTextAs() const;
+template float XmlNode::getChildNodeTextAs() const;
+template bool XmlNode::getChildNodeTextAs() const;
+template long long XmlNode::getChildNodeTextAs() const;
+template unsigned long long XmlNode::getChildNodeTextAs() const;
+
+template <typename T>
+T XmlNode::getChildNodeTextAs() const
 {
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_float();
+  return getChildNode().getTextAs<T>();
 }
 
-/// @brief Get the text of the node and pase it into a \c bool.
-/// @return \c bool resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-bool XmlNode::getTextAs() const
-{
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_bool();
-}
-
-/// @brief Get the text of the node and pase it into a \c long \c long.
-/// @return \c long \c long resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-long long XmlNode::getTextAs() const
-{
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_llong();
-}
-
-/// @brief Get the text of the node and pase it into an \c unsigned \c long \c long.
-/// @return \c unsigned \c long \c long resulting from the conversion.
-/// @throw Exception if the node has no text.
-template <>
-unsigned long long XmlNode::getTextAs() const
-{
-  const auto text = get_mandatory_text(_pimpl->_node);
-  return text.as_ullong();
-}
+//template <typename T>
+//T XmlNode::getOptionalTextAs(const T& defaultValue) const;
+//{
+//}
 
 namespace
 {
 
-const pugi::xml_text& get_mandatory_text(const pugi::xml_node& node)
+pugi::xml_text get_mandatory_text(const pugi::xml_node& node)
 {
   const auto& text = node.text();
   if (!text)
@@ -184,6 +173,49 @@ const pugi::xml_text& get_mandatory_text(const pugi::xml_node& node)
   }
 
   return text;
+}
+
+// @todo Substitute all these method template specializations with std::from_chars when available.
+template <>
+int text_to(const pugi::xml_text& text)
+{
+  return text.as_int();
+}
+
+template <>
+unsigned int text_to(const pugi::xml_text& text)
+{
+  return text.as_uint();
+}
+
+template <>
+double text_to(const pugi::xml_text& text)
+{
+  return text.as_double();
+}
+
+template <>
+float text_to(const pugi::xml_text& text)
+{
+  return text.as_float();
+}
+
+template <>
+bool text_to(const pugi::xml_text& text)
+{
+  return text.as_bool();
+}
+
+template <>
+long long text_to(const pugi::xml_text& text)
+{
+  return text.as_llong();
+}
+
+template <>
+unsigned long long text_to(const pugi::xml_text& text)
+{
+  return text.as_ullong();
 }
 
 } // anonymous namespace.

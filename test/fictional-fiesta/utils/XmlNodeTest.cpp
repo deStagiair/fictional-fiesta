@@ -144,3 +144,36 @@ TEST_CASE("Test getting text as other types", "[XmlNodeTest][TestGetTextAs]")
   REQUIRE(root_node.getChildNode("Bool").getTextAs<bool>() == false);
   REQUIRE(root_node.getChildNode("ULongLong").getTextAs<unsigned long long>() == 555);
 }
+
+TEST_CASE("Test getting child node text as other types", "[XmlNodeTest][TestGetChildTextAs]")
+{
+  const auto& input_file = input_directory / fs::path("example_3.xml");
+  const auto& document = XmlDocument {input_file};
+  const auto& root_node = document.getRootNode();
+
+  REQUIRE_THROWS(root_node.getTextAs<int>());
+  REQUIRE(root_node.getChildNodeTextAs<int>() == 42);
+  //REQUIRE(root_node.getChildNodeTextAs<int>("Int")() == 42);
+  //REQUIRE(root_node.getChildNode("UInt").getTextAs<unsigned int>() == 12);
+  //REQUIRE(root_node.getChildNode("Double").getTextAs<double>() == -34.99);
+  //REQUIRE(root_node.getChildNode("Float").getTextAs<float>() == float(1e-4));
+  //REQUIRE(root_node.getChildNode("LongLong").getTextAs<long long>() == -123456789);
+  //REQUIRE(root_node.getChildNode("Bool").getTextAs<bool>() == false);
+  //REQUIRE(root_node.getChildNode("ULongLong").getTextAs<unsigned long long>() == 555);
+}
+
+TEST_CASE("Test getting optional text.", "[XmlNodeTest][TestGetOptionalChildText]")
+{
+  const auto& input_file = input_directory / fs::path("example_3.xml");
+  const auto& document = XmlDocument {input_file};
+  const auto& root_node = document.getRootNode();
+
+  REQUIRE(root_node.getOptionalText("def_value") == "def_value");
+  //REQUIRE(root_node.getChildNode("Int").getTextAs<int>() == 42);
+  //REQUIRE(root_node.getChildNode("UInt").getTextAs<unsigned int>() == 12);
+  //REQUIRE(root_node.getChildNode("Double").getTextAs<double>() == -34.99);
+  //REQUIRE(root_node.getChildNode("Float").getTextAs<float>() == float(1e-4));
+  //REQUIRE(root_node.getChildNode("LongLong").getTextAs<long long>() == -123456789);
+  //REQUIRE(root_node.getChildNode("Bool").getTextAs<bool>() == false);
+  //REQUIRE(root_node.getChildNode("ULongLong").getTextAs<unsigned long long>() == 555);
+}

@@ -70,11 +70,43 @@ class XmlNode
     /// @throw Exception if the node has no text.
     std::string getText() const;
 
-    /// @brief Get the text of the node and transform it to @p type.
-    /// @return value resulting of the conversion.
+    /// @brief Get the text of the node or return the default value if there is no text.
+    /// @param defaultValue Value to be returned if there's no text.
+    /// @return String with the text contents of the node.
+    std::string getOptionalText(const std::string& defaultValue) const;
+
+    /// @brief Get the text of the child node.
+    /// @return text of the child node.
+    /// @throw Exception if the node has no child or the child has no text.
+    std::string getChildText() const;
+
+    /// @brief Get the text of the child node or @p default if there is no child node.
+    /// @param defaultValue value to return by default.
+    /// @return text of the child node or @p defaultValue if there is no text.
+    std::string getOptionalChildText(const std::string& defaultValue = "") const;
+
+    /// @brief Get the text of the node and parse it into @p T type.
+    /// @tparam T Type into which the text needs to be parsed.
+    /// @return value resulting of the parsing.
     /// @throw Exception if the node has no text.
     template <typename T>
     T getTextAs() const;
+
+    /// @brief Get the text of the node and parse it into @p T type.
+    ///   If there is no text, return the default value.
+    /// @tparam T Type into which the text needs to be parsed.
+    /// @param defaultValue Value returned if there is no text in the node.
+    /// @return value resulting of the parsing.
+    /// @throw Exception if the node has no text.
+    template <typename T>
+    T getOptionalTextAs(const T& defaultValue) const;
+
+    /// @brief Get the text of the child node and parse it into @p type.
+    /// @tparam T Type into which the text needs to be parsed.
+    /// @return value resulting of the parsing.
+    /// @throw Exception if the node has no child or the child has no text.
+    template <typename T>
+    T getChildNodeTextAs() const;
 
   private:
 
