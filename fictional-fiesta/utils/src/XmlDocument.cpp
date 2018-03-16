@@ -50,7 +50,7 @@ XmlDocument::Impl::Impl(const fs::path& documentPath)
   }
 }
 
-XmlDocument::XmlDocument(const fs::path& documentPath):
+XmlDocument::XmlDocument(const std::experimental::filesystem::path& documentPath):
   _pimpl(documentPath)
 {
 }

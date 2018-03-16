@@ -213,3 +213,28 @@ TEST_CASE("Test getting optional child node text.", "[XmlNodeTest][TestGetChildN
   REQUIRE(root_node.getOptionalChildNodeTextAs<unsigned long long>("ULongLong", 1024) == 555);
   REQUIRE(root_node.getOptionalChildNodeTextAs<unsigned long long>("NoNode", 1024) == 1024);
 }
+
+TEST_CASE("Test setting text in nodes", "[XmlNodeTest][TestSetText]")
+{
+  XmlDocument document{};
+
+  auto root_1 = document.appendRootNode("Root1");
+  root_1.setText("This will be overwritten");
+  REQUIRE(root_1.getText() == "This will be overwritten");
+
+  auto root_2 = document.appendRootNode("Root2");
+  root_2.setText("Text 2");
+  REQUIRE(root_2.getText() == "Text 2");
+
+  auto root_3 = document.appendRootNode("Root3");
+  REQUIRE_THROWS(root_3.getText());
+
+  document.getRootNode().setText("New root 1 text");
+  REQUIRE(root_1.getText() == "New root 1 text");
+
+  const fs::path result_file = result_directory / fs::path("example_set_text.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const fs::path benchmark_file = benchmark_directory / fs::path("example_set_text.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
+}

@@ -19,8 +19,7 @@ class XmlNode
     /// @brief Constructor from a node implementation class instance.
     /// Since the XmlNodeImpl class is not visible from outside, this constructor
     /// can only be used internally.
-    ///
-    /// @param node node implementation from which to construct this instance.
+    /// @param node Node implementation from which to construct this instance.
     explicit XmlNode(const XmlNodeImpl& node);
 
     /// @brief Move Constructor
@@ -30,7 +29,7 @@ class XmlNode
     ~XmlNode();
 
     /// @brief Get the name of the node.
-    /// @return returns a string with the name of the node.
+    /// @return String with the name of the node.
     std::string getName() const;
 
     /// @brief Checks whether the node has any child node.
@@ -138,6 +137,10 @@ class XmlNode
     /// @return value resulting of the parsing.
     template <typename T>
     T getOptionalChildNodeTextAs(const std::string& name, const T& defaultValue) const;
+
+    /// @brief Set the text of the node.
+    /// @param text Text to be set in the node.
+    void setText(const std::string& text);
 
   private:
 

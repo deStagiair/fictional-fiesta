@@ -7,8 +7,6 @@
 #include "fictional-fiesta/utils/src/PimplImpl.h"
 #include "fictional-fiesta/utils/src/XmlNodeImpl.h"
 
-#include <iostream>
-
 namespace fictionalfiesta
 {
 
@@ -242,6 +240,20 @@ T XmlNode::getOptionalChildNodeTextAs(const std::string& name, const T& defaultV
   }
 
   return getChildNode(name).getOptionalTextAs<T>(defaultValue);
+}
+
+void XmlNode::setText(const std::string& text)
+{
+  auto child = _pimpl->_node.first_child();
+
+  if (child)
+  {
+    child.set_value(text.c_str());
+  }
+  else
+  {
+    _pimpl->_node.append_child(pugi::node_pcdata).set_value(text.c_str());
+  }
 }
 
 namespace
