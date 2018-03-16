@@ -12,8 +12,6 @@
 
 namespace fs = std::experimental::filesystem;
 
-namespace fictionalfiesta
-{
 
 namespace
 {
@@ -22,12 +20,19 @@ constexpr const char* INDENT_STRING = "  ";
 
 } // anonymous namespace
 
+namespace fictionalfiesta
+{
+
+XmlDocument::XmlDocument() = default;
+
 /// @brief Implementation of the XmlDocument class.
 class XmlDocument::Impl
 {
   public:
     /// @brief Constructor from the document path.
-    ///
+    Impl() = default;
+
+    /// @brief Constructor from the document path.
     /// @param documentPath path to the XML document.
     Impl(const fs::path& documentPath);
 

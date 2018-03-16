@@ -15,6 +15,9 @@ class XmlDocument
 {
   public:
 
+    /// @brief Default constructor. Creates a new empty document.
+    XmlDocument();
+
     /// @brief Constructor from the document path.
     ///
     /// @param documentPath path to the XML document.

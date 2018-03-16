@@ -18,6 +18,17 @@ static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
 static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
     / fs::path("fictional-fiesta/utils/benchmark");
 
+TEST_CASE("Test constructing an empty document", "[XmlDocumentTest][TestDefaultConstructor]")
+{
+  const XmlDocument document{};
+
+  const fs::path result_file = result_directory / fs::path("example_empty.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const fs::path benchmark_file = benchmark_directory / fs::path("example_empty.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
+}
+
 TEST_CASE("Test loading a XML document", "[XmlDocumentTest][TestConstruction]")
 {
   {
