@@ -113,12 +113,17 @@ std::string XmlNode::getOptionalText(const std::string& defaultValue) const
   return text.get();
 }
 
-std::string XmlNode::getChildText() const
+std::string XmlNode::getChildNodeText() const
 {
   return getChildNode().getText();
 }
 
-std::string XmlNode::getOptionalChildText(const std::string &defaultValue) const
+std::string XmlNode::getChildNodeText(const std::string& name) const
+{
+  return getChildNode(name).getText();
+}
+
+std::string XmlNode::getOptionalChildNodeText(const std::string &defaultValue) const
 {
   if (!hasChildNode())
   {
@@ -160,6 +165,20 @@ T XmlNode::getChildNodeTextAs() const
 //T XmlNode::getOptionalTextAs(const T& defaultValue) const;
 //{
 //}
+
+template int XmlNode::getChildNodeTextAs(const std::string& name) const;
+template unsigned int XmlNode::getChildNodeTextAs(const std::string& name) const;
+template double XmlNode::getChildNodeTextAs(const std::string& name) const;
+template float XmlNode::getChildNodeTextAs(const std::string& name) const;
+template bool XmlNode::getChildNodeTextAs(const std::string& name) const;
+template long long XmlNode::getChildNodeTextAs(const std::string& name) const;
+template unsigned long long XmlNode::getChildNodeTextAs(const std::string& name) const;
+
+template <typename T>
+T XmlNode::getChildNodeTextAs(const std::string& name) const
+{
+  return getChildNode(name).getTextAs<T>();
+}
 
 namespace
 {

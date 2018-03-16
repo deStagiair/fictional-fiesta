@@ -151,15 +151,20 @@ TEST_CASE("Test getting child node text as other types", "[XmlNodeTest][TestGetC
   const auto& document = XmlDocument {input_file};
   const auto& root_node = document.getRootNode();
 
+  REQUIRE(root_node.getChildNodeText() == "42");
+  REQUIRE(root_node.getChildNodeText("Bool") == "False");
+  REQUIRE_THROWS(root_node.getChildNodeText("NO_NODE"));
+
   REQUIRE_THROWS(root_node.getTextAs<int>());
   REQUIRE(root_node.getChildNodeTextAs<int>() == 42);
-  //REQUIRE(root_node.getChildNodeTextAs<int>("Int")() == 42);
-  //REQUIRE(root_node.getChildNode("UInt").getTextAs<unsigned int>() == 12);
-  //REQUIRE(root_node.getChildNode("Double").getTextAs<double>() == -34.99);
-  //REQUIRE(root_node.getChildNode("Float").getTextAs<float>() == float(1e-4));
-  //REQUIRE(root_node.getChildNode("LongLong").getTextAs<long long>() == -123456789);
-  //REQUIRE(root_node.getChildNode("Bool").getTextAs<bool>() == false);
-  //REQUIRE(root_node.getChildNode("ULongLong").getTextAs<unsigned long long>() == 555);
+
+  REQUIRE(root_node.getChildNodeTextAs<int>("Int") == 42);
+  REQUIRE(root_node.getChildNodeTextAs<unsigned int>("UInt") == 12);
+  REQUIRE(root_node.getChildNodeTextAs<double>("Double") == -34.99);
+  REQUIRE(root_node.getChildNodeTextAs<float>("Float") == float(1e-4));
+  REQUIRE(root_node.getChildNodeTextAs<long long>("LongLong") == -123456789);
+  REQUIRE(root_node.getChildNodeTextAs<bool>("Bool") == false);
+  REQUIRE(root_node.getChildNodeTextAs<unsigned long long>("ULongLong") == 555);
 }
 
 TEST_CASE("Test getting optional text.", "[XmlNodeTest][TestGetOptionalChildText]")

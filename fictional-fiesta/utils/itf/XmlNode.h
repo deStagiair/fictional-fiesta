@@ -78,12 +78,18 @@ class XmlNode
     /// @brief Get the text of the child node.
     /// @return text of the child node.
     /// @throw Exception if the node has no child or the child has no text.
-    std::string getChildText() const;
+    std::string getChildNodeText() const;
+
+    /// @brief Get the text of the child node with a given name.
+    /// @param name name of the child node.
+    /// @return text of the child node with the given name.
+    /// @throw Exception if the node has no such a child or the child has no text.
+    std::string getChildNodeText(const std::string& name) const;
 
     /// @brief Get the text of the child node or @p default if there is no child node.
     /// @param defaultValue value to return by default.
     /// @return text of the child node or @p defaultValue if there is no text.
-    std::string getOptionalChildText(const std::string& defaultValue = "") const;
+    std::string getOptionalChildNodeText(const std::string& defaultValue = "") const;
 
     /// @brief Get the text of the node and parse it into @p T type.
     /// @tparam T Type into which the text needs to be parsed.
@@ -92,14 +98,14 @@ class XmlNode
     template <typename T>
     T getTextAs() const;
 
-    /// @brief Get the text of the node and parse it into @p T type.
-    ///   If there is no text, return the default value.
-    /// @tparam T Type into which the text needs to be parsed.
-    /// @param defaultValue Value returned if there is no text in the node.
-    /// @return value resulting of the parsing.
-    /// @throw Exception if the node has no text.
-    template <typename T>
-    T getOptionalTextAs(const T& defaultValue) const;
+    ///// @brief Get the text of the node and parse it into @p T type.
+    /////   If there is no text, return the default value.
+    ///// @tparam T Type into which the text needs to be parsed.
+    ///// @param defaultValue Value returned if there is no text in the node.
+    ///// @return value resulting of the parsing.
+    ///// @throw Exception if the node has no text.
+    //template <typename T>
+    //T getOptionalTextAs(const T& defaultValue) const;
 
     /// @brief Get the text of the child node and parse it into @p type.
     /// @tparam T Type into which the text needs to be parsed.
@@ -107,6 +113,14 @@ class XmlNode
     /// @throw Exception if the node has no child or the child has no text.
     template <typename T>
     T getChildNodeTextAs() const;
+
+    /// @brief Get the text of the child node with a give type and parse it into @p type.
+    /// @tparam T Type into which the text needs to be parsed.
+    /// @param name name of the child node.
+    /// @return value resulting of the parsing.
+    /// @throw Exception if the node has no such a child or the child has no text.
+    template <typename T>
+    T getChildNodeTextAs(const std::string& name) const;
 
   private:
 
