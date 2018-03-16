@@ -188,3 +188,28 @@ TEST_CASE("Test getting optional text.", "[XmlNodeTest][TestGetOptionalText]")
   REQUIRE(root_node.getOptionalTextAs<unsigned long long>(1024) == 1024);
   REQUIRE(root_node.getChildNode("ULongLong").getOptionalTextAs<unsigned long long>(1024) == 555);
 }
+
+TEST_CASE("Test getting optional child node text.", "[XmlNodeTest][TestGetChildNodeOptionalText]")
+{
+  const auto& input_file = input_directory / fs::path("example_3.xml");
+  const auto& document = XmlDocument {input_file};
+  const auto& root_node = document.getRootNode();
+
+  REQUIRE(root_node.getOptionalChildNodeTextAs<int>(-12) == 42);
+  REQUIRE(root_node.getChildNode("Int").getOptionalChildNodeTextAs<int>(-12) == -12);
+
+  REQUIRE(root_node.getOptionalChildNodeTextAs<int>("Int", 256) == 42);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<int>("NoNode", 256) == 256);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<unsigned int>("UInt", 256) == 12);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<unsigned int>("NoNode", 256) == 256);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<double>("Double", 1e-10) == -34.99);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<double>("NoNode", 1e-10) == 1e-10);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<float>("Float", -3.141592) == float(1e-4));
+  REQUIRE(root_node.getOptionalChildNodeTextAs<float>("NoNode", -3.141592) == float(-3.141592));
+  REQUIRE(!root_node.getOptionalChildNodeTextAs<bool>("Bool", true));
+  REQUIRE(root_node.getOptionalChildNodeTextAs<bool>("NoNode", true));
+  REQUIRE(root_node.getOptionalChildNodeTextAs<long long>("LongLong", -777) == -123456789);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<long long>("NoNode", -777) == -777);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<unsigned long long>("ULongLong", 1024) == 555);
+  REQUIRE(root_node.getOptionalChildNodeTextAs<unsigned long long>("NoNode", 1024) == 1024);
+}
