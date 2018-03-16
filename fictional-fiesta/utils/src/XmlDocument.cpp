@@ -71,4 +71,11 @@ XmlNode XmlDocument::getRootNode() const
   return XmlNode{XmlNodeImpl(_pimpl->_document.first_child())};
 }
 
+XmlNode XmlDocument::appendRootNode(const std::string& name)
+{
+  auto node = _pimpl->_document.append_child();
+  node.set_name(name.c_str());
+  return XmlNode(node);
+}
+
 } // namespace fictionalfiesta

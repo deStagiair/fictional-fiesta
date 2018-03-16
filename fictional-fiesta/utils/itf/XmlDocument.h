@@ -38,6 +38,10 @@ class XmlDocument
     /// @return Root node of the document.
     XmlNode getRootNode() const;
 
+    /// @brief Appends a root node to the current document.
+    /// @param name Name of the root node to be appended.
+    XmlNode appendRootNode(const std::string& name);
+
   private:
 
     class Impl;

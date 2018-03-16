@@ -2,6 +2,7 @@
 
 #include "fictional-fiesta/utils/itf/Exception.h"
 #include "fictional-fiesta/utils/itf/XmlDocument.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
 
 #include "test/test_utils/itf/BenchmarkFiles.h"
 
@@ -27,6 +28,33 @@ TEST_CASE("Test constructing an empty document", "[XmlDocumentTest][TestDefaultC
 
   const fs::path benchmark_file = benchmark_directory / fs::path("example_empty.xml");
   benchmarkFiles(benchmark_file, result_file, result_directory);
+}
+
+TEST_CASE("Test adding root nodes", "[XmlDocumentTest][TestAppendRootNode]")
+{
+  XmlDocument document{};
+
+  const auto& root_1 = document.appendRootNode("Root_1");
+  REQUIRE(root_1.getName() == "Root_1");
+
+  {
+    const fs::path result_file = result_directory / fs::path("example_append_0.xml");
+    REQUIRE_NOTHROW(document.save(result_file));
+
+    const fs::path benchmark_file = benchmark_directory / fs::path("example_append_0.xml");
+    benchmarkFiles(benchmark_file, result_file, result_directory);
+  }
+
+  const auto& root_2 = document.appendRootNode("Root_2");
+  REQUIRE(root_2.getName() == "Root_2");
+
+  {
+    const fs::path result_file = result_directory / fs::path("example_append_1.xml");
+    REQUIRE_NOTHROW(document.save(result_file));
+
+    const fs::path benchmark_file = benchmark_directory / fs::path("example_append_1.xml");
+    benchmarkFiles(benchmark_file, result_file, result_directory);
+  }
 }
 
 TEST_CASE("Test loading a XML document", "[XmlDocumentTest][TestConstruction]")
