@@ -7,6 +7,8 @@
 #include "fictional-fiesta/utils/src/PimplImpl.h"
 #include "fictional-fiesta/utils/src/XmlNodeImpl.h"
 
+#include <iostream>
+
 namespace fictionalfiesta
 {
 
@@ -161,10 +163,45 @@ T XmlNode::getChildNodeTextAs() const
   return getChildNode().getTextAs<T>();
 }
 
-//template <typename T>
-//T XmlNode::getOptionalTextAs(const T& defaultValue) const;
-//{
-//}
+template int XmlNode::getOptionalTextAs(const int& defaultValue) const;
+template unsigned int XmlNode::getOptionalTextAs(const unsigned int& defaultValue) const;
+template double XmlNode::getOptionalTextAs(const double& defaultValue) const;
+template float XmlNode::getOptionalTextAs(const float& defaultValue) const;
+template bool XmlNode::getOptionalTextAs(const bool& defaultValue) const;
+template long long XmlNode::getOptionalTextAs(const long long& defaultValue) const;
+template unsigned long long XmlNode::getOptionalTextAs(const unsigned long long& defaultValue) const;
+
+template <typename T>
+T XmlNode::getOptionalTextAs(const T& defaultValue) const
+{
+  const auto& text = _pimpl->_node.text();
+
+  if (!text)
+  {
+    return defaultValue;
+  }
+
+  return text_to<T>(text);
+}
+
+template int XmlNode::getOptionalChildNodeTextAs(const int& defaultValue) const;
+template unsigned int XmlNode::getOptionalChildNodeTextAs(const unsigned int& defaultValue) const;
+template double XmlNode::getOptionalChildNodeTextAs(const double& defaultValue) const;
+template float XmlNode::getOptionalChildNodeTextAs(const float& defaultValue) const;
+template bool XmlNode::getOptionalChildNodeTextAs(const bool& defaultValue) const;
+template long long XmlNode::getOptionalChildNodeTextAs(const long long& defaultValue) const;
+template unsigned long long XmlNode::getOptionalChildNodeTextAs(const unsigned long long& defaultValue) const;
+
+template <typename T>
+T XmlNode::getOptionalChildNodeTextAs(const T& defaultValue) const
+{
+  if (!hasChildNode())
+  {
+    return defaultValue;
+  }
+
+  return getChildNode().getOptionalTextAs<T>(defaultValue);
+}
 
 template int XmlNode::getChildNodeTextAs(const std::string& name) const;
 template unsigned int XmlNode::getChildNodeTextAs(const std::string& name) const;

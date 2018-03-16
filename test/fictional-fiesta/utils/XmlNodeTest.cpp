@@ -167,18 +167,24 @@ TEST_CASE("Test getting child node text as other types", "[XmlNodeTest][TestGetC
   REQUIRE(root_node.getChildNodeTextAs<unsigned long long>("ULongLong") == 555);
 }
 
-TEST_CASE("Test getting optional text.", "[XmlNodeTest][TestGetOptionalChildText]")
+TEST_CASE("Test getting optional text.", "[XmlNodeTest][TestGetOptionalText]")
 {
   const auto& input_file = input_directory / fs::path("example_3.xml");
   const auto& document = XmlDocument {input_file};
   const auto& root_node = document.getRootNode();
 
-  REQUIRE(root_node.getOptionalText("def_value") == "def_value");
-  //REQUIRE(root_node.getChildNode("Int").getTextAs<int>() == 42);
-  //REQUIRE(root_node.getChildNode("UInt").getTextAs<unsigned int>() == 12);
-  //REQUIRE(root_node.getChildNode("Double").getTextAs<double>() == -34.99);
-  //REQUIRE(root_node.getChildNode("Float").getTextAs<float>() == float(1e-4));
-  //REQUIRE(root_node.getChildNode("LongLong").getTextAs<long long>() == -123456789);
-  //REQUIRE(root_node.getChildNode("Bool").getTextAs<bool>() == false);
-  //REQUIRE(root_node.getChildNode("ULongLong").getTextAs<unsigned long long>() == 555);
+  REQUIRE(root_node.getOptionalTextAs<int>(-12) == -12);
+  REQUIRE(root_node.getChildNode("Int").getOptionalTextAs<int>(-12) == 42);
+  REQUIRE(root_node.getOptionalTextAs<unsigned int>(256) == 256);
+  REQUIRE(root_node.getChildNode("UInt").getOptionalTextAs<unsigned int>(256) == 12);
+  REQUIRE(root_node.getOptionalTextAs<double>(1e-10) == 1e-10);
+  REQUIRE(root_node.getChildNode("Double").getOptionalTextAs<double>(1e-10) == -34.99);
+  REQUIRE(root_node.getOptionalTextAs<float>(-3.141592) == float(-3.141592));
+  REQUIRE(root_node.getChildNode("Float").getOptionalTextAs<float>(-3.14) == float(1e-4));
+  REQUIRE(root_node.getOptionalTextAs<bool>(true));
+  REQUIRE(root_node.getChildNode("Bool").getOptionalTextAs<bool>(true) == false);
+  REQUIRE(root_node.getOptionalTextAs<long long>(-777) == -777);
+  REQUIRE(root_node.getChildNode("LongLong").getOptionalTextAs<long long>(-777) == -123456789);
+  REQUIRE(root_node.getOptionalTextAs<unsigned long long>(1024) == 1024);
+  REQUIRE(root_node.getChildNode("ULongLong").getOptionalTextAs<unsigned long long>(1024) == 555);
 }
