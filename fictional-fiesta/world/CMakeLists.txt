@@ -1,5 +1,9 @@
 set(WORLD_ITF
+  ${CMAKE_CURRENT_SOURCE_DIR}/itf/ConstantSource.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/itf/Source.h
   CACHE INTERNAL "")
 
 set(WORLD_SRC
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/ConstantSource.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Source.cpp
   CACHE INTERNAL "")
