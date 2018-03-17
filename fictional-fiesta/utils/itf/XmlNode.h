@@ -142,6 +142,11 @@ class XmlNode
     /// @param text Text to be set in the node.
     void setText(const std::string& text);
 
+    /// @brief Append a new name with the name passed.
+    /// @param name Name for the new node appended.
+    /// @return Node appended.
+    XmlNode appendChildNode(const std::string& name);
+
   private:
 
     /// Pointer to the node implementation.

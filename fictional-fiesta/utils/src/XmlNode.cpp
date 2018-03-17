@@ -256,6 +256,13 @@ void XmlNode::setText(const std::string& text)
   }
 }
 
+XmlNode XmlNode::appendChildNode(const std::string& name)
+{
+  auto child = _pimpl->_node.append_child();
+  child.set_name(name.c_str());
+  return XmlNode(child);
+}
+
 namespace
 {
 

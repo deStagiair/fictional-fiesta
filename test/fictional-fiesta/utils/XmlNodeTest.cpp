@@ -238,3 +238,23 @@ TEST_CASE("Test setting text in nodes", "[XmlNodeTest][TestSetText]")
   const fs::path benchmark_file = benchmark_directory / fs::path("example_set_text.xml");
   benchmarkFiles(benchmark_file, result_file, result_directory);
 }
+
+TEST_CASE("Test adding child nodes", "[XmlNodeTest][TestAddChildNode]")
+{
+  XmlDocument document{};
+
+  auto root = document.appendRootNode("Root");
+
+  root.appendChildNode("Node1").appendChildNode("SubNode1").setText("sn1");
+  root.appendChildNode("Node2").setText("n2");
+
+  root.appendChildNode("Node3");
+
+  root.appendChildNode("");
+
+  const fs::path result_file = result_directory / fs::path("example_add_child_node.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const fs::path benchmark_file = benchmark_directory / fs::path("example_add_child_node.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
+}

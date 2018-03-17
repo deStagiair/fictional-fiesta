@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Root>
+  <Node1>
+    <SubNode1>sn1</SubNode1>
+  </Node1>
+  <Node2>n2</Node2>
+  <Node3 />
+  <:anonymous />
+</Root>
