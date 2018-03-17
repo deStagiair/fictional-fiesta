@@ -3,6 +3,8 @@
 #include "fictional-fiesta/world/itf/ConstantSource.h"
 
 #include "fictional-fiesta/utils/itf/Exception.h"
+#include "fictional-fiesta/utils/itf/XmlDocument.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
 
 #include <experimental/filesystem>
 
@@ -22,6 +24,37 @@ TEST_CASE("Test constructor from resource name", "[ConstantSourceTest][TestConst
 
   REQUIRE(source.getResourceId() == "Water");
   REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+}
+
+TEST_CASE("Test constructor from XML node", "[ConstantSourceTest][TestConstructorFromXmlNode]")
+{
+  const auto& input_file = input_directory / fs::path("example_0.xml");
+  const auto& document = XmlDocument{input_file};
+  const auto& root_node = document.getRootNode();
+
+  const auto& source_nodes{root_node.getChildNodes("Source")};
+
+  REQUIRE(source_nodes.size() == 5);
+
+  {
+    const auto source{ConstantSource(source_nodes[0])};
+    REQUIRE(source.getResourceId() == "Water");
+    REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  }
+
+  {
+    const auto source{ConstantSource(source_nodes[1])};
+    REQUIRE(source.getResourceId() == "Light");
+  }
+
+  {
+    // Incorrect source type.
+    REQUIRE_THROWS(ConstantSource(source_nodes[2]));
+    // Missing resource.
+    REQUIRE_THROWS(ConstantSource(source_nodes[3]));
+    // Missing type.
+    REQUIRE_THROWS(ConstantSource(source_nodes[4]));
+  }
 }
 
 TEST_CASE("Test consuming units", "[ConstantSourceTest][TestConsume]")

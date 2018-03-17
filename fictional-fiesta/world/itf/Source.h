@@ -7,6 +7,8 @@
 namespace fictionalfiesta
 {
 
+class XmlNode;
+
 /// @brief Class that represents a source that generates a given resource.
 class Source
 {
@@ -16,6 +18,11 @@ class Source
     /// @param resourceId Resource identifier.
     /// @param initialUnitCount Inital number of units of the resource available.
     Source(const std::string& resourceId, unsigned int initialUnitCount);
+
+    /// @brief Constructor from an XmlNode and a number of initial units.
+    /// @param node XmlNode with the class contents.
+    /// @param initialUnitCount Inital number of units of the resource available.
+    Source(const XmlNode& node, unsigned int initialUnitCount);
 
     /// @brief Default destructor.
     virtual ~Source() = default;
@@ -37,9 +44,11 @@ class Source
     /// @brief Regenerates the number of units of the resource.
     virtual void regenerate() = 0;
 
-    /// @brief Get the representation of an infinity number of units.
-    /// @return Infinity number of units.
+    /// Representation of an infinity number of units.
     static constexpr unsigned int INFINITY_UNITS{std::numeric_limits<unsigned int>::max()};
+
+    /// Name of the source type node.
+    static constexpr char XML_SOURCE_TYPE_NODE_NAME[]{"Type"};
 
   protected:
 

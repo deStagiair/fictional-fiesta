@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Sources>
+  <Source>
+    <Type>Constant</Type>
+    <Resource>Water</Resource>
+  </Source>
+  <Source>
+    <Type>Constant</Type>
+    <Resource>Light</Resource>
+  </Source>
+  <Source>
+    <Type>Limited</Type>
+    <Resource>Oil</Resource>
+    <Units>1024</Units>
+  </Source>
+  <Source>
+    <Type>Constant</Type>
+  </Source>
+  <Source>
+    <Resource>Other</Resource>
+  </Source>
+</Sources>
+

@@ -8,6 +8,8 @@
 namespace fictionalfiesta
 {
 
+class XmlNode;
+
 /// @brief Class that represents a constant source whose resource units are never consumed.
 class ConstantSource : public Source
 {
@@ -15,7 +17,11 @@ class ConstantSource : public Source
 
     /// @brief Constructor from the resource name.
     /// @param resourceId Resource identifier.
-    ConstantSource(const std::string& resourceId);
+    explicit ConstantSource(const std::string& resourceId);
+
+    /// @brief Constructor from an XmlNode.
+    /// @param node XmlNode from where to read the contents of the instance.
+    explicit ConstantSource(const XmlNode& node);
 
     /// @copydoc Source::consume
     unsigned int consume(const unsigned int requiredUnits) override;
