@@ -34,7 +34,7 @@ class XmlDocument::Impl
 
     /// @brief Constructor from the document path.
     /// @param documentPath path to the XML document.
-    Impl(const fs::path& documentPath);
+    explicit Impl(const fs::path& documentPath);
 
     /// Internal XML document from pugi.
     pugi::xml_document _document;
