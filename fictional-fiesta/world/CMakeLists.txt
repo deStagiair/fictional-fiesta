@@ -1,0 +1,5 @@
+set(WORLD_ITF
+  CACHE INTERNAL "")
+
+set(WORLD_SRC
+  CACHE INTERNAL "")

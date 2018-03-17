@@ -1,4 +1,5 @@
 add_subdirectory(utils)
+add_subdirectory(world)
 
 set(SOURCE_CODE_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -11,10 +12,12 @@ include_directories(${LIBXML2_INCLUDE_DIR})
 
 set(FICTIONAL_FIESTA_ALL_SRC
   ${UTILS_SRC}
+  ${WORLD_SRC}
 )
 
 set(FICTIONAL_FIESTA_ALL_ITF
   ${UTILS_ITF}
+  ${WORLD_ITF}
 )
 
 set(FICTIONAL_FIESTA_ALL_CODE
