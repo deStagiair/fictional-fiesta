@@ -14,6 +14,5 @@ const char* Exception::what() const noexcept
 {
   return _logMessage.c_str();
 }
-    
 
 } // namespace fictionalfiesta

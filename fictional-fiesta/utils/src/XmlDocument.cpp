@@ -46,7 +46,8 @@ XmlDocument::Impl::Impl(const fs::path& documentPath)
 
   if (!result)
   {
-    throw Exception("Error loading XML file '" + documentPath.string() + "':" + std::string(result.description()));
+    throw Exception("Error loading XML file '" + documentPath.string() +
+        "':" + std::string(result.description()));
   }
 }
 

@@ -6,6 +6,7 @@
 namespace fictionalfiesta
 {
 
+/// @class Pimpl
 /// @brief Helper class to implement the PIMPL (pointer to implementation) idiom.
 /// Based in GOTW #101 by Herb Sutter.
 template <typename T>

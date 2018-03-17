@@ -62,7 +62,8 @@ XmlNode XmlNode::getChildNode(const std::string& name) const
 {
   if (!hasChildNode(name))
   {
-    throw Exception("The current node '" + getName() + "' has no children with the name '" + name + "'.");
+    throw Exception("The current node '" + getName() + "' has no children with the name '"
+        + name + "'.");
   }
 
   const auto child = _pimpl->_node.child(name.c_str());
@@ -86,7 +87,8 @@ std::vector<XmlNode> XmlNode::getChildNodes() const
 std::vector<XmlNode> XmlNode::getChildNodes(const std::string& name) const
 {
   std::vector<XmlNode> result;
-  for (auto child = _pimpl->_node.child(name.c_str()); child; child = child.next_sibling(name.c_str()))
+  for (auto child = _pimpl->_node.child(name.c_str()); child;
+      child = child.next_sibling(name.c_str()))
   {
     if (child.type() == pugi::node_element)
     {
@@ -167,7 +169,8 @@ template double XmlNode::getOptionalTextAs(const double& defaultValue) const;
 template float XmlNode::getOptionalTextAs(const float& defaultValue) const;
 template bool XmlNode::getOptionalTextAs(const bool& defaultValue) const;
 template long long XmlNode::getOptionalTextAs(const long long& defaultValue) const;
-template unsigned long long XmlNode::getOptionalTextAs(const unsigned long long& defaultValue) const;
+template unsigned long long XmlNode::getOptionalTextAs(
+    const unsigned long long& defaultValue) const;
 
 template <typename T>
 T XmlNode::getOptionalTextAs(const T& defaultValue) const
@@ -183,7 +186,8 @@ T XmlNode::getOptionalTextAs(const T& defaultValue) const
 }
 
 /// @cond
-// Somehow, Doxygen has a problem with these explicit instantiations. Probably a problem with the overloaded versions.
+// Somehow, Doxygen has a problem with these explicit instantiations.
+// Probably a problem with the overloaded versions.
 // Since we don't need its documentation, we just ignore them.
 template int XmlNode::getOptionalChildNodeTextAs(const int& defaultValue) const;
 template unsigned int XmlNode::getOptionalChildNodeTextAs(const unsigned int& defaultValue) const;
@@ -191,7 +195,8 @@ template double XmlNode::getOptionalChildNodeTextAs(const double& defaultValue) 
 template float XmlNode::getOptionalChildNodeTextAs(const float& defaultValue) const;
 template bool XmlNode::getOptionalChildNodeTextAs(const bool& defaultValue) const;
 template long long XmlNode::getOptionalChildNodeTextAs(const long long& defaultValue) const;
-template unsigned long long XmlNode::getOptionalChildNodeTextAs(const unsigned long long& defaultValue) const;
+template unsigned long long XmlNode::getOptionalChildNodeTextAs(
+    const unsigned long long& defaultValue) const;
 /// @endcond
 
 template <typename T>
@@ -220,15 +225,23 @@ T XmlNode::getChildNodeTextAs(const std::string& name) const
 }
 
 /// @cond
-// Somehow, Doxygen has a problem with these explicit instantiations. Probably a problem with the overloaded versions.
+// Somehow, Doxygen has a problem with these explicit instantiations.
+// Probably a problem with the overloaded versions.
 // Since we don't need its documentation, we just ignore them.
-template int XmlNode::getOptionalChildNodeTextAs(const std::string& name, const int& defaultValue) const;
-template unsigned int XmlNode::getOptionalChildNodeTextAs(const std::string& name, const unsigned int& defaultValue) const;
-template double XmlNode::getOptionalChildNodeTextAs(const std::string& name, const double& defaultValue) const;
-template float XmlNode::getOptionalChildNodeTextAs(const std::string& name, const float& defaultValue) const;
-template bool XmlNode::getOptionalChildNodeTextAs(const std::string& name, const bool& defaultValue) const;
-template long long XmlNode::getOptionalChildNodeTextAs(const std::string& name, const long long& defaultValue) const;
-template unsigned long long XmlNode::getOptionalChildNodeTextAs(const std::string& name, const unsigned long long& defaultValue) const;
+template int XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const int& defaultValue) const;
+template unsigned int XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const unsigned int& defaultValue) const;
+template double XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const double& defaultValue) const;
+template float XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const float& defaultValue) const;
+template bool XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const bool& defaultValue) const;
+template long long XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const long long& defaultValue) const;
+template unsigned long long XmlNode::getOptionalChildNodeTextAs(const std::string& name,
+    const unsigned long long& defaultValue) const;
 /// @endcond
 
 template <typename T>

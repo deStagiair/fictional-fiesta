@@ -15,6 +15,7 @@ find_package(Doxygen REQUIRED dot OPTIONAL_COMPONENTS mscgen dia)
 find_package(PugiXML REQUIRED)
 
 find_program(CPP_CHECK_EXE cppcheck)
+find_program(VERA_EXE vera++)
 
 add_subdirectory(fictional-fiesta)
 add_subdirectory(test)
