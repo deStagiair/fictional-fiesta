@@ -36,3 +36,14 @@ TEST_CASE("Test consuming units", "[ConstantSourceTest][TestConsume]")
   REQUIRE(source.consume(Source::INFINITY_UNITS) == Source::INFINITY_UNITS);
   REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
 }
+
+TEST_CASE("Test consuming and regenerating units", "[ConstantSourceTest][TestRegenerate]")
+{
+  ConstantSource source("Heat");
+
+  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.consume(10) == 10);
+  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  source.regenerate();
+  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+}

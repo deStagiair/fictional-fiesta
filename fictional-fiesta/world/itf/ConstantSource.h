@@ -19,6 +19,9 @@ class ConstantSource : public Source
 
     /// @copydoc Source::consume
     unsigned int consume(const unsigned int requiredUnits) override;
+
+    /// @copydoc Source::regenerate
+    void regenerate() override;
 };
 
 }

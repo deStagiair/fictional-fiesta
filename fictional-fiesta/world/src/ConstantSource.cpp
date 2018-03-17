@@ -19,4 +19,8 @@ unsigned int ConstantSource::consume(const unsigned int requiredUnits)
   return requiredUnits;
 }
 
+void ConstantSource::regenerate()
+{
+}
+
 } // namespace fictionalfiesta

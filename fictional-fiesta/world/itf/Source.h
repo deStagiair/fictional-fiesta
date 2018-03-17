@@ -34,6 +34,9 @@ class Source
     /// @return Effective number if units consumed.
     virtual unsigned int consume(const unsigned int requiredUnits) = 0;
 
+    /// @brief Regenerates the number of units of the resource.
+    virtual void regenerate() = 0;
+
     /// @brief Get the representation of an infinity number of units.
     /// @return Infinity number of units.
     static constexpr unsigned int INFINITY_UNITS{std::numeric_limits<unsigned int>::max()};
