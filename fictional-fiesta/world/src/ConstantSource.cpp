@@ -29,9 +29,9 @@ ConstantSource::ConstantSource(const std::string& resourceId, unsigned int fixed
 {
 }
 
-ConstantSource::ConstantSource(const XmlNode& node):
-  Source(node, get_unit_count_from_node(node.getChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME))),
-  _fixedUnitCount(get_unit_count_from_node(node.getChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME)))
+ConstantSource::ConstantSource(const XmlNode& node, unsigned int fixedUnitCount):
+  Source(node, fixedUnitCount),
+  _fixedUnitCount(fixedUnitCount)
 {
   const std::string type = node.getChildNodeText(XML_SOURCE_TYPE_NODE_NAME);
   // Check that the type is correct.
@@ -40,6 +40,11 @@ ConstantSource::ConstantSource(const XmlNode& node):
     throw Exception("Incorrect source type '" + type + "', expected type '"
         + XML_SOURCE_TYPE_NODE_VALUE + "'.");
   }
+}
+
+ConstantSource::ConstantSource(const XmlNode& node):
+  ConstantSource(node, get_unit_count_from_node(node.getChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME)))
+{
 }
 
 void ConstantSource::regenerate()

@@ -63,6 +63,7 @@ class Source
 
     /// @brief Converts the units to a string representation.
     /// @param units Number of units to be stringyfied.
+    /// @return string representing the units.
     static std::string unitsToString(unsigned int units);
 
   private:

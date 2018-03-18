@@ -47,6 +47,7 @@ class ConstantSource : public Source
 
   private:
 
+    ConstantSource(const XmlNode& node, unsigned int fixedUnitCount);
     void doSave(XmlNode& node) const override;
 
     /// Nuber of units at the begining of each cycle.
