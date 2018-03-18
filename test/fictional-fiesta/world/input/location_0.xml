@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Location>
+  <Source Type="Constant">
+    <Resource>Water</Resource>
+    <FixedUnits>100</FixedUnits>
+  </Source>
+  <Source Type="Constant">
+    <Resource>Light</Resource>
+    <FixedUnits>infinity</FixedUnits>
+    <CurrentUnits>0</CurrentUnits>
+  </Source>
+</Location>

@@ -2,5 +2,6 @@ file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/result")
 
 set(WORLD_TESTS
   ${CMAKE_CURRENT_SOURCE_DIR}/ConstantSourceTest.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/LocationTest.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SourceFactoryTest.cpp
   CACHE INTERNAL "")

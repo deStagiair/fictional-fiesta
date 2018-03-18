@@ -52,6 +52,9 @@ class Source
     /// Representation of an infinity number of units.
     static constexpr unsigned int INFINITY_UNITS{std::numeric_limits<unsigned int>::max()};
 
+    // XML node and attribute variables:
+    /// Name of the source main node.
+    static constexpr char XML_MAIN_NODE_NAME[]{"Source"};
     /// Name of the source type node.
     static constexpr char XML_SOURCE_TYPE_ATTRIBUTE_NAME[]{"Type"};
 
