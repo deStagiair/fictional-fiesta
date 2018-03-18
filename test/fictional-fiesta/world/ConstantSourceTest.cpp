@@ -93,11 +93,11 @@ TEST_CASE("Test consuming from an infinite source", "[ConstantSourceTest][TestCo
 
 TEST_CASE("Test consuming and regenerating units", "[ConstantSourceTest][TestRegenerate]")
 {
-  ConstantSource source("Time", 40);
+  ConstantSource source("Time", 40, 30);
 
-  REQUIRE(source.getCurrentUnitCount() == 40);
-  REQUIRE(source.consume(10) == 10);
   REQUIRE(source.getCurrentUnitCount() == 30);
+  REQUIRE(source.consume(10) == 10);
+  REQUIRE(source.getCurrentUnitCount() == 20);
   source.regenerate();
   REQUIRE(source.getCurrentUnitCount() == 40);
 }

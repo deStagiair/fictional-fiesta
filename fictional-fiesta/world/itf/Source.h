@@ -44,6 +44,11 @@ class Source
     /// @brief Regenerates the number of units of the resource.
     virtual void regenerate() = 0;
 
+    /// @brief Save this Source instance in a XmlNode.
+    /// @note This class uses NVI-idiom to call the specific saves of the derived classes.
+    /// @param node node where the Source instance will be saved.
+    void save(XmlNode node) const;
+
     /// Representation of an infinity number of units.
     static constexpr unsigned int INFINITY_UNITS{std::numeric_limits<unsigned int>::max()};
 
@@ -57,6 +62,8 @@ class Source
     void setCurrentUnitCount(unsigned int currentUnitCount);
 
   private:
+
+    virtual void doSave(XmlNode node) = 0;
 
     std::string _resourceId;
 

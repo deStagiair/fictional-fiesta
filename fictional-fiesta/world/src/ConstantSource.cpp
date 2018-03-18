@@ -17,9 +17,15 @@ unsigned int get_unit_count_from_node(const XmlNode& fixedUnitNode);
 
 } // anonymous namespace
 
-ConstantSource::ConstantSource(const std::string& resourceId, unsigned int fixedUnitCount):
-  Source(resourceId, fixedUnitCount),
+ConstantSource::ConstantSource(const std::string& resourceId, unsigned int fixedUnitCount,
+    unsigned int currentUnitCount):
+  Source(resourceId, currentUnitCount),
   _fixedUnitCount(fixedUnitCount)
+{
+}
+
+ConstantSource::ConstantSource(const std::string& resourceId, unsigned int fixedUnitCount):
+  ConstantSource(resourceId, fixedUnitCount, fixedUnitCount)
 {
 }
 
@@ -39,6 +45,10 @@ ConstantSource::ConstantSource(const XmlNode& node):
 void ConstantSource::regenerate()
 {
   setCurrentUnitCount(_fixedUnitCount);
+}
+
+void ConstantSource::doSave(XmlNode node)
+{
 }
 
 namespace
