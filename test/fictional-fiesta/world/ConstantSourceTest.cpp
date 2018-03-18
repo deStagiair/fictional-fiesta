@@ -6,10 +6,13 @@
 #include "fictional-fiesta/utils/itf/XmlDocument.h"
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 
+#include "test/test_utils/itf/BenchmarkFiles.h"
+
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
 using namespace fictionalfiesta;
+using namespace testutils;
 
 static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
     / fs::path("fictional-fiesta/world/input");
@@ -103,4 +106,28 @@ TEST_CASE("Test consuming and regenerating units", "[ConstantSourceTest][TestReg
   REQUIRE(source.getCurrentUnitCount() == 20);
   source.regenerate();
   REQUIRE(source.getCurrentUnitCount() == 40);
+}
+
+TEST_CASE("Test saving ConstantSource instances to XML.", "[ConstantSourceTest][TestSaveXml]")
+{
+  auto document = XmlDocument{};
+  auto root_node = document.appendRootNode("Sources");
+
+  const ConstantSource time_source("Time", 40, 30);
+  time_source.save(root_node.appendChildNode("Source"));
+
+  const ConstantSource light_source("Light", Source::INFINITY_UNITS, 30);
+  light_source.save(root_node.appendChildNode("Source"));
+
+  const ConstantSource patience_source("Patience", Source::INFINITY_UNITS);
+  patience_source.save(root_node.appendChildNode("Source"));
+
+  const ConstantSource oil_source("Oil", 4000, 1);
+  oil_source.save(root_node.appendChildNode("Source"));
+
+  const auto& result_file = result_directory / fs::path("example_save_0.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const auto& benchmark_file = benchmark_directory / fs::path("example_save_0.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
 }

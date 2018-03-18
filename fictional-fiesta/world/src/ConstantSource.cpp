@@ -47,7 +47,7 @@ void ConstantSource::regenerate()
   setCurrentUnitCount(_fixedUnitCount);
 }
 
-void ConstantSource::doSave(XmlNode node)
+void ConstantSource::doSave(XmlNode& node) const
 {
 }
 

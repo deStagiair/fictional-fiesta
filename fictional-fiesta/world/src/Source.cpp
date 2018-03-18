@@ -52,7 +52,24 @@ unsigned int Source::consume(const unsigned int requiredUnits)
 void Source::save(XmlNode node) const
 {
   auto resource_node = node.appendChildNode(XML_RESOURCE_ID_NODE_NAME);
-  //node.setText(
+  resource_node.setText(_resourceId);
+
+  auto current_units_node = node.appendChildNode(XML_CURRENT_RESOURCE_UNITS_NAME);
+  current_units_node.setText(unitsToString(_currentUnitCount));
+
+  // Call to the private virtual method.
+  doSave(node);
+}
+
+std::string Source::unitsToString(unsigned int units)
+{
+  if (units == INFINITY_UNITS)
+  {
+    return "infinite";
+  }
+  std::stringstream ss;
+  ss << units;
+  return ss.str();
 }
 
 void Source::setCurrentUnitCount(unsigned int currentUnitCount)

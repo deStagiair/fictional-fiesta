@@ -61,9 +61,13 @@ class Source
     /// @param currentUnitCount Number of units to be set.
     void setCurrentUnitCount(unsigned int currentUnitCount);
 
+    /// @brief Converts the units to a string representation.
+    /// @param units Number of units to be stringyfied.
+    static std::string unitsToString(unsigned int units);
+
   private:
 
-    virtual void doSave(XmlNode node) = 0;
+    virtual void doSave(XmlNode& node) const = 0;
 
     std::string _resourceId;
 
