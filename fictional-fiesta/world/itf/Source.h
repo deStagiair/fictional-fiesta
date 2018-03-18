@@ -53,7 +53,7 @@ class Source
     static constexpr unsigned int INFINITY_UNITS{std::numeric_limits<unsigned int>::max()};
 
     /// Name of the source type node.
-    static constexpr char XML_SOURCE_TYPE_NODE_NAME[]{"Type"};
+    static constexpr char XML_SOURCE_TYPE_ATTRIBUTE_NAME[]{"Type"};
 
   protected:
 

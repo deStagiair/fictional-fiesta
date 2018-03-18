@@ -13,9 +13,9 @@ namespace fictionalfiesta
 
 std::unique_ptr<Source> SourceFactory::createSource(const XmlNode& node)
 {
-  const std::string source_type{node.getChildNodeText(Source::XML_SOURCE_TYPE_NODE_NAME)};
+  const std::string source_type{node.getAttribute(Source::XML_SOURCE_TYPE_ATTRIBUTE_NAME)};
 
-  if (source_type == ConstantSource::XML_SOURCE_TYPE_NODE_VALUE)
+  if (source_type == ConstantSource::XML_SOURCE_TYPE_ATTRIBUTE_VALUE)
   {
     return std::make_unique<ConstantSource>(node);
   }

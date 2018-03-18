@@ -1,24 +1,19 @@
 <?xml version="1.0"?>
 <Sources>
-  <Source>
-    <Type>Constant</Type>
+  <Source Type="Constant">
     <Resource>Water</Resource>
     <FixedUnits>100</FixedUnits>
   </Source>
-  <Source>
-    <Type>Constant</Type>
+  <Source Type="Constant">
     <Resource>Light</Resource>
     <FixedUnits>infinity</FixedUnits>
     <CurrentUnits>0</CurrentUnits>
   </Source>
-  <Source>
-    <Type>Limited</Type>
+  <Source Type="Limited">
     <Resource>Oil</Resource>
     <Units>1024</Units>
   </Source>
-  <Source>
-    <Type>Constant</Type>
-  </Source>
+  <Source Type="Constant"/>
   <Source>
     <Resource>Other</Resource>
   </Source>

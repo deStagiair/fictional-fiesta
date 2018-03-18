@@ -42,8 +42,8 @@ class ConstantSource : public Source
     /// Name of the node with the fixed unit count.
     static constexpr char XML_FIXED_UNIT_COUNT_NODE_NAME[]{"FixedUnits"};
 
-    /// Value of the type node for Constant sources.
-    static constexpr char XML_SOURCE_TYPE_NODE_VALUE[]{"Constant"};
+    /// Value of the type attribute for constant sources.
+    static constexpr char XML_SOURCE_TYPE_ATTRIBUTE_VALUE[]{"Constant"};
 
   private:
 
