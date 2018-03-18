@@ -281,6 +281,23 @@ T XmlNode::getOptionalChildNodeTextAs(const std::string& name, const T& defaultV
   return getChildNode(name).getOptionalTextAs<T>(defaultValue);
 }
 
+void XmlNode::setAttribute(const std::string& name, const std::string& value)
+{
+  auto attribute = _pimpl->_node.attribute(name.c_str());
+  if (!attribute)
+  {
+    attribute = _pimpl->_node.append_attribute(name.c_str());
+  }
+  attribute.set_value(value.c_str());
+}
+
+XmlNode XmlNode::appendChildNode(const std::string& name)
+{
+  auto child = _pimpl->_node.append_child();
+  child.set_name(name.c_str());
+  return XmlNode(child);
+}
+
 void XmlNode::setNodeText(const std::string& text)
 {
   auto child = _pimpl->_node.first_child();
@@ -293,13 +310,6 @@ void XmlNode::setNodeText(const std::string& text)
   {
     _pimpl->_node.append_child(pugi::node_pcdata).set_value(text.c_str());
   }
-}
-
-XmlNode XmlNode::appendChildNode(const std::string& name)
-{
-  auto child = _pimpl->_node.append_child();
-  child.set_name(name.c_str());
-  return XmlNode(child);
 }
 
 namespace

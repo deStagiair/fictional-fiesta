@@ -54,6 +54,31 @@ TEST_CASE("Test getting attributes", "[XmlNodeTest][TestGetAttribute]")
   REQUIRE(children[3].getAttribute("type") == "MyType");
 }
 
+TEST_CASE("Test setting attributes", "[XmlNodeTest][TestSetAttribute]")
+{
+  XmlDocument document{};
+
+  auto root = document.appendRootNode("Root");
+
+  REQUIRE(!root.hasAttribute("att1"));
+
+  // Add a new attribute.
+  root.setAttribute("att1", "value_1");
+  REQUIRE(root.hasAttribute("att1"));
+  REQUIRE(root.getAttribute("att1") == "value_1");
+
+  // Add a second attribute.
+  root.setAttribute("att2", "v_2");
+  REQUIRE(root.hasAttribute("att1"));
+  REQUIRE(root.hasAttribute("att2"));
+  REQUIRE(root.getAttribute("att2") == "v_2");
+
+  // Reset attribute.
+  REQUIRE(root.getAttribute("att1") == "value_1");
+  root.setAttribute("att1", "v_1");
+  REQUIRE(root.getAttribute("att1") == "v_1");
+}
+
 TEST_CASE("Test getting child nodes of other XML nodes", "[XmlNodeTest][TestGetChild]")
 {
   {

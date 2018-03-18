@@ -34,7 +34,7 @@ class XmlNode
     std::string getName() const;
 
     /// @brief Checks whether the node has an specific attribute or not.
-    /// @param Name of the attribute to be checked.
+    /// @param attributeName Name of the attribute to be checked.
     /// @return true if the node has an attribute with the passed name, false otherwise.
     bool hasAttribute(const std::string& attributeName) const;
 
@@ -156,6 +156,12 @@ class XmlNode
     /// @return value resulting of the parsing.
     template <typename T>
     T getOptionalChildNodeTextAs(const std::string& name, const T& defaultValue) const;
+
+    /// @brief Sets the value for the attribute with the passed test and creates it if it
+    ///   does not exist.
+    /// @param name Name of the attribute to be set.
+    /// @param value Value to be set for the attribute.
+    void setAttribute(const std::string& name, const std::string& value);
 
     /// @brief Dump the current @p content to a string and set is and the node text.
     /// @param content Content to be set as text in the node.
