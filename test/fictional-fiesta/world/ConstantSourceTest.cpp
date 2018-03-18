@@ -20,10 +20,18 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 
 TEST_CASE("Test constructor from resource name", "[ConstantSourceTest][TestConstructorFromResource]")
 {
-  const ConstantSource source("Water");
+  {
+    const ConstantSource source("Water", 100);
 
-  REQUIRE(source.getResourceId() == "Water");
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+    REQUIRE(source.getResourceId() == "Water");
+    REQUIRE(source.getCurrentUnitCount() == 100);
+  }
+  {
+    const ConstantSource source("Light", Source::INFINITY_UNITS);
+
+    REQUIRE(source.getResourceId() == "Light");
+    REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
+  }
 }
 
 TEST_CASE("Test constructor from XML node", "[ConstantSourceTest][TestConstructorFromXmlNode]")
@@ -39,7 +47,7 @@ TEST_CASE("Test constructor from XML node", "[ConstantSourceTest][TestConstructo
   {
     const auto source{ConstantSource(source_nodes[0])};
     REQUIRE(source.getResourceId() == "Water");
-    REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+    REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
   }
 
   {
@@ -59,24 +67,37 @@ TEST_CASE("Test constructor from XML node", "[ConstantSourceTest][TestConstructo
 
 TEST_CASE("Test consuming units", "[ConstantSourceTest][TestConsume]")
 {
-  ConstantSource source("Light");
+  ConstantSource source("Water", 100);
 
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == 100);
   REQUIRE(source.consume(0) == 0);
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == 100);
+  REQUIRE(source.consume(35) == 35);
+  REQUIRE(source.getCurrentUnitCount() == 65);
+  REQUIRE(source.consume(Source::INFINITY_UNITS) == 65);
+  REQUIRE(source.getCurrentUnitCount() == 0);
+}
+
+TEST_CASE("Test consuming from an infinite source", "[ConstantSourceTest][TestConsumeInfinite]")
+{
+  ConstantSource source("Light", Source::INFINITY_UNITS);
+
+  REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.consume(0) == 0);
+  REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
   REQUIRE(source.consume(3500) == 3500);
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
   REQUIRE(source.consume(Source::INFINITY_UNITS) == Source::INFINITY_UNITS);
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
 }
 
 TEST_CASE("Test consuming and regenerating units", "[ConstantSourceTest][TestRegenerate]")
 {
-  ConstantSource source("Heat");
+  ConstantSource source("Time", 40);
 
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == 40);
   REQUIRE(source.consume(10) == 10);
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == 30);
   source.regenerate();
-  REQUIRE(source.getUnitCount() == Source::INFINITY_UNITS);
+  REQUIRE(source.getCurrentUnitCount() == 40);
 }

@@ -12,16 +12,20 @@ namespace fictionalfiesta
 
 namespace
 {
-constexpr char XML_SOURCE_TYPE_NODE_VALUE[]{"Constant"};
-}
 
-ConstantSource::ConstantSource(const std::string& resourceId):
-  Source(resourceId, INFINITY_UNITS)
+unsigned int get_unit_count_from_node(const XmlNode& fixedUnitNode);
+
+} // anonymous namespace
+
+ConstantSource::ConstantSource(const std::string& resourceId, unsigned int fixedUnitCount):
+  Source(resourceId, fixedUnitCount),
+  _fixedUnitCount(fixedUnitCount)
 {
 }
 
 ConstantSource::ConstantSource(const XmlNode& node):
-  Source(node, INFINITY_UNITS)
+  Source(node, INFINITY_UNITS),
+  _fixedUnitCount(get_unit_count_from_node(node.getChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME)))
 {
   const std::string type = node.getChildNodeText(XML_SOURCE_TYPE_NODE_NAME);
   // Check that the type is correct.
@@ -32,13 +36,25 @@ ConstantSource::ConstantSource(const XmlNode& node):
   }
 }
 
-unsigned int ConstantSource::consume(const unsigned int requiredUnits)
-{
-  return requiredUnits;
-}
-
 void ConstantSource::regenerate()
 {
+  setCurrentUnitCount(_fixedUnitCount);
 }
+
+namespace
+{
+
+unsigned int get_unit_count_from_node(const XmlNode& fixedUnitNode)
+{
+  const std::string value_string = fixedUnitNode.getText();
+  if (value_string == "infinity")
+  {
+    return Source::INFINITY_UNITS;
+  }
+
+  return fixedUnitNode.getTextAs<unsigned int>();
+}
+
+} // anonymous namespace
 
 } // namespace fictionalfiesta

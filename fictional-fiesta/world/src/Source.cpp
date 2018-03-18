@@ -15,13 +15,13 @@ constexpr char XML_RESOURCE_ID_NODE_NAME[]{"Resource"};
 
 Source::Source(const std::string& resourceId, unsigned int initialUnitCount):
   _resourceId(resourceId),
-  _unitCount(initialUnitCount)
+  _currentUnitCount(initialUnitCount)
 {
 }
 
 Source::Source(const XmlNode& node, unsigned int initialUnitCount):
   _resourceId(node.getChildNodeText(XML_RESOURCE_ID_NODE_NAME)),
-  _unitCount(initialUnitCount)
+  _currentUnitCount(initialUnitCount)
 {
 }
 
@@ -30,14 +30,27 @@ const std::string& Source::getResourceId() const
   return _resourceId;
 }
 
-const unsigned int Source::getUnitCount() const
+const unsigned int Source::getCurrentUnitCount() const
 {
-  return _unitCount;
+  return _currentUnitCount;
 }
 
-void Source::setUnitCount(unsigned int unitCount)
+unsigned int Source::consume(const unsigned int requiredUnits)
 {
-  _unitCount = unitCount;
+  unsigned int consumed_units = requiredUnits;
+  if (_currentUnitCount != INFINITY_UNITS)
+  {
+    consumed_units = std::min(requiredUnits, _currentUnitCount);
+    _currentUnitCount -= consumed_units;
+  }
+
+  return consumed_units;
+}
+
+
+void Source::setCurrentUnitCount(unsigned int currentUnitCount)
+{
+  _currentUnitCount = currentUnitCount;
 }
 
 } // namespace fictionalfiesta

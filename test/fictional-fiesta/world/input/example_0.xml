@@ -3,10 +3,12 @@
   <Source>
     <Type>Constant</Type>
     <Resource>Water</Resource>
+    <FixedUnits>100</FixedUnits>
   </Source>
   <Source>
     <Type>Constant</Type>
     <Resource>Light</Resource>
+    <FixedUnits>infinity</FixedUnits>
   </Source>
   <Source>
     <Type>Limited</Type>

@@ -33,13 +33,13 @@ class Source
 
     /// @brief Get the number of units of resource available.
     /// @return Current number of units of the resource.
-    const unsigned int getUnitCount() const;
+    const unsigned int getCurrentUnitCount() const;
 
     /// @brief Consume a given number of units of the resource.
     /// It is not possible to consume more units than available.
     /// @param requiredUnits Units of the resource required.
     /// @return Effective number if units consumed.
-    virtual unsigned int consume(const unsigned int requiredUnits) = 0;
+    virtual unsigned int consume(const unsigned int requiredUnits);
 
     /// @brief Regenerates the number of units of the resource.
     virtual void regenerate() = 0;
@@ -53,14 +53,14 @@ class Source
   protected:
 
     /// @brief Set the number of units of the resource.
-    /// @param unitCount Number of units to be set.
-    void setUnitCount(unsigned int unitCount);
+    /// @param currentUnitCount Number of units to be set.
+    void setCurrentUnitCount(unsigned int currentUnitCount);
 
   private:
 
     std::string _resourceId;
 
-    unsigned int _unitCount;
+    unsigned int _currentUnitCount;
 };
 
 }
