@@ -34,6 +34,32 @@ std::string XmlNode::getName() const
    return _pimpl->_node.name();
 }
 
+bool XmlNode::hasAttribute(const std::string& attributeName) const
+{
+  return _pimpl->_node.attribute(attributeName.c_str());
+}
+
+std::string XmlNode::getAttribute(const std::string& attributeName) const
+{
+  if (!hasAttribute(attributeName))
+  {
+    throw Exception("The current node has no '" + attributeName + "' attributes.");
+  }
+
+  return _pimpl->_node.attribute(attributeName.c_str()).value();
+}
+
+std::string XmlNode::getOptionalAttribute(const std::string& attributeName,
+    const std::string& defaultValue) const
+{
+  if (!hasAttribute(attributeName))
+  {
+    return defaultValue;
+  }
+
+  return _pimpl->_node.attribute(attributeName.c_str()).value();
+}
+
 bool XmlNode::hasChildNode() const
 {
   const auto child = _pimpl->_node.first_child();

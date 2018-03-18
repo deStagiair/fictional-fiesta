@@ -33,6 +33,27 @@ TEST_CASE("Test getting names of XML nodes", "[XmlNodeTest][TestGetName]")
   }
 }
 
+TEST_CASE("Test getting attributes", "[XmlNodeTest][TestGetAttribute]")
+{
+  const auto& input_file = input_directory / fs::path("example_2.xml");
+  const auto& document = XmlDocument {input_file};
+  const auto& root_node = document.getRootNode();
+
+  const auto children = root_node.getChildNodes();
+  REQUIRE(children.size() == 4);
+
+  REQUIRE(children[0].hasAttribute("name"));
+  REQUIRE(children[0].getAttribute("name") == "fff");
+  REQUIRE(!children[0].hasAttribute("other_name"));
+  REQUIRE_THROWS(children[0].getAttribute("other_name"));
+  REQUIRE(children[0].getOptionalAttribute("other_name", "MyOtherName") == "MyOtherName");
+
+  REQUIRE(children[3].hasAttribute("name"));
+  REQUIRE(children[3].getAttribute("name") == "MyName");
+  REQUIRE(children[3].hasAttribute("type"));
+  REQUIRE(children[3].getAttribute("type") == "MyType");
+}
+
 TEST_CASE("Test getting child nodes of other XML nodes", "[XmlNodeTest][TestGetChild]")
 {
   {

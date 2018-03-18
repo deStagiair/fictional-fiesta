@@ -18,7 +18,7 @@ class XmlNode
   public:
 
     /// @brief Constructor from a node implementation class instance.
-    /// Since the XmlNodeImpl class is not visible from outside, this constructor
+    /// @details Since the XmlNodeImpl class is not visible from outside, this constructor
     /// can only be used internally.
     /// @param node Node implementation from which to construct this instance.
     explicit XmlNode(const XmlNodeImpl& node);
@@ -33,19 +33,37 @@ class XmlNode
     /// @return String with the name of the node.
     std::string getName() const;
 
+    /// @brief Checks whether the node has an specific attribute or not.
+    /// @param Name of the attribute to be checked.
+    /// @return true if the node has an attribute with the passed name, false otherwise.
+    bool hasAttribute(const std::string& attributeName) const;
+
+    /// @brief Get the attribute with the passed name.
+    /// @param attributeName Name of the attribute to be retrieved.
+    /// @return String with the name of the node.
+    /// @throw Exception if there is no attribute with the given name.
+    std::string getAttribute(const std::string& attributeName) const;
+
+    /// @brief Get the optionalattribute with the passed name.
+    /// @details Return the default value if there is no attribute with the passed name.
+    /// @param attributeName Name of the attribute to be retrieved.
+    /// @param defaultValue Value to be returned when there is no such an attribute.
+    /// @return String with the name of the node.
+    std::string getOptionalAttribute(const std::string& attributeName,
+        const std::string& defaultValue) const;
+
     /// @brief Checks whether the node has any child node.
     /// Note that only element nodes are cosidered for this method.
     /// @return true if the current node has at least one element child node.
     bool hasChildNode() const;
 
     /// @brief Checks whether the node has at least a child node with the given @p name.
-    /// Note that only element nodes are cosidered for this method.
+    /// @note Only element nodes are cosidered for this method.
     /// @param name name of the child node.
     /// @return true if the current node has at least one element child node with the given @p name.
     bool hasChildNode(const std::string& name) const;
 
     /// @brief Get the first child node of the current node.
-    ///
     /// @return First child node of the current node.
     /// @throw Exception if the node has no children.
     XmlNode getChildNode() const;
@@ -99,7 +117,7 @@ class XmlNode
     T getTextAs() const;
 
     /// @brief Get the text of the node and parse it into @p T type.
-    ///   If there is no text, return the default value.
+    /// @details If there is no text, return the default value.
     /// @tparam T Type into which the text needs to be parsed.
     /// @param defaultValue Value returned if there is no text in the node.
     /// @return value resulting of the parsing.
@@ -115,7 +133,7 @@ class XmlNode
     T getChildNodeTextAs() const;
 
     /// @brief Get the text of the child node with and parse it into @p type.
-    ///   Return the default value if there's no child or no text.
+    /// @details  Return the default value if there's no child or no text.
     /// @tparam T Type into which the text needs to be parsed.
     /// @param defaultValue Value returned if there is no child node text in it.
     /// @return value resulting of the parsing.
@@ -131,7 +149,7 @@ class XmlNode
     T getChildNodeTextAs(const std::string& name) const;
 
     /// @brief Get the text of the child node with a given name and parse it into @p type.
-    ///   Return the default value if there's no child or no text.
+    /// @details Return the default value if there's no child or no text.
     /// @tparam T Type into which the text needs to be parsed.
     /// @param name Name of the node.
     /// @param defaultValue Value returned if there is no child node text in it.
