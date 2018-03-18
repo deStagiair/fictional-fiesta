@@ -3,6 +3,7 @@
 
 #include "fictional-fiesta/utils/itf/Pimpl.h"
 
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -138,9 +139,10 @@ class XmlNode
     template <typename T>
     T getOptionalChildNodeTextAs(const std::string& name, const T& defaultValue) const;
 
-    /// @brief Set the text of the node.
-    /// @param text Text to be set in the node.
-    void setText(const std::string& text);
+    /// @brief Dump the current @p content to a string and set is and the node text.
+    /// @param content Content to be set as text in the node.
+    template <typename T>
+    void setText(const T& content);
 
     /// @brief Append a new name with the name passed.
     /// @param name Name for the new node appended.
@@ -149,10 +151,22 @@ class XmlNode
 
   private:
 
+    /// @brief Set the text of the node.
+    /// @param text Text to be set in the node.
+    void setNodeText(const std::string& text);
+
     /// Pointer to the node implementation.
     /// We use PIMPL to avoid exposing the XML dependecies.
     Pimpl<XmlNodeImpl> _pimpl;
 };
+
+template <typename T>
+void XmlNode::setText(const T& content)
+{
+  std::stringstream ss;
+  ss << content;
+  setNodeText(ss.str());
+}
 
 } // namespace fictional-fiesta
 

@@ -229,8 +229,9 @@ TEST_CASE("Test setting text in nodes", "[XmlNodeTest][TestSetText]")
   auto root_3 = document.appendRootNode("Root3");
   REQUIRE_THROWS(root_3.getText());
 
-  document.getRootNode().setText("New root 1 text");
-  REQUIRE(root_1.getText() == "New root 1 text");
+  document.getRootNode().setText(-193);
+  REQUIRE(root_1.getText() == "-193");
+  REQUIRE(root_1.getTextAs<int>() == -193);
 
   const fs::path result_file = result_directory / fs::path("example_set_text.xml");
   REQUIRE_NOTHROW(document.save(result_file));
