@@ -30,7 +30,7 @@ ConstantSource::ConstantSource(const std::string& resourceId, unsigned int fixed
 }
 
 ConstantSource::ConstantSource(const XmlNode& node):
-  Source(node, INFINITY_UNITS),
+  Source(node, get_unit_count_from_node(node.getChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME))),
   _fixedUnitCount(get_unit_count_from_node(node.getChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME)))
 {
   const std::string type = node.getChildNodeText(XML_SOURCE_TYPE_NODE_NAME);

@@ -9,6 +9,7 @@
     <Type>Constant</Type>
     <Resource>Light</Resource>
     <FixedUnits>infinity</FixedUnits>
+    <CurrentUnits>0</CurrentUnits>
   </Source>
   <Source>
     <Type>Limited</Type>

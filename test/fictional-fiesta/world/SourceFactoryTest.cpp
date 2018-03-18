@@ -31,7 +31,7 @@ TEST_CASE("Test creating sources from XML nodes", "[SourceFactoryTest][TestCreat
   {
     const auto source{SourceFactory::createSource(source_nodes[0])};
     REQUIRE(source->getResourceId() == "Water");
-    REQUIRE(source->getCurrentUnitCount() == Source::INFINITY_UNITS);
+    REQUIRE(source->getCurrentUnitCount() == 100);
   }
 
   {

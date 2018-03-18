@@ -27,7 +27,7 @@ TEST_CASE("Test constructor from resource name", "[ConstantSourceTest][TestConst
     REQUIRE(source.getCurrentUnitCount() == 100);
   }
   {
-    const ConstantSource source("Light", Source::INFINITY_UNITS);
+    ConstantSource source("Light", Source::INFINITY_UNITS);
 
     REQUIRE(source.getResourceId() == "Light");
     REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
@@ -47,12 +47,15 @@ TEST_CASE("Test constructor from XML node", "[ConstantSourceTest][TestConstructo
   {
     const auto source{ConstantSource(source_nodes[0])};
     REQUIRE(source.getResourceId() == "Water");
-    REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
+    REQUIRE(source.getCurrentUnitCount() == 100);
   }
 
   {
-    const auto source{ConstantSource(source_nodes[1])};
+    auto source{ConstantSource(source_nodes[1])};
     REQUIRE(source.getResourceId() == "Light");
+    REQUIRE(source.getCurrentUnitCount() == 0);
+    source.regenerate();
+    REQUIRE(source.getCurrentUnitCount() == Source::INFINITY_UNITS);
   }
 
   {
