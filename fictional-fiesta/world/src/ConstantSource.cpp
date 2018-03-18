@@ -49,6 +49,11 @@ void ConstantSource::regenerate()
 
 void ConstantSource::doSave(XmlNode& node) const
 {
+  auto type_node = node.appendChildNode(XML_SOURCE_TYPE_NODE_NAME);
+  type_node.setText(XML_SOURCE_TYPE_NODE_VALUE);
+
+  auto fixed_units_node = node.appendChildNode(XML_FIXED_UNIT_COUNT_NODE_NAME);
+  fixed_units_node.setText(unitsToString(_fixedUnitCount));
 }
 
 namespace

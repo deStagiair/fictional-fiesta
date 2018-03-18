@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Sources>
+  <Source>
+    <Resource>Time</Resource>
+    <CurrentUnits>30</CurrentUnits>
+    <Type>Constant</Type>
+    <FixedUnits>40</FixedUnits>
+  </Source>
+  <Source>
+    <Resource>Light</Resource>
+    <CurrentUnits>30</CurrentUnits>
+    <Type>Constant</Type>
+    <FixedUnits>infinite</FixedUnits>
+  </Source>
+  <Source>
+    <Resource>Patience</Resource>
+    <CurrentUnits>infinite</CurrentUnits>
+    <Type>Constant</Type>
+    <FixedUnits>infinite</FixedUnits>
+  </Source>
+  <Source>
+    <Resource>Oil</Resource>
+    <CurrentUnits>1</CurrentUnits>
+    <Type>Constant</Type>
+    <FixedUnits>4000</FixedUnits>
+  </Source>
+</Sources>
