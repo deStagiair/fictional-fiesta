@@ -36,7 +36,7 @@ bool Individual::Genotype::willReproduce(
     const Individual::Phenotype& phenotype,
     FSM::Rng& rng) const
 {
-  if (phenotype.getEnergy() > _reproductionEnergyThreshold)
+  if (phenotype.getEnergy() >= _reproductionEnergyThreshold)
   {
     return std::bernoulli_distribution(_reproductionProbability)(rng);
   }
