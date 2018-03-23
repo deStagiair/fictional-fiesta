@@ -78,6 +78,6 @@ class Source
     unsigned int _currentUnitCount;
 };
 
-}
+} // namespace fictionalfiesta
 
 #endif
