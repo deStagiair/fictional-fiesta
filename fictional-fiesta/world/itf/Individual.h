@@ -13,20 +13,20 @@ class Individual
 
     /// @brief Class that represents the set of features that are the expression of the genotype
     ///     in an individual.
-    class Fenotype
+    class Phenotype
     {
       public:
 
         /// @brief Constructor from the energy.
-        /// @param initialEnergy Initial energy of the fenotype.
-        explicit Fenotype(double initialEnergy);
+        /// @param initialEnergy Initial energy of the phenotype.
+        explicit Phenotype(double initialEnergy);
 
         /// @brief Gets the current energy level.
         /// @return Current energy level.
         double getEnergy() const;
 
-        /// @brief Feed the fenotype with a given number of resource units.
-        /// @details The fenotype will change depending on the units feed and the genotype.
+        /// @brief Feed the phenotype with a given number of resource units.
+        /// @details The phenotype will change depending on the units feed and the genotype.
         /// @param resourceUnits Unnits fet to the individual.
         /// @param genotype Genotype of the individual.
         void feed(unsigned int resourceUnits, const Genotype& genotype);
@@ -52,13 +52,13 @@ class Individual
             double reproductionProbability,
             double mutabilityRatio);
 
-        /// @brief Determines whether a given individual with the passed fenotype and the current
+        /// @brief Determines whether a given individual with the passed phenotype and the current
         ///     genotype will reproduce or not.
         /// @note This is a probabilistic method that depends, among others, on the reproduction
         ///     probability.
-        /// @param fenotype Fenotype of the individual.
+        /// @param phenotype Phenotype of the individual.
         /// @return @c true if the individual is going to reproduce and @c false if not.
-        bool willReproduce(const Fenotype& fenotype) const;
+        bool willReproduce(const Phenotype& phenotype) const;
 
         /// @brief Obtains a new (mutated) genotype from the current one.
         /// @return New mutated genotype.
@@ -95,8 +95,8 @@ class Individual
     /// Genotype of the individual (inherited features).
     const Genotype _genotype;
 
-    /// Fenotype of the individual (expression of the genotype).
-    Fenotype _fenotype;
+    /// Phenotype of the individual (expression of the genotype).
+    Phenotype _phenotype;
 };
 
 } // namespace fictionalfiesta

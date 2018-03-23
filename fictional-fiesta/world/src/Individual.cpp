@@ -5,19 +5,19 @@
 namespace fictionalfiesta
 {
 
-Individual::Fenotype::Fenotype(double initialEnergy):
+Individual::Phenotype::Phenotype(double initialEnergy):
   _energy(initialEnergy)
 {
 }
 
-double Individual::Fenotype::getEnergy() const
+double Individual::Phenotype::getEnergy() const
 {
   return _energy;
 }
 
-void Individual::Fenotype::feed(unsigned int resourceUnits, const Genotype& genotype)
+void Individual::Phenotype::feed(unsigned int resourceUnits, const Genotype& genotype)
 {
-  // Currently the fenotype is just energy, so we just increase it in the same ammount than the
+  // Currently the phenotype is just energy, so we just increase it in the same ammount than the
   // resource units aquired.
   _energy += resourceUnits;
 }
@@ -32,9 +32,9 @@ Individual::Genotype::Genotype(
 {
 }
 
-bool Individual::Genotype::willReproduce(const Individual::Fenotype& fenotype) const
+bool Individual::Genotype::willReproduce(const Individual::Phenotype& phenotype) const
 {
-  if (fenotype.getEnergy() > _reproductionEnergyThreshold)
+  if (phenotype.getEnergy() > _reproductionEnergyThreshold)
   {
     // Temporarily, we avoid the random draw.
     return true;
@@ -56,7 +56,7 @@ bool Individual::Genotype::producedDeadlyMutation() const
 
 Individual::Individual(const Genotype& genotype, double initialEnergy):
   _genotype(genotype),
-  _fenotype(initialEnergy)
+  _phenotype(initialEnergy)
 {
 }
 
