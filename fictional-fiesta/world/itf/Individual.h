@@ -18,8 +18,12 @@ class Individual
       public:
 
         /// @brief Constructor from the energy.
-        /// @param energy Initial energy of the fenotype.
-        explicit Fenotype(double energy);
+        /// @param initialEnergy Initial energy of the fenotype.
+        explicit Fenotype(double initialEnergy);
+
+        /// @brief Gets the current energy level.
+        /// @return Current energy level.
+        double getEnergy() const;
 
         /// @brief Feed the fenotype with a given number of resource units.
         /// @details The fenotype will change depending on the units feed and the genotype.
@@ -30,7 +34,7 @@ class Individual
       private:
 
         /// Energy level of the individual.
-        double energy;
+        double _energy;
     };
 
     /// @brief Class that represents the set of features that are inherited by individuals.
