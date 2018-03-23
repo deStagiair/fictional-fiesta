@@ -32,12 +32,13 @@ Individual::Genotype::Genotype(
 {
 }
 
-bool Individual::Genotype::willReproduce(const Individual::Phenotype& phenotype) const
+bool Individual::Genotype::willReproduce(
+    const Individual::Phenotype& phenotype,
+    FSM::Rng& rng) const
 {
   if (phenotype.getEnergy() > _reproductionEnergyThreshold)
   {
-    // Temporarily, we avoid the random draw.
-    return true;
+    return std::bernoulli_distribution(_reproductionProbability)(rng);
   }
   return false;
 }

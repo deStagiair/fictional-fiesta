@@ -1,6 +1,8 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_INDIVIDUAL_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_INDIVIDUAL_H
 
+#include "fictional-fiesta/world/itf/FSM.h"
+
 namespace fictionalfiesta
 {
 
@@ -57,8 +59,9 @@ class Individual
         /// @note This is a probabilistic method that depends, among others, on the reproduction
         ///     probability.
         /// @param phenotype Phenotype of the individual.
+        /// @param rng Random number generator.
         /// @return @c true if the individual is going to reproduce and @c false if not.
-        bool willReproduce(const Phenotype& phenotype) const;
+        bool willReproduce(const Phenotype& phenotype, FSM::Rng &rng) const;
 
         /// @brief Obtains a new (mutated) genotype from the current one.
         /// @return New mutated genotype.
