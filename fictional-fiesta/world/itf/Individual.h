@@ -54,6 +54,18 @@ class Individual
             double reproductionProbability,
             double mutabilityRatio);
 
+        /// @brief Get the reproduction energy threshold.
+        /// @return Reproduction energy threshold.
+        double getReproductionEnergyThreshold() const;
+
+        /// @brief Get the reproduction probability.
+        /// @return Reproduction probability.
+        double getReproductionProbability() const;
+
+        /// @brief Get the mutability ratio.
+        /// @return Mutability ratio.
+        double getMutabilityRatio() const;
+
         /// @brief Determines whether a given individual with the passed phenotype and the current
         ///     genotype will reproduce or not.
         /// @note This is a probabilistic method that depends, among others, on the reproduction

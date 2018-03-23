@@ -32,6 +32,21 @@ Individual::Genotype::Genotype(
 {
 }
 
+double Individual::Genotype::getReproductionEnergyThreshold() const
+{
+  return _reproductionEnergyThreshold;
+}
+
+double Individual::Genotype::getReproductionProbability() const
+{
+  return _reproductionProbability;
+}
+
+double Individual::Genotype::getMutabilityRatio() const
+{
+  return _mutabilityRatio;
+}
+
 bool Individual::Genotype::willReproduce(
     const Individual::Phenotype& phenotype,
     FSM::Rng& rng) const

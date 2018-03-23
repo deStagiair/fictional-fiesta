@@ -19,7 +19,24 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 // Important note: Some of these tests force the seed of the RNG to allow testability.
 // Changing the RNG or the order of the statements will probably cause this test to fail.
 
-TEST_CASE("Test genotype willReproduce method", "[IndividualConstantSourceTest][TestConstructorFromResource]")
+TEST_CASE("Test genotype constructor and getters", "[IndividualTest][TestConstructor]")
+{
+  {
+    const Individual::Genotype genotype{43, 0.5, 0.66};
+    REQUIRE(genotype.getReproductionEnergyThreshold() == 43);
+    REQUIRE(genotype.getReproductionProbability() == 0.5);
+    REQUIRE(genotype.getMutabilityRatio() == 0.66);
+  }
+
+  {
+    const Individual::Genotype genotype{0, 0.001, 0};
+    REQUIRE(genotype.getReproductionEnergyThreshold() == 0);
+    REQUIRE(genotype.getReproductionProbability() == 0.001);
+    REQUIRE(genotype.getMutabilityRatio() == 0);
+  }
+}
+
+TEST_CASE("Test genotype willReproduce method", "[IndividualTest][TestWillReproduce]")
 {
   {
     auto rng{FSM::createRng(0)};
