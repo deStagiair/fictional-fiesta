@@ -11,6 +11,11 @@ Individual::Individual(const Genotype& genotype, double initialEnergy):
 {
 }
 
+const Genotype& Individual::getGenotype() const
+{
+  return _genotype;
+}
+
 bool Individual::willReproduce(FSM::Rng &rng) const
 {
   return _genotype.willReproduce(_phenotype, rng);

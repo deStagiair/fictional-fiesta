@@ -18,6 +18,10 @@ class Individual
     /// @param initialEnergy Inital energy of the new individual.
     Individual(const Genotype& genotype, double initialEnergy);
 
+    /// @brief Gets the current individual's genotype.
+    /// @return Genotype of this individual.
+    const Genotype& getGenotype() const;
+
     /// @brief Determines if the individual will reproduce in this cycle or not.
     /// @param rng Random number generator.
     /// @return @c true if the individual is going to reproduce and @c false if not.

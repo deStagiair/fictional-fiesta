@@ -9,6 +9,13 @@
 namespace fictionalfiesta
 {
 
+namespace
+{
+
+double normalized_distance(const double first, const double second);
+
+} // anonymous namespace
+
 Genotype::Genotype(
     double reproductionEnergyThreshold,
     double reproductionProbability,
@@ -68,16 +75,31 @@ double Genotype::distance(const Genotype& other) const
 {
   const unsigned int feature_number = 3;
 
-  const double ret_dist = std::abs(_reproductionEnergyThreshold - other._reproductionEnergyThreshold) /
-      (_reproductionEnergyThreshold + other._reproductionEnergyThreshold);
+  const double ret_dist =
+      normalized_distance(_reproductionEnergyThreshold, other._reproductionEnergyThreshold);
 
-  const double rp_dist = std::abs(_reproductionProbability - other._reproductionProbability) /
-      (_reproductionProbability + other._reproductionProbability);
+  const double rp_dist =
+      normalized_distance(_reproductionProbability, other._reproductionProbability);
 
-  const double mut_dist = std::abs(_mutabilityRatio - other._mutabilityRatio) /
-      (_mutabilityRatio + other._mutabilityRatio);
+  const double mut_dist = normalized_distance(_mutabilityRatio, other._mutabilityRatio);
 
-  return 2 * (ret_dist + rp_dist + mut_dist) / feature_number;
+  return (ret_dist + rp_dist + mut_dist) / feature_number;
 }
+
+namespace
+{
+
+double normalized_distance(const double first, const double second)
+{
+  if (first == second)
+  {
+    return 0;
+  }
+
+  // This assumes that both first and second non-negative numbers.
+  return 2 * std::abs(first - second) / (first + second);
+}
+
+} // anonymous namespace
 
 } // namespace fictionalfiesta

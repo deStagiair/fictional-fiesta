@@ -79,6 +79,9 @@ TEST_CASE("Test individual reproduce method", "[IndividualTest][TestReproduce]")
 
     auto offspring = parent.reproduce(rng);
 
+    // Distance between genotypes must be 0.
+    CHECK(parent.getGenotype().distance(offspring.getGenotype()) == 0);
+
     CHECK(!offspring.isDead());
     CHECK(!parent.reproduce(rng).isDead());
     CHECK(!parent.reproduce(rng).isDead());
@@ -92,6 +95,9 @@ TEST_CASE("Test individual reproduce method", "[IndividualTest][TestReproduce]")
     auto parent = Individual{genotype, 30};
 
     auto offspring = parent.reproduce(rng);
+
+    // The distance could be 0, but the probability that that happens is quite small.
+    CHECK(parent.getGenotype().distance(offspring.getGenotype()) != 0);
 
     CHECK(offspring.isDead());
     CHECK(parent.reproduce(rng).isDead());
