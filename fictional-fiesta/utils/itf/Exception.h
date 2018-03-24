@@ -19,11 +19,11 @@ class Exception : public std::exception
 
   public:
 
-    /// Constructor that takes the log message.
+    /// @brief Constructor that takes the log message.
     /// @param logMessage message for logging purposes.
     explicit Exception(const std::string &logMessage);
 
-    /// Gets an string identifying the exception.
+    /// @brief Gets an string identifying the exception.
     /// @return string identifying the exception.
     const char* what() const noexcept override;
 };

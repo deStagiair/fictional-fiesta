@@ -25,14 +25,14 @@ TEST_CASE("Test genotype constructor and getters", "[IndividualTest][TestConstru
     const Individual::Genotype genotype{43, 0.5, 0.66};
     REQUIRE(genotype.getReproductionEnergyThreshold() == 43);
     REQUIRE(genotype.getReproductionProbability() == 0.5);
-    REQUIRE(genotype.getMutability() == 0.66);
+    REQUIRE(genotype.getMutabilityRatio() == 0.66);
   }
 
   {
     const Individual::Genotype genotype{0, 0.001, 0};
     REQUIRE(genotype.getReproductionEnergyThreshold() == 0);
     REQUIRE(genotype.getReproductionProbability() == 0.001);
-    REQUIRE(genotype.getMutability() == 0);
+    REQUIRE(genotype.getMutabilityRatio() == 0);
   }
 }
 
@@ -85,10 +85,10 @@ TEST_CASE("Test genotype reproduce method", "[IndividualTest][TestReproduce]")
 
     const Individual::Genotype mutated{genotype.reproduce(rng)};
 
-    // No changes (mutability == 0).
+    // No changes (mutabilityRatio == 0).
     REQUIRE(mutated.getReproductionEnergyThreshold() == genotype.getReproductionEnergyThreshold());
     REQUIRE(mutated.getReproductionProbability() == genotype.getReproductionProbability());
-    REQUIRE(mutated.getMutability() == genotype.getMutability());
+    REQUIRE(mutated.getMutabilityRatio() == genotype.getMutabilityRatio());
   }
 
   {
@@ -99,21 +99,21 @@ TEST_CASE("Test genotype reproduce method", "[IndividualTest][TestReproduce]")
     const Individual::Genotype mutated{genotype.reproduce(rng)};
 
     // Small variation.
-    REQUIRE(mutated.getReproductionEnergyThreshold() == Approx(9.9450253821));
+    REQUIRE(mutated.getReproductionEnergyThreshold() == Approx(9.450253821));
     REQUIRE(mutated.getReproductionProbability() == Approx(1.1582752292));
-    REQUIRE(mutated.getMutability() == Approx(0.1257593541));
+    REQUIRE(mutated.getMutabilityRatio() == Approx(0.1025759354));
   }
 
   {
     auto rng{FSM::createRng(2)};
 
-    const Individual::Genotype genotype{10, 1, 100};
+    const Individual::Genotype genotype{10, 1, 0.9};
 
     const Individual::Genotype mutated{genotype.reproduce(rng)};
 
     // Big variation.
-    REQUIRE(mutated.getReproductionEnergyThreshold() == Approx(7.7435253709));
-    REQUIRE(mutated.getReproductionProbability() == Approx(-87.748999933));
-    REQUIRE(mutated.getMutability() == Approx(30.6159008114));
+    REQUIRE(mutated.getReproductionEnergyThreshold() == Approx(9.7969172834));
+    REQUIRE(mutated.getReproductionProbability() == Approx(0.2012590006));
+    REQUIRE(mutated.getMutabilityRatio() == Approx(0.3379887966));
   }
 }

@@ -25,10 +25,10 @@ void Individual::Phenotype::feed(unsigned int resourceUnits, const Genotype& gen
 Individual::Genotype::Genotype(
     double reproductionEnergyThreshold,
     double reproductionProbability,
-    double mutability):
+    double mutabilityRatio):
   _reproductionEnergyThreshold(reproductionEnergyThreshold),
   _reproductionProbability(reproductionProbability),
-  _mutability(mutability)
+  _mutabilityRatio(mutabilityRatio)
 {
 }
 
@@ -42,9 +42,9 @@ double Individual::Genotype::getReproductionProbability() const
   return _reproductionProbability;
 }
 
-double Individual::Genotype::getMutability() const
+double Individual::Genotype::getMutabilityRatio() const
 {
-  return _mutability;
+  return _mutabilityRatio;
 }
 
 bool Individual::Genotype::willReproduce(
@@ -61,14 +61,17 @@ bool Individual::Genotype::willReproduce(
 Individual::Genotype Individual::Genotype::reproduce(FSM::Rng& rng) const
 {
   // The genotype features change accordingly to a normal distribution with mean,
-  // the original value and standard deviation, the mutability index.
+  // the original value and standard deviation, the mutability ratio.
   const auto reproduction_energy_threshold =
-      std::normal_distribution(_reproductionEnergyThreshold, _mutability)(rng);
+      std::normal_distribution(_reproductionEnergyThreshold,
+      _mutabilityRatio * _reproductionEnergyThreshold)(rng);
   const auto reproduction_probability =
-      std::normal_distribution(_reproductionProbability, _mutability)(rng);
-  const auto mutability = std::normal_distribution(_mutability, _mutability)(rng);
+      std::normal_distribution(_reproductionProbability,
+      _mutabilityRatio * _reproductionProbability)(rng);
+  const auto mutabilityRatio = std::normal_distribution(_mutabilityRatio,
+      _mutabilityRatio * _mutabilityRatio)(rng);
 
-  return Genotype{reproduction_energy_threshold, reproduction_probability, mutability};
+  return Genotype{reproduction_energy_threshold, reproduction_probability, mutabilityRatio};
 }
 
 bool Individual::Genotype::producedDeadlyMutation() const

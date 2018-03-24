@@ -48,11 +48,11 @@ class Individual
         /// @param reproductionEnergyThreshold Ammount of energy required to be able to reproduce.
         /// @param reproductionProbability Probability of reproducing (once the individual energy
         ///     is above the reproduction threshold.
-        /// @param mutability Ratio in which the individual features change upon reproduction.
+        /// @param mutabilityRatio Ratio in which the individual features change upon reproduction.
         Genotype(
             double reproductionEnergyThreshold,
             double reproductionProbability,
-            double mutability);
+            double mutabilityRatio);
 
         /// @brief Get the reproduction energy threshold.
         /// @return Reproduction energy threshold.
@@ -62,9 +62,9 @@ class Individual
         /// @return Reproduction probability.
         double getReproductionProbability() const;
 
-        /// @brief Get the mutability.
-        /// @return Mutability.
-        double getMutability() const;
+        /// @brief Get the mutability ratio.
+        /// @return Mutability ration.
+        double getMutabilityRatio() const;
 
         /// @brief Determines whether a given individual with the passed phenotype and the current
         ///     genotype will reproduce or not.
@@ -83,7 +83,7 @@ class Individual
         /// @brief Determines whether the current genotype produced a deadly mutation upon
         ///     reproduction or not.
         /// @details The probability of deadly mutations depends on several factors, like for
-        ///     example, the mutability factor or the complexity of the genotype.
+        ///     example, the mutability ratio or the complexity of the genotype.
         /// @return @c true if there was a deadly mutation upon reproduction and @c false
         ///     otherwise.
         bool producedDeadlyMutation() const;
@@ -97,8 +97,8 @@ class Individual
         /// reproduction energy threshold.
         const double _reproductionProbability;
 
-        /// Mutability index that influences how fast the features change upon reproduction.
-        const double _mutability;
+        /// Mutability ratio that influences how fast the features change upon reproduction.
+        const double _mutabilityRatio;
     };
 
     /// @brief Constructor from the genotype and initial energy.
