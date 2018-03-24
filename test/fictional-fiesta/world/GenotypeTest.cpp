@@ -142,3 +142,16 @@ TEST_CASE("Test genotype producedDeadlyMutation method", "[GenotypeTest][TestPro
     CHECK(!genotype.producedDeadlyMutation(rng));
   }
 }
+
+TEST_CASE("Test genotype distance method", "[GenotypeTest][TestDistance]")
+{
+  const Genotype genotype_0{10, 1, 0.5};
+  CHECK(genotype_0.distance(genotype_0) == 0);
+
+  const Genotype genotype_1{1, 1, 0.4};
+  CHECK(genotype_0.distance(genotype_1) == Approx(0.6195286195286195));
+  CHECK(genotype_1.distance(genotype_0) == genotype_0.distance(genotype_1));
+
+  const Genotype genotype_2{9, 1.1, 0.4};
+  CHECK(genotype_0.distance(genotype_2) == Approx(0.14090782511835143));
+}

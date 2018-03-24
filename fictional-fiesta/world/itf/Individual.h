@@ -32,6 +32,8 @@ class Individual
 
     /// @brief The current Individual reproduces producing a new individual.
     /// @note The produced individual could be born dead due to excessive mutations.
+    /// @param rng Random number generator.
+    /// @return Offspring produced.
     Individual reproduce(FSM::Rng& rng);
 
   private:

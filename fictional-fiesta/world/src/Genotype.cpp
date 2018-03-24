@@ -4,6 +4,8 @@
 
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
+#include <iostream>
+
 namespace fictionalfiesta
 {
 
@@ -60,6 +62,22 @@ Genotype Genotype::reproduce(FSM::Rng& rng) const
 bool Genotype::producedDeadlyMutation(FSM::Rng& rng) const
 {
   return std::bernoulli_distribution(_mutabilityRatio)(rng);
+}
+
+double Genotype::distance(const Genotype& other) const
+{
+  const unsigned int feature_number = 3;
+
+  const double ret_dist = std::abs(_reproductionEnergyThreshold - other._reproductionEnergyThreshold) /
+      (_reproductionEnergyThreshold + other._reproductionEnergyThreshold);
+
+  const double rp_dist = std::abs(_reproductionProbability - other._reproductionProbability) /
+      (_reproductionProbability + other._reproductionProbability);
+
+  const double mut_dist = std::abs(_mutabilityRatio - other._mutabilityRatio) /
+      (_mutabilityRatio + other._mutabilityRatio);
+
+  return 2 * (ret_dist + rp_dist + mut_dist) / feature_number;
 }
 
 } // namespace fictionalfiesta

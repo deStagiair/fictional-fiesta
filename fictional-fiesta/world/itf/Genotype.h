@@ -58,6 +58,15 @@ class Genotype
     ///     otherwise.
     bool producedDeadlyMutation(FSM::Rng& rng) const;
 
+    /// @brief Determines the distance between the current Genotype and another one.
+    /// @details The distance between two genotypes is defined by
+    ///   @f[
+    ///       \frac{2}{|G|}\sum_{g\in G}\frac{|A_g-B_g|}{A_g+B_g}
+    ///   @f]
+    /// @param other Genotype with which to compute the distance.
+    /// @return Distance between both genotypes.
+    double distance(const Genotype& other) const;
+
   private:
 
     /// Ammount of energy required to be able to reproduce.
