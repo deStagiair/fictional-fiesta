@@ -28,10 +28,17 @@ class Individual
         double getEnergy() const;
 
         /// @brief Feed the phenotype with a given number of resource units.
-        /// @details The phenotype will change depending on the units feed and the genotype.
+        /// @details The phenotype will change depending on the units fed and the genotype.
         /// @param resourceUnits Unnits fet to the individual.
         /// @param genotype Genotype of the individual.
         void feed(unsigned int resourceUnits, const Genotype& genotype);
+
+        /// @brief Splits the current Phenotype in two parts.
+        /// @details Currently, the splitting is done in two equal parts and without energy loss.
+        /// @todo Use more complex splitting strategies depending on the genotype.
+        /// @param genotype Genotype of the individual.
+        /// @return Phenotype that gets splitted from the current one.
+        Phenotype split(const Genotype& genotype);
 
       private:
 
@@ -84,9 +91,10 @@ class Individual
         ///     reproduction or not.
         /// @details The probability of deadly mutations depends on several factors, like for
         ///     example, the mutability ratio or the complexity of the genotype.
+        /// @param rng Random number generator.
         /// @return @c true if there was a deadly mutation upon reproduction and @c false
         ///     otherwise.
-        bool producedDeadlyMutation() const;
+        bool producedDeadlyMutation(FSM::Rng& rng) const;
 
       private:
 

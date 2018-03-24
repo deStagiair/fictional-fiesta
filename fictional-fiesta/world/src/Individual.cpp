@@ -22,6 +22,12 @@ void Individual::Phenotype::feed(unsigned int resourceUnits, const Genotype& gen
   _energy += resourceUnits;
 }
 
+Individual::Phenotype Individual::Phenotype::split(const Genotype& genotype)
+{
+  _energy *= 0.5;
+  return Phenotype{_energy};
+}
+
 Individual::Genotype::Genotype(
     double reproductionEnergyThreshold,
     double reproductionProbability,
@@ -74,10 +80,9 @@ Individual::Genotype Individual::Genotype::reproduce(FSM::Rng& rng) const
   return Genotype{reproduction_energy_threshold, reproduction_probability, mutabilityRatio};
 }
 
-bool Individual::Genotype::producedDeadlyMutation() const
+bool Individual::Genotype::producedDeadlyMutation(FSM::Rng& rng) const
 {
-  // Temporarily, we avoid the random draw.
-  return false;
+  return std::bernoulli_distribution(_mutabilityRatio)(rng);
 }
 
 Individual::Individual(const Genotype& genotype, double initialEnergy):
