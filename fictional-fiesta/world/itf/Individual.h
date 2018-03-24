@@ -114,6 +114,11 @@ class Individual
     /// @param initialEnergy Inital energy of the new individual.
     Individual(const Genotype& genotype, double initialEnergy);
 
+    /// @brief Determines if the individual will reproduce in this cycle or not.
+    /// @param rng Random number generator.
+    /// @return @c true if the individual is going to reproduce and @c false if not.
+    bool willReproduce(FSM::Rng &rng) const;
+
   private:
 
     /// Genotype of the individual (inherited features).
@@ -121,6 +126,7 @@ class Individual
 
     /// Phenotype of the individual (expression of the genotype).
     Phenotype _phenotype;
+
 };
 
 } // namespace fictionalfiesta

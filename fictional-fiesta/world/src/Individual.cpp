@@ -91,4 +91,9 @@ Individual::Individual(const Genotype& genotype, double initialEnergy):
 {
 }
 
+bool Individual::willReproduce(FSM::Rng &rng) const
+{
+  return _genotype.willReproduce(_phenotype, rng);
+}
+
 } // namespace fictionalfiesta
