@@ -25,10 +25,10 @@ void Individual::Phenotype::feed(unsigned int resourceUnits, const Genotype& gen
 Individual::Genotype::Genotype(
     double reproductionEnergyThreshold,
     double reproductionProbability,
-    double mutabilityRatio):
+    double mutability):
   _reproductionEnergyThreshold(reproductionEnergyThreshold),
   _reproductionProbability(reproductionProbability),
-  _mutabilityRatio(mutabilityRatio)
+  _mutability(mutability)
 {
 }
 
@@ -42,9 +42,9 @@ double Individual::Genotype::getReproductionProbability() const
   return _reproductionProbability;
 }
 
-double Individual::Genotype::getMutabilityRatio() const
+double Individual::Genotype::getMutability() const
 {
-  return _mutabilityRatio;
+  return _mutability;
 }
 
 bool Individual::Genotype::willReproduce(
@@ -58,10 +58,17 @@ bool Individual::Genotype::willReproduce(
   return false;
 }
 
-Individual::Genotype Individual::Genotype::reproduce() const
+Individual::Genotype Individual::Genotype::reproduce(FSM::Rng& rng) const
 {
-  // Temporarily, we avoid the random draw.
-  return *this;
+  // The genotype features change accordingly to a normal distribution with mean,
+  // the original value and standard deviation, the mutability index.
+  const auto reproduction_energy_threshold =
+      std::normal_distribution(_reproductionEnergyThreshold, _mutability)(rng);
+  const auto reproduction_probability =
+      std::normal_distribution(_reproductionProbability, _mutability)(rng);
+  const auto mutability = std::normal_distribution(_mutability, _mutability)(rng);
+
+  return Genotype{reproduction_energy_threshold, reproduction_probability, mutability};
 }
 
 bool Individual::Genotype::producedDeadlyMutation() const

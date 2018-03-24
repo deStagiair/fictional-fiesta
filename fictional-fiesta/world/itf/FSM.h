@@ -6,7 +6,7 @@
 namespace fictionalfiesta
 {
 
-/// @brief @e He who created all that we see and all that we feel.
+/// @brief @e He @e who @e created @e all @e that @e we @e see @e and @e all @e that @e we @e feel.
 /// @details No, seriously, a static class that abstracts the random number generator used and
 ///   can create new generators (noodly appendages) with or without seed.
 class FSM

@@ -48,11 +48,11 @@ class Individual
         /// @param reproductionEnergyThreshold Ammount of energy required to be able to reproduce.
         /// @param reproductionProbability Probability of reproducing (once the individual energy
         ///     is above the reproduction threshold.
-        /// @param mutabilityRatio Ratio in which the individual features change upon reproduction.
+        /// @param mutability Ratio in which the individual features change upon reproduction.
         Genotype(
             double reproductionEnergyThreshold,
             double reproductionProbability,
-            double mutabilityRatio);
+            double mutability);
 
         /// @brief Get the reproduction energy threshold.
         /// @return Reproduction energy threshold.
@@ -62,9 +62,9 @@ class Individual
         /// @return Reproduction probability.
         double getReproductionProbability() const;
 
-        /// @brief Get the mutability ratio.
-        /// @return Mutability ratio.
-        double getMutabilityRatio() const;
+        /// @brief Get the mutability.
+        /// @return Mutability.
+        double getMutability() const;
 
         /// @brief Determines whether a given individual with the passed phenotype and the current
         ///     genotype will reproduce or not.
@@ -76,8 +76,9 @@ class Individual
         bool willReproduce(const Phenotype& phenotype, FSM::Rng &rng) const;
 
         /// @brief Obtains a new (mutated) genotype from the current one.
+        /// @param rng Random number generator.
         /// @return New mutated genotype.
-        Genotype reproduce() const;
+        Genotype reproduce(FSM::Rng& rng) const;
 
         /// @brief Determines whether the current genotype produced a deadly mutation upon
         ///     reproduction or not.
@@ -96,8 +97,8 @@ class Individual
         /// reproduction energy threshold.
         const double _reproductionProbability;
 
-        /// Ratio in which the individual features change upon reproduction.
-        const double _mutabilityRatio;
+        /// Mutability index that influences how fast the features change upon reproduction.
+        const double _mutability;
     };
 
     /// @brief Constructor from the genotype and initial energy.
