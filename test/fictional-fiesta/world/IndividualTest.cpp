@@ -19,9 +19,9 @@ TEST_CASE("Test individual willReproduce method", "[IndividualTest][TestWillRepr
     const auto individual = Individual{genotype, 0};
 
     // Energy lower than the reproduction threshold (should be always false).
-    REQUIRE(!individual.willReproduce(rng));
-    REQUIRE(!individual.willReproduce(rng));
-    REQUIRE(!individual.willReproduce(rng));
+    CHECK(!individual.willReproduce(rng));
+    CHECK(!individual.willReproduce(rng));
+    CHECK(!individual.willReproduce(rng));
   }
 
   {
@@ -33,10 +33,10 @@ TEST_CASE("Test individual willReproduce method", "[IndividualTest][TestWillRepr
 
     // Energy greater or equal than the reproduction threshold and probability 1
     // (should be always true).
-    REQUIRE(individual.willReproduce(rng));
-    REQUIRE(individual.willReproduce(rng));
-    REQUIRE(individual.willReproduce(rng));
-    REQUIRE(individual.willReproduce(rng));
+    CHECK(individual.willReproduce(rng));
+    CHECK(individual.willReproduce(rng));
+    CHECK(individual.willReproduce(rng));
+    CHECK(individual.willReproduce(rng));
   }
 
   {
@@ -48,9 +48,21 @@ TEST_CASE("Test individual willReproduce method", "[IndividualTest][TestWillRepr
 
     // Energy greater or equal than the reproduction threshold and probability 0.5
     // (some true, some false).
-    REQUIRE(individual.willReproduce(rng));
-    REQUIRE(!individual.willReproduce(rng));
-    REQUIRE(!individual.willReproduce(rng));
-    REQUIRE(individual.willReproduce(rng));
+    CHECK(individual.willReproduce(rng));
+    CHECK(!individual.willReproduce(rng));
+    CHECK(!individual.willReproduce(rng));
+    CHECK(individual.willReproduce(rng));
   }
+}
+
+TEST_CASE("Test individual die and isDead methods", "[IndividualTest][TestDie]")
+{
+  const Genotype genotype{10, 0.5, 0.1};
+
+  // An individual is not dead until it dies.
+  auto dude = Individual{genotype, 0.3};
+  REQUIRE(!dude.isDead());
+
+  dude.die();
+  REQUIRE(dude.isDead());
 }

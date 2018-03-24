@@ -16,4 +16,14 @@ bool Individual::willReproduce(FSM::Rng &rng) const
   return _genotype.willReproduce(_phenotype, rng);
 }
 
+void Individual::die() noexcept
+{
+  _isDead = true;
+}
+
+bool Individual::isDead() const noexcept
+{
+  return _isDead;
+}
+
 } // namespace fictionalfiesta

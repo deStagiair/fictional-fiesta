@@ -23,6 +23,13 @@ class Individual
     /// @return @c true if the individual is going to reproduce and @c false if not.
     bool willReproduce(FSM::Rng &rng) const;
 
+    /// @brief Kills the current individual.
+    void die() noexcept;
+
+    /// @brief Checks whether the current individual is dead or not.
+    /// @return @e true if the current individual is dead and @e false if not.
+    bool isDead() const noexcept;
+
   private:
 
     /// Genotype of the individual (inherited features).
@@ -31,6 +38,8 @@ class Individual
     /// Phenotype of the individual (expression of the genotype).
     Phenotype _phenotype;
 
+    /// Flag indicating if the individual is dead.
+    bool _isDead = false;
 };
 
 } // namespace fictionalfiesta
