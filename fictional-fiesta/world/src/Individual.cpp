@@ -26,4 +26,17 @@ bool Individual::isDead() const noexcept
   return _isDead;
 }
 
+Individual Individual::reproduce(FSM::Rng& rng)
+{
+  const auto& new_genotype = _genotype.reproduce(rng);
+  const auto& new_phenotype = _phenotype.split(_genotype);
+
+  auto offspring = Individual(new_genotype, new_phenotype.getEnergy());
+  if (_genotype.producedDeadlyMutation(rng))
+  {
+    offspring.die();
+  }
+  return offspring;
+}
+
 } // namespace fictionalfiesta

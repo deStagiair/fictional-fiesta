@@ -66,3 +66,35 @@ TEST_CASE("Test individual die and isDead methods", "[IndividualTest][TestDie]")
   dude.die();
   REQUIRE(dude.isDead());
 }
+
+TEST_CASE("Test individual reproduce method", "[IndividualTest][TestReproduce]")
+{
+  {
+    auto rng{FSM::createRng(0)};
+
+    // Mutability = 0: no change and always alive offspring.
+    const Genotype genotype{10, 0.5, 0};
+
+    auto parent = Individual{genotype, 30};
+
+    auto offspring = parent.reproduce(rng);
+
+    CHECK(!offspring.isDead());
+    CHECK(!parent.reproduce(rng).isDead());
+    CHECK(!parent.reproduce(rng).isDead());
+  }
+  {
+    auto rng{FSM::createRng(1)};
+
+    // Mutability = 1: change and always dead offspring.
+    const Genotype genotype{10, 0.5, 1};
+
+    auto parent = Individual{genotype, 30};
+
+    auto offspring = parent.reproduce(rng);
+
+    CHECK(offspring.isDead());
+    CHECK(parent.reproduce(rng).isDead());
+    CHECK(parent.reproduce(rng).isDead());
+  }
+}

@@ -30,6 +30,10 @@ class Individual
     /// @return @e true if the current individual is dead and @e false if not.
     bool isDead() const noexcept;
 
+    /// @brief The current Individual reproduces producing a new individual.
+    /// @note The produced individual could be born dead due to excessive mutations.
+    Individual reproduce(FSM::Rng& rng);
+
   private:
 
     /// Genotype of the individual (inherited features).
