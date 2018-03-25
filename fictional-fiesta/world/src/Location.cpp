@@ -2,6 +2,8 @@
 
 #include "fictional-fiesta/world/itf/Location.h"
 
+
+#include "fictional-fiesta/world/itf/Individual.h"
 #include "fictional-fiesta/world/itf/Source.h"
 #include "fictional-fiesta/world/itf/SourceFactory.h"
 
@@ -26,6 +28,11 @@ void Location::save(XmlNode node) const
   {
     source->save(node.appendChildNode(Source::XML_MAIN_NODE_NAME));
   }
+}
+
+const std::vector<Individual>& Location::getIndividuals() const
+{
+  return _individuals;
 }
 
 } // namespace fictionalfiesta

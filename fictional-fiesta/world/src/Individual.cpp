@@ -18,7 +18,7 @@ const Genotype& Individual::getGenotype() const
 
 bool Individual::willReproduce(FSM::Rng &rng) const
 {
-  return _genotype.willReproduce(_phenotype, rng);
+  return !isDead() && _genotype.willReproduce(_phenotype, rng);
 }
 
 void Individual::die() noexcept

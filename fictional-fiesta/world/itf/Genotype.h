@@ -32,7 +32,7 @@ class Genotype
     double getReproductionProbability() const;
 
     /// @brief Get the mutability ratio.
-    /// @return Mutability ration.
+    /// @return Mutability ratio.
     double getMutabilityRatio() const;
 
     /// @brief Determines whether a given individual with the passed phenotype and the current
@@ -59,10 +59,11 @@ class Genotype
     bool producedDeadlyMutation(FSM::Rng& rng) const;
 
     /// @brief Determines the distance between the current Genotype and another one.
-    /// @details The distance between two genotypes is defined by
+    /// @details The distance between two genotypes @e A and @e B is defined by
     ///   @f[
     ///       \frac{2}{|G|}\sum_{g\in G}\frac{|A_g-B_g|}{A_g+B_g}
     ///   @f]
+    ///     where @e G is the set of features in a Genotype.
     /// @param other Genotype with which to compute the distance.
     /// @return Distance between both genotypes.
     double distance(const Genotype& other) const;

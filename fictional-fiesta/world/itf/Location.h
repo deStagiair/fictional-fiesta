@@ -7,6 +7,7 @@
 namespace fictionalfiesta
 {
 
+class Individual;
 class Source;
 class XmlNode;
 
@@ -28,9 +29,14 @@ class Location
     /// @param node node where the Source instance will be saved.
     void save(XmlNode node) const;
 
+    /// @brief Get the individuals in this location.
+    /// @return individuals in this location.
+    const std::vector<Individual>& getIndividuals() const;
+
   private:
 
     std::vector<std::unique_ptr<Source>> _sources;
+    std::vector<Individual> _individuals;
 };
 
 } // namespace fictionalfiesta
