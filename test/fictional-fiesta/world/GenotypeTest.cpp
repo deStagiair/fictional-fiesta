@@ -4,8 +4,17 @@
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
 #include "fictional-fiesta/utils/itf/Exception.h"
+#include "fictional-fiesta/utils/itf/XmlDocument.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
+
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 
 using namespace fictionalfiesta;
+
+static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("fictional-fiesta/world/input");
 
 // Important note: Some of these tests force the seed of the RNG to allow testability.
 // Changing the RNG or the order of the statements will probably cause this test to fail.
@@ -21,10 +30,21 @@ TEST_CASE("Test genotype constructor and getters", "[GenotypeTest][TestGenotypeC
 
   {
     const Genotype genotype{0, 0.001, 0};
-    REQUIRE(genotype.getReproductionEnergyThreshold() == 0);
-    REQUIRE(genotype.getReproductionProbability() == 0.001);
-    REQUIRE(genotype.getMutabilityRatio() == 0);
+    CHECK(genotype.getReproductionEnergyThreshold() == 0);
+    CHECK(genotype.getReproductionProbability() == 0.001);
+    CHECK(genotype.getMutabilityRatio() == 0);
   }
+}
+
+TEST_CASE("Test genotype constructor from XML", "[GenotypeTest][TestGenotypeConstructorFromXml]")
+{
+  const auto& input_file = input_directory / fs::path("genotype_0.xml");
+  const auto& document = XmlDocument{input_file};
+
+  const auto& genotype = Genotype{document.getRootNode()};
+  CHECK(genotype.getReproductionEnergyThreshold() == 0.33);
+  CHECK(genotype.getReproductionProbability() == 0.5);
+  CHECK(genotype.getMutabilityRatio() == 0.1);
 }
 
 TEST_CASE("Test genotype willReproduce method", "[GenotypeTest][TestWillReproduce]")

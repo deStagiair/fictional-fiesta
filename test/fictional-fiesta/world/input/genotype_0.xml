@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Genotype>
+  <ReproductionEnergyThreshold>0.33</ReproductionEnergyThreshold>
+  <ReproductionProbability>0.5</ReproductionProbability>
+  <MutabilityRatio>0.1</MutabilityRatio>
+</Genotype>

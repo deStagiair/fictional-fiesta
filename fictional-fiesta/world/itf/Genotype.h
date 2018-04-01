@@ -7,6 +7,7 @@ namespace fictionalfiesta
 {
 
 class Phenotype;
+class XmlNode;
 
 /// @brief Class that represents the set of features that are inherited by individuals.
 class Genotype
@@ -22,6 +23,10 @@ class Genotype
         double reproductionEnergyThreshold,
         double reproductionProbability,
         double mutabilityRatio);
+
+    /// @brief Construction from an XmlNode.
+    /// @param node XML node from which the genotype will be loaded.
+    Genotype(const XmlNode& node);
 
     /// @brief Get the reproduction energy threshold.
     /// @return Reproduction energy threshold.

@@ -4,6 +4,8 @@
 
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
+#include "fictional-fiesta/utils/itf/XmlNode.h"
+
 #include <iostream>
 
 namespace fictionalfiesta
@@ -14,6 +16,10 @@ namespace
 
 double normalized_distance(const double first, const double second);
 
+constexpr char XML_REPRODUCTION_ENERGY_THRESHOLD_NAME[]{"ReproductionEnergyThreshold"};
+constexpr char XML_REPRODUCTION_PROBABILITY_NAME[]{"ReproductionProbability"};
+constexpr char XML_MUTABILITY_RATIO_NAME[]{"MutabilityRatio"};
+
 } // anonymous namespace
 
 Genotype::Genotype(
@@ -23,6 +29,14 @@ Genotype::Genotype(
   _reproductionEnergyThreshold(reproductionEnergyThreshold),
   _reproductionProbability(reproductionProbability),
   _mutabilityRatio(mutabilityRatio)
+{
+}
+
+Genotype::Genotype(const XmlNode& node):
+  _reproductionEnergyThreshold(
+      node.getChildNodeTextAs<double>(XML_REPRODUCTION_ENERGY_THRESHOLD_NAME)),
+  _reproductionProbability(node.getChildNodeTextAs<double>(XML_REPRODUCTION_PROBABILITY_NAME)),
+  _mutabilityRatio(node.getChildNodeTextAs<double>(XML_MUTABILITY_RATIO_NAME))
 {
 }
 
