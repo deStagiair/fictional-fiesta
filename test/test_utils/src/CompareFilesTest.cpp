@@ -18,19 +18,19 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
     / fs::path("test_utils/result");
 
-TEST_CASE("Test comparing the same file twice (pass)", "[CompareFilesTest][TestFilesAreEqual]")
+TEST_CASE("Test comparing the same file twice", "[CompareFilesTest][TestFilesAreEqual]")
 {
   const fs::path input_file = input_directory / fs::path("example_0.xml");
   REQUIRE(filesAreEqual(input_file, input_file));
 }
 
-TEST_CASE("Test comparing with unexisting files (throws)", "[CompareFilesTest][TestFilesAreEqual]")
+TEST_CASE("Test comparing with unexisting files returns false", "[CompareFilesTest][TestUnexistingFilesAreEqual]")
 {
   const fs::path input_file_0 = input_directory / fs::path("example_0.xml");
   const fs::path input_file_1 = input_directory / fs::path("no_example_0.xml");
-  REQUIRE_THROWS(filesAreEqual(input_file_0, input_file_1));
-  REQUIRE_THROWS(filesAreEqual(input_file_1, input_file_0));
-  REQUIRE_THROWS(filesAreEqual(input_file_1, input_file_1));
+  CHECK(!filesAreEqual(input_file_0, input_file_1));
+  CHECK(!filesAreEqual(input_file_1, input_file_0));
+  CHECK(!filesAreEqual(input_file_1, input_file_1));
 }
 
 TEST_CASE("Test comparing two empty files (pass)", "[CompareFilesTest][TestFilesAreEqual]")

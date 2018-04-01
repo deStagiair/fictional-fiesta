@@ -13,14 +13,20 @@ namespace testutils
 
 bool filesAreEqual(const fs::path& firstFile, const fs::path& secondFile)
 {
-  // If both paths resolve to the same element, the contents are equal.
-  if (fs::equivalent(firstFile, secondFile))
+  try
   {
-    return true;
+    // If both paths resolve to the same element, the contents are equal.
+    if (fs::equivalent(firstFile, secondFile))
+    {
+      return true;
+    }
+    // If each file has a different size, the files are different.
+    if (fs::file_size(firstFile) != fs::file_size(secondFile))
+    {
+      return false;
+    }
   }
-
-  // If each file has a different size, the files are different.
-  if (fs::file_size(firstFile) != fs::file_size(secondFile))
+  catch(fs::filesystem_error&)
   {
     return false;
   }
