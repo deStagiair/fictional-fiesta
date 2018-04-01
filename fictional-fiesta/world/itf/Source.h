@@ -33,7 +33,11 @@ class Source
 
     /// @brief Get the number of units of resource available.
     /// @return Current number of units of the resource.
-    const unsigned int getCurrentUnitCount() const;
+    const unsigned int getCurrentUnitCount() const noexcept;
+
+    /// @brief Check whether the source is empty or not.
+    /// @return @e true if the source is empty (no more units), @e false otherwise
+    bool empty() const noexcept;
 
     /// @brief Consume a given number of units of the resource.
     /// It is not possible to consume more units than available.

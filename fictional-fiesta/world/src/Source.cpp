@@ -32,9 +32,14 @@ const std::string& Source::getResourceId() const
   return _resourceId;
 }
 
-const unsigned int Source::getCurrentUnitCount() const
+const unsigned int Source::getCurrentUnitCount() const noexcept
 {
   return _currentUnitCount;
+}
+
+bool Source::empty() const noexcept
+{
+  return _currentUnitCount == 0;
 }
 
 unsigned int Source::consume(const unsigned int requiredUnits)
