@@ -2,6 +2,7 @@
 <Location>
   <Source Type="Constant">
     <Resource>Water</Resource>
+    <CurrentUnits>10</CurrentUnits>
     <FixedUnits>100</FixedUnits>
   </Source>
   <Source Type="Constant">
