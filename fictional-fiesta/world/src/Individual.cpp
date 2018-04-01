@@ -16,6 +16,11 @@ const Genotype& Individual::getGenotype() const
   return _genotype;
 }
 
+const Phenotype& Individual::getPhenotype() const
+{
+  return _phenotype;
+}
+
 bool Individual::willReproduce(FSM::Rng &rng) const
 {
   return !isDead() && _genotype.willReproduce(_phenotype, rng);
@@ -29,6 +34,16 @@ void Individual::die() noexcept
 bool Individual::isDead() const noexcept
 {
   return _isDead;
+}
+
+bool Individual::isHungry() const
+{
+  // Temporary implementation, it should be influenced by the genotype and the phenotype.
+  return true;
+}
+
+void Individual::feed(unsigned int units) const
+{
 }
 
 Individual Individual::reproduce(FSM::Rng& rng)

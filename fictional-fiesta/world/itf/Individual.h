@@ -22,6 +22,10 @@ class Individual
     /// @return Genotype of this individual.
     const Genotype& getGenotype() const;
 
+    /// @brief Gets the current individual's phenotype.
+    /// @return Phenotype of this individual.
+    const Phenotype& getPhenotype() const;
+
     /// @brief Determines if the individual will reproduce in this cycle or not.
     /// @param rng Random number generator.
     /// @return @c true if the individual is going to reproduce and @c false if not.
@@ -33,6 +37,14 @@ class Individual
     /// @brief Checks whether the current individual is dead or not.
     /// @return @e true if the current individual is dead and @e false if not.
     bool isDead() const noexcept;
+
+    /// @brief Checks whether the current individual is hungry or not.
+    /// @return @e true if the current individual is hungy and @e false otherwise.
+    bool isHungry() const;
+
+    /// @brief The individual consumes @p units of resource.
+    /// @param units Number of resource units of resource consumed.
+    void feed(unsigned int units) const;
 
     /// @brief The current Individual reproduces producing a new individual.
     /// @note The produced individual could be born dead due to excessive mutations.
