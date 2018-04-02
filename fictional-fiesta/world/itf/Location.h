@@ -30,12 +30,8 @@ class Location
     Location(const XmlNode& node);
 
     /// @brief Save this Location instance in a XmlNode.
-    /// @param node node where the Source instance will be saved.
+    /// @param node Node where the Source instance will be saved.
     void save(XmlNode& node) const;
-
-    /// @brief Get the individuals in this location.
-    /// @return individuals in this location.
-    const std::vector<Individual>& getIndividuals() const;
 
     /// @brief Splits resources between individuals.
     void splitResources(FSM::Rng& rng);
@@ -48,6 +44,10 @@ class Location
     /// @brief Add a new individual to the location.
     /// @param individual Individual to be added to the location.
     void addIndividual(const Individual& individual);
+
+    /// @brief Gets the individuals currently in the Location.
+    /// @return Individuals that are currently in this Location.
+    const std::vector<Individual>& getIndividuals() const;
 
   private:
 

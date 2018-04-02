@@ -34,11 +34,6 @@ void Location::save(XmlNode& node) const
   }
 }
 
-const std::vector<Individual>& Location::getIndividuals() const
-{
-  return _individuals;
-}
-
 static unsigned int draw_resource_unit(
     const std::vector<double>& weights,
     FSM::Rng& rng)
@@ -102,6 +97,11 @@ void Location::addSource(std::unique_ptr<Source>&& source)
 void Location::addIndividual(const Individual& individual)
 {
   _individuals.push_back(individual);
+}
+
+const std::vector<Individual>& Location::getIndividuals() const
+{
+  return _individuals;
 }
 
 } // namespace fictionalfiesta

@@ -73,5 +73,16 @@ TEST_CASE("Test splitting resources", "[LocationTest][TestSplitResources]")
   location.addIndividual(Individual{genotype, 10.0});
   location.addIndividual(Individual{genotype, 10.0});
   location.addIndividual(Individual{genotype, 1.0});
+
   location.splitResources(rng);
+
+  const auto& individuals = location.getIndividuals();
+
+  REQUIRE(individuals.size() == 5);
+
+  CHECK(individuals[0].getResourceCount() == 8);
+  CHECK(individuals[1].getResourceCount() == 1);
+  CHECK(individuals[2].getResourceCount() == 1);
+  CHECK(individuals[3].getResourceCount() == 2);
+  CHECK(individuals[4].getResourceCount() == 1);
 }
