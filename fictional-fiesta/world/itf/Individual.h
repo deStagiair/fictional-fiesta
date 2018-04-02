@@ -44,7 +44,11 @@ class Individual
 
     /// @brief The individual consumes @p units of resource.
     /// @param units Number of resource units of resource consumed.
-    void feed(unsigned int units) const;
+    void feed(unsigned int units);
+
+    /// @brief Gets the number of resource units accumulated.
+    /// @return Number of units of resource accumulated.
+    unsigned int getResourceCount() const;
 
     /// @brief The current Individual reproduces producing a new individual.
     /// @note The produced individual could be born dead due to excessive mutations.
@@ -62,6 +66,9 @@ class Individual
 
     /// Flag indicating if the individual is dead.
     bool _isDead = false;
+
+    /// Resource units accumulated.
+    unsigned int _resourceCount;
 };
 
 } // namespace fictionalfiesta

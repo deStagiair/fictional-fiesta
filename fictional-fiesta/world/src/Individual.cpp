@@ -42,8 +42,14 @@ bool Individual::isHungry() const
   return true;
 }
 
-void Individual::feed(unsigned int units) const
+void Individual::feed(unsigned int units)
 {
+  _resourceCount += units;
+}
+
+unsigned int Individual::getResourceCount() const
+{
+  return _resourceCount;
 }
 
 Individual Individual::reproduce(FSM::Rng& rng)
