@@ -104,3 +104,39 @@ TEST_CASE("Test individual reproduce method", "[IndividualTest][TestReproduce]")
     CHECK(parent.reproduce(rng).isDead());
   }
 }
+
+TEST_CASE("Test individual maintenance", "[IndividualTest][TestPerformMaintenanace]")
+{
+  {
+    auto rng{FSM::createRng(0)};
+
+    // Mutability = 0: no change and always alive offspring.
+    const Genotype genotype{10, 0.5, 0};
+
+    auto dude = Individual{genotype, 10};
+
+    dude.feed(20);
+
+    CHECK(dude.getResourceCount() == 20);
+
+    dude.performMaintenance(rng);
+
+    CHECK(dude.getResourceCount() == 0);
+    CHECK(dude.getPhenotype().getEnergy() == 25);
+
+    // Not enough resources. The dude could die (improbable in this case) but it won't grow.
+    dude.feed(12);
+    dude.performMaintenance(rng);
+
+    CHECK(dude.getResourceCount() == 0);
+    CHECK(dude.getPhenotype().getEnergy() == 25);
+
+    // No resources. The dude will die.
+    REQUIRE(!dude.isDead());
+    dude.performMaintenance(rng);
+
+    CHECK(dude.getResourceCount() == 0);
+    CHECK(dude.getPhenotype().getEnergy() == 25);
+    CHECK(dude.isDead());
+  }
+}

@@ -65,4 +65,30 @@ Individual Individual::reproduce(FSM::Rng& rng)
   return offspring;
 }
 
+void Individual::performMaintenance(FSM::Rng& rng)
+{
+  // An individual uses at least half its energy in resources just to survive.
+  const auto maintenance_cost = _phenotype.getEnergy() / 2;
+
+  // If there are not enough units, the individual might die out of starvation.
+  if (_resourceCount < maintenance_cost)
+  {
+    const auto starvation_probability = 1.0 - (_resourceCount / maintenance_cost);
+    if (std::bernoulli_distribution(starvation_probability)(rng))
+    {
+      die();
+    }
+    _resourceCount = 0;
+  }
+  else
+  {
+    // The units of resource are always consumed as integers.
+    _resourceCount -= maintenance_cost;
+
+    // TODO: Currently the individual consumes all the resources.
+    _phenotype.feed(_resourceCount, _genotype);
+    _resourceCount = 0;
+  }
+}
+
 } // namespace fictionalfiesta

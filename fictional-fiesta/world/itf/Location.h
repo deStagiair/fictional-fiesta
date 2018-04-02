@@ -34,6 +34,7 @@ class Location
     void save(XmlNode& node) const;
 
     /// @brief Splits resources between individuals.
+    /// @param rng Random number generator.
     void splitResources(FSM::Rng& rng);
 
     /// @brief Add a new source to the location.

@@ -56,6 +56,12 @@ class Individual
     /// @return Offspring produced.
     Individual reproduce(FSM::Rng& rng);
 
+    /// @brief Performs the maintenance phase.
+    /// @details During the maintenance phase, the resources can be (partially) consumed to
+    ///   simulate the energy spent in the individual's biologic functions.
+    /// @param rng Random number generator.
+    void performMaintenance(FSM::Rng& rng);
+
   private:
 
     /// Genotype of the individual (inherited features).
@@ -68,7 +74,7 @@ class Individual
     bool _isDead = false;
 
     /// Resource units accumulated.
-    unsigned int _resourceCount;
+    unsigned int _resourceCount = 0;
 };
 
 } // namespace fictionalfiesta
