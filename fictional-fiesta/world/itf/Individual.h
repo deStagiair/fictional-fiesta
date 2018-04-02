@@ -32,7 +32,8 @@ class Individual
     bool willReproduce(FSM::Rng &rng) const;
 
     /// @brief Kills the current individual.
-    void die() noexcept;
+    /// @return Current Individual.
+    Individual& die() noexcept;
 
     /// @brief Checks whether the current individual is dead or not.
     /// @return @e true if the current individual is dead and @e false if not.
@@ -65,7 +66,7 @@ class Individual
   private:
 
     /// Genotype of the individual (inherited features).
-    const Genotype _genotype;
+    Genotype _genotype;
 
     /// Phenotype of the individual (expression of the genotype).
     Phenotype _phenotype;

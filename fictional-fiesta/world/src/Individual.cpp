@@ -26,9 +26,10 @@ bool Individual::willReproduce(FSM::Rng &rng) const
   return !isDead() && _genotype.willReproduce(_phenotype, rng);
 }
 
-void Individual::die() noexcept
+Individual& Individual::die() noexcept
 {
   _isDead = true;
+  return *this;
 }
 
 bool Individual::isDead() const noexcept
