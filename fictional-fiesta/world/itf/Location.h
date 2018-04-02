@@ -50,6 +50,25 @@ class Location
     /// @return Individuals that are currently in this Location.
     const std::vector<Individual>& getIndividuals() const;
 
+    /// @brief Performs the actions of the resource phase.
+    /// @details The resource phase includes spliting resources between individuals and
+    ///    also the resource regeneration for the next cycle.
+    /// @param rng Random number generator.
+    void resourcePhase(FSM::Rng& rng);
+
+    /// @brief Performs the actions of the individual's maintenance phase.
+    /// @details The maintenance phase includes the use of energy by the individuals in maintenance
+    ///    and growth.
+    /// @param rng Random number generator.
+    void individualsMaintenance(FSM::Rng& rng);
+
+    /// @brief Performs the actions of the individual's reproduction phase.
+    /// @param rng Random number generator.
+    void reproductionPhase(FSM::Rng& rng);
+
+    /// @brief Removes the dead individuals from the individuals list.
+    void cleanDeadIndividuals();
+
   private:
 
     std::vector<std::unique_ptr<Source>> _sources;

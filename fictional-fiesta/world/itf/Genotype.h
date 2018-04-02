@@ -76,14 +76,14 @@ class Genotype
   private:
 
     /// Ammount of energy required to be able to reproduce.
-    const double _reproductionEnergyThreshold;
+    double _reproductionEnergyThreshold;
 
     /// Probability of reproducing (when the individual is above the
     /// reproduction energy threshold.
-    const double _reproductionProbability;
+    double _reproductionProbability;
 
     /// Mutability ratio that influences how fast the features change upon reproduction.
-    const double _mutabilityRatio;
+    double _mutabilityRatio;
 };
 
 } // namespace fictionalfiesta

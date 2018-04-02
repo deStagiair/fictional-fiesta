@@ -86,3 +86,35 @@ TEST_CASE("Test splitting resources", "[LocationTest][TestSplitResources]")
   CHECK(individuals[3].getResourceCount() == 2);
   CHECK(individuals[4].getResourceCount() == 1);
 }
+
+TEST_CASE("Test removing dead individuals", "[LocationTest][TestCleanDeadIndividuals]")
+{
+  Location location;
+
+  CHECK(location.getIndividuals().size() == 0);
+
+  const Genotype genotype{10, 0.5, 0.5};
+
+  location.addIndividual(Individual{genotype, 1}.die());
+  location.addIndividual(Individual{genotype, 1}.die());
+
+  CHECK(location.getIndividuals().size() == 2);
+
+  location.cleanDeadIndividuals();
+
+  CHECK(location.getIndividuals().size() == 0);
+
+  location.addIndividual(Individual{genotype, 1}.die());
+  location.addIndividual(Individual{genotype, 60.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 1.0});
+  location.addIndividual(Individual{genotype, 1}.die());
+  location.addIndividual(Individual{genotype, 1}.die());
+
+  CHECK(location.getIndividuals().size() == 6);
+
+  location.cleanDeadIndividuals();
+
+  CHECK(location.getIndividuals().size() == 4);
+}

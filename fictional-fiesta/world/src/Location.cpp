@@ -10,6 +10,8 @@
 #include "fictional-fiesta/utils/itf/Exception.h"
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 
+#include <algorithm>
+
 namespace fictionalfiesta
 {
 
@@ -102,6 +104,13 @@ void Location::addIndividual(const Individual& individual)
 const std::vector<Individual>& Location::getIndividuals() const
 {
   return _individuals;
+}
+
+void Location::cleanDeadIndividuals()
+{
+  _individuals.erase(
+      std::remove_if(_individuals.begin(), _individuals.end(),
+      [](const auto& o) { return o.isDead(); }), _individuals.end());
 }
 
 } // namespace fictionalfiesta
