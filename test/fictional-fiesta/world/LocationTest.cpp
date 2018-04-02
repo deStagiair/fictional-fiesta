@@ -64,6 +64,9 @@ TEST_CASE("Test splitting resources", "[LocationTest][TestSplitResources]")
 {
   auto rng = FSM::createRng(1);
   Location location;
+  location.addSource(std::make_unique<ConstantSource>("Light", 10));
+  location.addSource(std::make_unique<ConstantSource>("Water", 3));
+
   const Genotype genotype{10, 0.5, 0.5};
   location.addIndividual(Individual{genotype, 60.0});
   location.addIndividual(Individual{genotype, 10.0});

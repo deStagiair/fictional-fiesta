@@ -10,8 +10,6 @@
 #include "fictional-fiesta/utils/itf/Exception.h"
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 
-#include <iostream>
-
 namespace fictionalfiesta
 {
 
@@ -67,7 +65,6 @@ void Location::splitResources(FSM::Rng& rng)
   {
     while (!source->empty())
     {
-
       std::vector<double> weights;
       double total_weight = 0;
       for (const auto& individual : _individuals)
@@ -89,11 +86,9 @@ void Location::splitResources(FSM::Rng& rng)
 
       source->consume(1);
 
-      std::cout << "Feed " << individual_index << std::endl;
       if (die_during_feed(winner, rng))
       {
         winner.die();
-        std::cout << "Died" << std::endl;
       }
     }
   }
