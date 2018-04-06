@@ -113,4 +113,47 @@ void Location::cleanDeadIndividuals()
       [](const auto& o) { return o.isDead(); }), _individuals.end());
 }
 
+void Location::resourcePhase(FSM::Rng& rng)
+{
+  splitResources(rng);
+  cleanDeadIndividuals();
+
+  for (auto& source : _sources)
+  {
+    source->regenerate();
+  }
+}
+
+void Location::maintenancePhase(FSM::Rng& rng)
+{
+  for (auto& individual : _individuals)
+  {
+    individual.performMaintenance(rng);
+  }
+  cleanDeadIndividuals();
+}
+
+void Location::reproductionPhase(FSM::Rng& rng)
+{
+  std::vector<Individual> new_individuals;
+  for (auto& individual : _individuals)
+  {
+    if (individual.willReproduce(rng))
+    {
+      new_individuals.push_back(individual.reproduce(rng));
+    }
+  }
+
+  _individuals.insert(_individuals.end(), new_individuals.begin(), new_individuals.end());
+
+  cleanDeadIndividuals();
+}
+
+void Location::cycle(FSM::Rng& rng)
+{
+  resourcePhase(rng);
+  maintenancePhase(rng);
+  reproductionPhase(rng);
+}
+
 } // namespace fictionalfiesta

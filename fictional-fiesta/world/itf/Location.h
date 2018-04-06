@@ -60,7 +60,7 @@ class Location
     /// @details The maintenance phase includes the use of energy by the individuals in maintenance
     ///    and growth.
     /// @param rng Random number generator.
-    void individualsMaintenance(FSM::Rng& rng);
+    void maintenancePhase(FSM::Rng& rng);
 
     /// @brief Performs the actions of the individual's reproduction phase.
     /// @param rng Random number generator.
@@ -68,6 +68,10 @@ class Location
 
     /// @brief Removes the dead individuals from the individuals list.
     void cleanDeadIndividuals();
+
+    /// @brief Performs a full cycle.
+    /// @param rng Random number generator.
+    void cycle(FSM::Rng& rng);
 
   private:
 

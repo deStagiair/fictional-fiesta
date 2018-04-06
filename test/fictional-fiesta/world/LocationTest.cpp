@@ -112,9 +112,122 @@ TEST_CASE("Test removing dead individuals", "[LocationTest][TestCleanDeadIndivid
   location.addIndividual(Individual{genotype, 1}.die());
   location.addIndividual(Individual{genotype, 1}.die());
 
-  CHECK(location.getIndividuals().size() == 6);
+  CHECK(location.getIndividuals().size() == 7);
 
   location.cleanDeadIndividuals();
 
   CHECK(location.getIndividuals().size() == 4);
+}
+
+TEST_CASE("Test the resource phase", "[LocationTest][TestResourcePhase]")
+{
+  auto rng = FSM::createRng(0);
+  Location location;
+  location.addSource(std::make_unique<ConstantSource>("Light", 40));
+
+  const Genotype genotype{10, 0.5, 0.5};
+  location.addIndividual(Individual{genotype, 60.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 1.0});
+
+  CHECK(location.getIndividuals().size() == 5);
+  location.resourcePhase(rng);
+
+  const auto& individuals = location.getIndividuals();
+  REQUIRE(individuals.size() == 5);
+
+  CHECK(individuals[0].getResourceCount() == 31);
+  CHECK(individuals[1].getResourceCount() == 2);
+  CHECK(individuals[2].getResourceCount() == 3);
+  CHECK(individuals[3].getResourceCount() == 4);
+  CHECK(individuals[4].getResourceCount() == 0);
+}
+
+TEST_CASE("Test the maintenance phase", "[LocationTest][TestMaintenancePhase]")
+{
+  auto rng = FSM::createRng(0);
+  Location location;
+  location.addSource(std::make_unique<ConstantSource>("Light", 50));
+
+  const Genotype genotype{10, 0.5, 0.5};
+  location.addIndividual(Individual{genotype, 60.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 1.0});
+
+  CHECK(location.getIndividuals().size() == 5);
+  location.resourcePhase(rng);
+  location.maintenancePhase(rng);
+
+  const auto& individuals = location.getIndividuals();
+  REQUIRE(individuals.size() == 3);
+
+  CHECK(individuals[0].getPhenotype().getEnergy() == 68);
+  CHECK(individuals[1].getPhenotype().getEnergy() == 10);
+  CHECK(individuals[2].getPhenotype().getEnergy() == 11);
+}
+
+TEST_CASE("Test the reproduction phase", "[LocationTest][TestReproductionPhase]")
+{
+  auto rng = FSM::createRng(0);
+  Location location;
+  location.addSource(std::make_unique<ConstantSource>("Light", 50));
+
+  const Genotype genotype{10, 1, 0.01};
+  location.addIndividual(Individual{genotype, 60.0});
+
+  CHECK(location.getIndividuals().size() == 1);
+  location.reproductionPhase(rng);
+
+  const auto& individuals = location.getIndividuals();
+  REQUIRE(individuals.size() == 2);
+
+  CHECK(individuals[0].getPhenotype().getEnergy() == 30);
+  CHECK(individuals[1].getPhenotype().getEnergy() == 30);
+}
+
+TEST_CASE("Test the cycle execution", "[LocationTest][TestCycle]")
+{
+  auto rng = FSM::createRng(0);
+  Location location;
+  location.addSource(std::make_unique<ConstantSource>("Light", 50));
+
+  const Genotype genotype{10, 0.5, 0.5};
+  location.addIndividual(Individual{genotype, 60.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 1.0});
+
+  CHECK(location.getIndividuals().size() == 5);
+  location.cycle(rng);
+
+  CHECK(location.getIndividuals().size() == 4);
+}
+
+TEST_CASE("Test various cycles execution", "[LocationTest][TestCycles]")
+{
+  auto rng = FSM::createRng(0);
+  Location location;
+  location.addSource(std::make_unique<ConstantSource>("Light", 200));
+
+  const Genotype genotype{8, 0.8, 0.05};
+  location.addIndividual(Individual{genotype, 60.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 10.0});
+  location.addIndividual(Individual{genotype, 1.0});
+
+  for (size_t i = 0; i < 100; ++i)
+  {
+    location.cycle(rng);
+    if (!location.getIndividuals().empty())
+    {
+      //std::cout << "Population " << i << ":" << location.getIndividuals().size() << std::endl;
+      //std::cout <<  "Energy: " << location.getIndividuals()[0].getPhenotype().getEnergy() << std::endl;
+    }
+  }
 }
