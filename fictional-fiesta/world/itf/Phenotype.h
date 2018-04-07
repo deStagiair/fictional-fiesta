@@ -1,6 +1,8 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_PHENOTYPE_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_PHENOTYPE_H
 
+#include "fictional-fiesta/utils/itf/Descriptable.h"
+
 #include "fictional-fiesta/world/itf/FSM.h"
 
 namespace fictionalfiesta
@@ -11,7 +13,7 @@ class Genotype;
 
 /// @brief Class that represents the set of features that are the expression of the genotype
 ///     in an individual.
-class Phenotype
+class Phenotype : public Descriptable
 {
   public:
 
@@ -35,6 +37,9 @@ class Phenotype
     /// @param genotype Genotype of the individual.
     /// @return Phenotype that gets splitted from the current one.
     Phenotype split(const Genotype& genotype);
+
+    /// @copydoc Descriptable::str
+    virtual std::string str(unsigned int indentLevel) const;
 
   private:
 

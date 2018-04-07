@@ -2,6 +2,8 @@
 
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
+#include <sstream>
+
 namespace fictionalfiesta
 {
 
@@ -26,6 +28,15 @@ Phenotype Phenotype::split(const Genotype& genotype)
 {
   _energy *= 0.5;
   return Phenotype{_energy};
+}
+
+std::string Phenotype::str(unsigned int indentLevel) const
+{
+  std::stringstream result;
+  result <<
+      indent(indentLevel) << "Energy: " << _energy << "\n";
+
+  return result.str();
 }
 
 } // namespace fictionalfiesta

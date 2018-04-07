@@ -23,6 +23,22 @@ TEST_CASE("Test phenotype constructor and getters", "[PhenotypeTest][TestConstru
   }
 }
 
+TEST_CASE("Test phenotype stringify method", "[PhenotypeTest][TestStr]")
+{
+  {
+    const auto benchmark = "Energy: 16.1\n";
+    const auto phenotype = Phenotype{16.1};
+
+    CHECK(phenotype.str(0) == benchmark);
+  }
+
+  {
+    const auto benchmark = "  Energy: 0\n";
+    const auto phenotype = Phenotype{0};
+    CHECK(phenotype.str(1) == benchmark);
+  }
+}
+
 TEST_CASE("Test phenotype feed method", "[PhenotypeTest][TestFeed]")
 {
   {

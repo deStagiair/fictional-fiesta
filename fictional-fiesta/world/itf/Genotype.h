@@ -75,9 +75,7 @@ class Genotype : public Descriptable
     /// @return Distance between both genotypes.
     double distance(const Genotype& other) const;
 
-    /// @brief Obtain a string representation of the Genotype.
-    /// @param indentLevel Indentation level.
-    /// @return String representation of the Genotype.
+    /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const;
 
   private:
