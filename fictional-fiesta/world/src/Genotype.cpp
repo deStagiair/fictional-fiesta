@@ -6,7 +6,7 @@
 
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 
-#include <iostream>
+#include <sstream>
 
 namespace fictionalfiesta
 {
@@ -98,6 +98,17 @@ double Genotype::distance(const Genotype& other) const
   const double mut_dist = normalized_distance(_mutabilityRatio, other._mutabilityRatio);
 
   return (ret_dist + rp_dist + mut_dist) / feature_number;
+}
+
+std::string Genotype::str(unsigned int indentLevel) const
+{
+  std::stringstream result;
+  result <<
+      indent(indentLevel) << "Reproduction threshold: " << _reproductionEnergyThreshold << "\n" <<
+      indent(indentLevel) << "Reproduction probability: " << _reproductionProbability << "\n" <<
+      indent(indentLevel) << "Mutability: " << _mutabilityRatio << "\n";
+
+  return result.str();
 }
 
 namespace

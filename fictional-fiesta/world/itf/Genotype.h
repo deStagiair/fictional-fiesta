@@ -1,6 +1,8 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_GENOTYPE_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_GENOTYPE_H
 
+#include "fictional-fiesta/utils/itf/Descriptable.h"
+
 #include "fictional-fiesta/world/itf/FSM.h"
 
 namespace fictionalfiesta
@@ -10,7 +12,7 @@ class Phenotype;
 class XmlNode;
 
 /// @brief Class that represents the set of features that are inherited by individuals.
-class Genotype
+class Genotype : public Descriptable
 {
   public:
 
@@ -72,6 +74,11 @@ class Genotype
     /// @param other Genotype with which to compute the distance.
     /// @return Distance between both genotypes.
     double distance(const Genotype& other) const;
+
+    /// @brief Obtain a string representation of the Genotype.
+    /// @param indentLevel Indentation level.
+    /// @return String representation of the Genotype.
+    virtual std::string str(unsigned int indentLevel) const;
 
   private:
 

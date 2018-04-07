@@ -36,6 +36,19 @@ TEST_CASE("Test genotype constructor and getters", "[GenotypeTest][TestGenotypeC
   }
 }
 
+TEST_CASE("Test genotype stringify method", "[GenotypeTest][TestGenotypeStr]")
+{
+  {
+    const std::string benchmark("  Reproduction threshold: 43\n"
+        "  Reproduction probability: 0.5\n"
+        "  Mutability: 0.66\n");
+
+    const Genotype genotype{43, 0.5, 0.66};
+
+    REQUIRE(genotype.str(1) == benchmark);
+  }
+}
+
 TEST_CASE("Test genotype constructor from XML", "[GenotypeTest][TestGenotypeConstructorFromXml]")
 {
   const auto& input_file = input_directory / fs::path("genotype_0.xml");
