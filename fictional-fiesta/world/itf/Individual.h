@@ -1,6 +1,8 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_INDIVIDUAL_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_INDIVIDUAL_H
 
+#include "fictional-fiesta/utils/itf/Descriptable.h"
+
 #include "fictional-fiesta/world/itf/FSM.h"
 #include "fictional-fiesta/world/itf/Genotype.h"
 #include "fictional-fiesta/world/itf/Phenotype.h"
@@ -9,7 +11,7 @@ namespace fictionalfiesta
 {
 
 /// @brief Class that represents an individual.
-class Individual
+class Individual : public Descriptable
 {
   public:
 
@@ -62,6 +64,9 @@ class Individual
     ///   simulate the energy spent in the individual's biologic functions.
     /// @param rng Random number generator.
     void performMaintenance(FSM::Rng& rng);
+
+    /// @copydoc Descriptable::str
+    virtual std::string str(unsigned int indentLevel) const override;
 
   private:
 

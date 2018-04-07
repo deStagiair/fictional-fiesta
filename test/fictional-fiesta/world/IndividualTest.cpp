@@ -9,6 +9,35 @@ using namespace fictionalfiesta;
 // Important note: Some of these tests force the seed of the RNG to allow testability.
 // Changing the RNG or the order of the statements will probably cause this test to fail.
 
+TEST_CASE("Test individual stringify method", "[IndividualTest][TestStr]")
+{
+  {
+    const Genotype genotype{10, 1, 0.1};
+    const auto individual = Individual{genotype, 0};
+
+    const auto benchmark = "Resources: 0\n"
+        "Reproduction threshold: 10\n"
+        "Reproduction probability: 1\n"
+        "Mutability: 0.1\n"
+        "Energy: 0\n";
+
+    CHECK(individual.str(0) == benchmark);
+  }
+  {
+    const Genotype genotype{3, 0.44, 0.5};
+    const auto individual = Individual{genotype, 1}.die();
+
+    const auto benchmark = "    Dead individual\n"
+        "    Resources: 0\n"
+        "    Reproduction threshold: 3\n"
+        "    Reproduction probability: 0.44\n"
+        "    Mutability: 0.5\n"
+        "    Energy: 1\n";
+
+    CHECK(individual.str(2) == benchmark);
+  }
+}
+
 TEST_CASE("Test individual willReproduce method", "[IndividualTest][TestWillReproduce]")
 {
   {

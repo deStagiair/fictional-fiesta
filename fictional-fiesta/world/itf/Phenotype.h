@@ -39,7 +39,7 @@ class Phenotype : public Descriptable
     Phenotype split(const Genotype& genotype);
 
     /// @copydoc Descriptable::str
-    virtual std::string str(unsigned int indentLevel) const;
+    virtual std::string str(unsigned int indentLevel) const override;
 
   private:
 

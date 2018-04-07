@@ -2,6 +2,8 @@
 
 #include "fictional-fiesta/world/itf/Individual.h"
 
+#include <sstream>
+
 namespace fictionalfiesta
 {
 
@@ -90,6 +92,22 @@ void Individual::performMaintenance(FSM::Rng& rng)
     _phenotype.feed(_resourceCount, _genotype);
     _resourceCount = 0;
   }
+}
+
+std::string Individual::str(unsigned int indentLevel) const
+{
+  std::stringstream result;
+  if (isDead())
+  {
+    result << indent(indentLevel) << "Dead individual\n";
+  }
+
+  result <<
+      indent(indentLevel) << "Resources: " << _resourceCount << "\n" <<
+      _genotype.str(indentLevel) <<
+      _phenotype.str(indentLevel);
+
+  return result.str();
 }
 
 } // namespace fictionalfiesta

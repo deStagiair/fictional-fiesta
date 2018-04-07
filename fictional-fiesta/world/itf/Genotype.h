@@ -76,7 +76,7 @@ class Genotype : public Descriptable
     double distance(const Genotype& other) const;
 
     /// @copydoc Descriptable::str
-    virtual std::string str(unsigned int indentLevel) const;
+    virtual std::string str(unsigned int indentLevel) const override;
 
   private:
 
