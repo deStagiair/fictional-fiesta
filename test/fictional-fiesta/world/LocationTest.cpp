@@ -13,6 +13,8 @@
 
 #include <experimental/filesystem>
 
+#include <iostream>
+
 namespace fs = std::experimental::filesystem;
 using namespace fictionalfiesta;
 using namespace testutils;
@@ -208,26 +210,41 @@ TEST_CASE("Test the cycle execution", "[LocationTest][TestCycle]")
   CHECK(location.getIndividuals().size() == 4);
 }
 
-TEST_CASE("Test various cycles execution", "[LocationTest][TestCycles]")
-{
-  auto rng = FSM::createRng(0);
-  Location location;
-  location.addSource(std::make_unique<ConstantSource>("Light", 200));
+//TEST_CASE("Test various cycles execution", "[LocationTest][TestCycles]")
+//{
+  ////auto rng = FSM::createRng(0);
+  //auto rng = FSM::createRng();
+  //Location location;
+  //location.addSource(std::make_unique<ConstantSource>("Light", 150));
 
-  const Genotype genotype{8, 0.8, 0.05};
-  location.addIndividual(Individual{genotype, 60.0});
-  location.addIndividual(Individual{genotype, 10.0});
-  location.addIndividual(Individual{genotype, 10.0});
-  location.addIndividual(Individual{genotype, 10.0});
-  location.addIndividual(Individual{genotype, 1.0});
+  //const Genotype genotype{8, 0.8, 0.05};
+  //location.addIndividual(Individual{genotype, 60.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 10.0});
+  //location.addIndividual(Individual{genotype, 1.0});
 
-  for (size_t i = 0; i < 100; ++i)
-  {
-    location.cycle(rng);
-    if (!location.getIndividuals().empty())
-    {
-      //std::cout << "Population " << i << ":" << location.getIndividuals().size() << std::endl;
-      //std::cout <<  "Energy: " << location.getIndividuals()[0].getPhenotype().getEnergy() << std::endl;
-    }
-  }
-}
+  //for (size_t i = 0; i < 100000; ++i)
+  //{
+    //location.cycle(rng);
+    //if (!location.getIndividuals().empty())
+    //{
+      //std::vector<Genotype> genotypes;
+      //for (const auto& individual : location.getIndividuals())
+      //{
+        //genotypes.push_back(individual.getGenotype());
+      //}
+
+      //std::cout << "Cycle " << i << ":\n";
+      //std::cout << "  Population :" << genotypes.size() << "\n";
+      //std::cout << Genotype::average(genotypes).str(1);
+      ////std::cout << "Population " << i << ":" << location.getIndividuals().size() << std::endl;
+      ////std::cout <<  location.getIndividuals()[0] << std::endl;
+      ////std::cout <<  "Energy: " << location.getIndividuals()[0].getPhenotype().getEnergy() << std::endl;
+    //}
+  //}
+//}

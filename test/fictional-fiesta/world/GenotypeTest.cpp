@@ -7,14 +7,24 @@
 #include "fictional-fiesta/utils/itf/XmlDocument.h"
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 
+#include "test/test_utils/itf/BenchmarkFiles.h"
+
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
 
 using namespace fictionalfiesta;
+using namespace testutils;
 
 static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
     / fs::path("fictional-fiesta/world/input");
+
+static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
+    / fs::path("fictional-fiesta/world/result");
+
+static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("fictional-fiesta/world/benchmark");
+
 
 // Important note: Some of these tests force the seed of the RNG to allow testability.
 // Changing the RNG or the order of the statements will probably cause this test to fail.
@@ -58,6 +68,21 @@ TEST_CASE("Test genotype constructor from XML", "[GenotypeTest][TestGenotypeCons
   CHECK(genotype.getReproductionEnergyThreshold() == 0.33);
   CHECK(genotype.getReproductionProbability() == 0.5);
   CHECK(genotype.getMutabilityRatio() == 0.1);
+}
+
+TEST_CASE("Test genotype XML save method", "[GenotypeTest][TestGenotypeSaveToXml]")
+{
+  auto document = XmlDocument{};
+  //auto root_node = document.appendRootNode("Genotype");
+
+  const Genotype genotype{43, 0.5, 0.66};
+  genotype.save(document.appendRootNode("Genotype"));
+
+  const auto& result_file = result_directory / fs::path("genotype_0.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const auto& benchmark_file = benchmark_directory / fs::path("genotype_0.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
 }
 
 TEST_CASE("Test genotype willReproduce method", "[GenotypeTest][TestWillReproduce]")
