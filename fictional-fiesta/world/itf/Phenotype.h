@@ -10,6 +10,7 @@ namespace fictionalfiesta
 
 
 class Genotype;
+class XmlNode;
 
 /// @brief Class that represents the set of features that are the expression of the genotype
 ///     in an individual.
@@ -20,6 +21,10 @@ class Phenotype : public Descriptable
     /// @brief Constructor from the energy.
     /// @param initialEnergy Initial energy of the phenotype.
     explicit Phenotype(double initialEnergy);
+
+    /// @brief Constructor from a XmlNode.
+    /// @param node XML node from which to construct the Phenotype.
+    explicit Phenotype(const XmlNode& node);
 
     /// @brief Gets the current energy level.
     /// @return Current energy level.

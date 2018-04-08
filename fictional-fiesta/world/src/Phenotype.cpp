@@ -2,13 +2,25 @@
 
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
+#include "fictional-fiesta/utils/itf/XmlNode.h"
+
 #include <sstream>
 
 namespace fictionalfiesta
 {
 
+namespace
+{
+  constexpr char XML_ENERGY_NAME[]{"Energy"};
+} // anonymous namespace
+
 Phenotype::Phenotype(double initialEnergy):
   _energy(initialEnergy)
+{
+}
+
+Phenotype::Phenotype(const XmlNode& node):
+  _energy(node.getChildNodeTextAs<double>(XML_ENERGY_NAME))
 {
 }
 
