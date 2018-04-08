@@ -30,6 +30,10 @@ class Genotype : public Descriptable
     /// @param node XML node from which the genotype will be loaded.
     Genotype(const XmlNode& node);
 
+    /// @brief Save this instance in a XmlNode.
+    /// @param node node where the instance will be saved.
+    void save(XmlNode node) const;
+
     /// @brief Get the reproduction energy threshold.
     /// @return Reproduction energy threshold.
     double getReproductionEnergyThreshold() const;
@@ -77,6 +81,8 @@ class Genotype : public Descriptable
 
     /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const override;
+
+    static Genotype average(const std::vector<Genotype>& genotypes);
 
   private:
 

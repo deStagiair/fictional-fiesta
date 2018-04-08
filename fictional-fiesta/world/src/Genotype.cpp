@@ -40,6 +40,18 @@ Genotype::Genotype(const XmlNode& node):
 {
 }
 
+void Genotype::save(XmlNode node) const
+{
+  auto reproduction_threshold_node = node.appendChildNode(XML_REPRODUCTION_ENERGY_THRESHOLD_NAME);
+  reproduction_threshold_node.setText(_reproductionEnergyThreshold);
+
+  auto reproduction_probability_node = node.appendChildNode(XML_REPRODUCTION_PROBABILITY_NAME);
+  reproduction_probability_node.setText(_reproductionProbability);
+
+  auto mutability_ratio_node = node.appendChildNode(XML_MUTABILITY_RATIO_NAME);
+  mutability_ratio_node.setText(_mutabilityRatio);
+}
+
 double Genotype::getReproductionEnergyThreshold() const
 {
   return _reproductionEnergyThreshold;
@@ -109,6 +121,24 @@ std::string Genotype::str(unsigned int indentLevel) const
       indent(indentLevel) << "Mutability: " << _mutabilityRatio << "\n";
 
   return result.str();
+}
+
+Genotype Genotype::average(const std::vector<Genotype>& genotypes)
+{
+  double acum_repr_threshold = 0.0;
+  double acum_repr_probability = 0.0;
+  double acum_mutability = 0.0;
+  for (const auto& genotype : genotypes)
+  {
+    acum_repr_threshold += genotype.getReproductionEnergyThreshold();
+    acum_repr_probability += genotype.getReproductionProbability();
+    acum_mutability += genotype.getMutabilityRatio();
+  }
+
+  const auto size = genotypes.size();
+  return Genotype(acum_repr_threshold / size,
+      acum_repr_probability / size,
+      acum_mutability / size);
 }
 
 namespace
