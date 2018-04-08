@@ -82,6 +82,9 @@ class Genotype : public Descriptable
     /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const override;
 
+    /// @brief Computes the average of several genotypes.
+    /// @param genotypes Genotypes from which to compute the average.
+    /// @return Average genotype.
     static Genotype average(const std::vector<Genotype>& genotypes);
 
   private:
