@@ -24,6 +24,12 @@ Phenotype::Phenotype(const XmlNode& node):
 {
 }
 
+void Phenotype::save(XmlNode node) const
+{
+  auto energy_node = node.appendChildNode(XML_ENERGY_NAME);
+  energy_node.setText(_energy);
+}
+
 double Phenotype::getEnergy() const
 {
   return _energy;

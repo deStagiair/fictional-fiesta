@@ -73,7 +73,6 @@ TEST_CASE("Test genotype constructor from XML", "[GenotypeTest][TestGenotypeCons
 TEST_CASE("Test genotype XML save method", "[GenotypeTest][TestGenotypeSaveToXml]")
 {
   auto document = XmlDocument{};
-  //auto root_node = document.appendRootNode("Genotype");
 
   const Genotype genotype{43, 0.5, 0.66};
   genotype.save(document.appendRootNode("Genotype"));

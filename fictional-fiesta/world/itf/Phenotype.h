@@ -26,6 +26,10 @@ class Phenotype : public Descriptable
     /// @param node XML node from which to construct the Phenotype.
     explicit Phenotype(const XmlNode& node);
 
+    /// @brief Save this instance in a XmlNode.
+    /// @param node node where the instance will be saved.
+    void save(XmlNode node) const;
+
     /// @brief Gets the current energy level.
     /// @return Current energy level.
     double getEnergy() const;

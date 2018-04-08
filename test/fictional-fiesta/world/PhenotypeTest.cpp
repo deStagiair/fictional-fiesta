@@ -4,11 +4,30 @@
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
 #include "fictional-fiesta/utils/itf/Exception.h"
+#include "fictional-fiesta/utils/itf/XmlDocument.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
 
+#include "test/test_utils/itf/BenchmarkFiles.h"
+
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
+
+using namespace testutils;
 using namespace fictionalfiesta;
 
 // Important note: Some of these tests force the seed of the RNG to allow testability.
 // Changing the RNG or the order of the statements will probably cause this test to fail.
+
+static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("fictional-fiesta/world/input");
+
+static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
+    / fs::path("fictional-fiesta/world/result");
+
+static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("fictional-fiesta/world/benchmark");
+
 
 TEST_CASE("Test phenotype constructor and getters", "[PhenotypeTest][TestConstructor]")
 {
@@ -21,6 +40,20 @@ TEST_CASE("Test phenotype constructor and getters", "[PhenotypeTest][TestConstru
     const auto phenotype = Phenotype{0};
     CHECK(phenotype.getEnergy() == 0);
   }
+}
+
+TEST_CASE("Test phenotype XML save method", "[PhenotypeTest][TestPhenotypeSaveToXml]")
+{
+  auto document = XmlDocument{};
+
+  const Phenotype phenotype{42.01};
+  phenotype.save(document.appendRootNode("Phenotype"));
+
+  const auto& result_file = result_directory / fs::path("phenotype_0.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const auto& benchmark_file = benchmark_directory / fs::path("phenotype_0.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
 }
 
 TEST_CASE("Test phenotype stringify method", "[PhenotypeTest][TestStr]")
