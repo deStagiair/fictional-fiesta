@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Example>
-  <Node1 name="fff">N1_1</Node1>
-  <Node1 name="N1_2">N1_2</Node1>
+  <Node1 name="fff" property="false">N1_1</Node1>
+  <Node1 name="N1_2" value="1.23">N1_2</Node1>
   <Node2>N2_1</Node2>
   <Node1 name="MyName" type="MyType">N1_3</Node1>
 </Example>

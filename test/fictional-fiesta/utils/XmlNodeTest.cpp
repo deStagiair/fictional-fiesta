@@ -47,6 +47,13 @@ TEST_CASE("Test getting attributes", "[XmlNodeTest][TestGetAttribute]")
   REQUIRE(!children[0].hasAttribute("other_name"));
   REQUIRE_THROWS(children[0].getAttribute("other_name"));
   REQUIRE(children[0].getOptionalAttribute("other_name", "MyOtherName") == "MyOtherName");
+  REQUIRE(children[0].hasAttribute("property"));
+  REQUIRE(children[0].getAttribute("property") == "false");
+  REQUIRE(!children[0].getAttributeAs<bool>("property"));
+
+  REQUIRE(children[1].hasAttribute("value"));
+  REQUIRE(children[1].getAttribute("value") == "1.23");
+  REQUIRE(children[1].getAttributeAs<double>("value") == 1.23);
 
   REQUIRE(children[3].hasAttribute("name"));
   REQUIRE(children[3].getAttribute("name") == "MyName");

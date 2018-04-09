@@ -18,6 +18,12 @@ pugi::xml_text get_mandatory_text(const pugi::xml_node& node);
 template <typename T>
 T text_to(const pugi::xml_text& text);
 
+pugi::xml_attribute get_mandatory_attribute(const pugi::xml_node& node,
+    const std::string& attributeName);
+
+template <typename T>
+T attribute_to(const pugi::xml_attribute& attribute);
+
 } // anonymous namespace
 
 XmlNode::XmlNode(const XmlNodeImpl& node):
@@ -47,6 +53,25 @@ std::string XmlNode::getAttribute(const std::string& attributeName) const
   }
 
   return _pimpl->_node.attribute(attributeName.c_str()).value();
+}
+
+/// @cond
+// Somehow, Doxygen has a problem with these explicit instantiations.
+// Probably a problem with the overloaded versions.
+// Since we don't need its documentation, we just ignore them.
+template int XmlNode::getAttributeAs(const std::string& attributeName) const;
+template unsigned int XmlNode::getAttributeAs(const std::string& attributeName) const;
+template double XmlNode::getAttributeAs(const std::string& attributeName) const;
+template float XmlNode::getAttributeAs(const std::string& attributeName) const;
+template bool XmlNode::getAttributeAs(const std::string& attributeName) const;
+template long long XmlNode::getAttributeAs(const std::string& attributeName) const;
+template unsigned long long XmlNode::getAttributeAs(const std::string& attributeName) const;
+/// @endcond
+
+template <typename T>
+T XmlNode::getAttributeAs(const std::string& attributeName) const
+{
+  return attribute_to<T>(get_mandatory_attribute(_pimpl->_node, attributeName));
 }
 
 std::string XmlNode::getOptionalAttribute(const std::string& attributeName,
@@ -365,6 +390,62 @@ long long text_to(const pugi::xml_text& text)
 
 template <>
 unsigned long long text_to(const pugi::xml_text& text)
+{
+  return text.as_ullong();
+}
+
+pugi::xml_attribute get_mandatory_attribute(const pugi::xml_node& node,
+    const std::string& attributeName)
+{
+  const auto& attribute = node.attribute(attributeName.c_str());
+  if (!attribute)
+  {
+    throw Exception("The current node '" + std::string{node.name()} + "' has no '" +
+        attributeName + "' attribute.");
+  }
+
+  return attribute;
+}
+
+// @todo Substitute all these method template specializations with std::from_chars when available.
+template <>
+int attribute_to(const pugi::xml_attribute& text)
+{
+  return text.as_int();
+}
+
+template <>
+unsigned int attribute_to(const pugi::xml_attribute& text)
+{
+  return text.as_uint();
+}
+
+template <>
+double attribute_to(const pugi::xml_attribute& text)
+{
+  return text.as_double();
+}
+
+template <>
+float attribute_to(const pugi::xml_attribute& text)
+{
+  return text.as_float();
+}
+
+template <>
+bool attribute_to(const pugi::xml_attribute& text)
+{
+  return text.as_bool();
+}
+
+template <>
+long long attribute_to(const pugi::xml_attribute& text)
+{
+  return text.as_llong();
+}
+
+template <>
+unsigned long long attribute_to(const pugi::xml_attribute& text)
 {
   return text.as_ullong();
 }
