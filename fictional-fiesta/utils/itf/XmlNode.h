@@ -171,7 +171,13 @@ class XmlNode
     /// @param value Value to be set for the attribute.
     void setAttribute(const std::string& name, const std::string& value);
 
-    /// @brief Dump the current @p content to a string and set is and the node text.
+    /// @brief Dump the current @p content to a string and set it as the node attribute.
+    /// @param name NAme of the attribute to be set.
+    /// @param content Content to be set as attribute in the node.
+    template <typename T>
+    void setAttribute(const std::string& name, const T& content);
+
+    /// @brief Dump the current @p content to a string and set it as the node text.
     /// @param content Content to be set as text in the node.
     template <typename T>
     void setText(const T& content);
@@ -196,8 +202,16 @@ template <typename T>
 void XmlNode::setText(const T& content)
 {
   std::stringstream ss;
-  ss << content;
+  ss << std::boolalpha << content;
   setNodeText(ss.str());
+}
+
+template <typename T>
+void XmlNode::setAttribute(const std::string& name, const T& content)
+{
+  std::stringstream ss;
+  ss << std::boolalpha << content;
+  setAttribute(name, ss.str());
 }
 
 } // namespace fictional-fiesta

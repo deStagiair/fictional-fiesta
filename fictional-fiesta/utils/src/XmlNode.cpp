@@ -19,7 +19,7 @@ template <typename T>
 T text_to(const pugi::xml_text& text);
 
 pugi::xml_attribute get_mandatory_attribute(const pugi::xml_node& node,
-    const std::string& attributeName);
+    const std::string& name);
 
 template <typename T>
 T attribute_to(const pugi::xml_attribute& attribute);
@@ -40,49 +40,49 @@ std::string XmlNode::getName() const
    return _pimpl->_node.name();
 }
 
-bool XmlNode::hasAttribute(const std::string& attributeName) const
+bool XmlNode::hasAttribute(const std::string& name) const
 {
-  return _pimpl->_node.attribute(attributeName.c_str());
+  return _pimpl->_node.attribute(name.c_str());
 }
 
-std::string XmlNode::getAttribute(const std::string& attributeName) const
+std::string XmlNode::getAttribute(const std::string& name) const
 {
-  if (!hasAttribute(attributeName))
+  if (!hasAttribute(name))
   {
-    throw Exception("The current node has no '" + attributeName + "' attributes.");
+    throw Exception("The current node has no '" + name + "' attributes.");
   }
 
-  return _pimpl->_node.attribute(attributeName.c_str()).value();
+  return _pimpl->_node.attribute(name.c_str()).value();
 }
 
 /// @cond
 // Somehow, Doxygen has a problem with these explicit instantiations.
 // Probably a problem with the overloaded versions.
 // Since we don't need its documentation, we just ignore them.
-template int XmlNode::getAttributeAs(const std::string& attributeName) const;
-template unsigned int XmlNode::getAttributeAs(const std::string& attributeName) const;
-template double XmlNode::getAttributeAs(const std::string& attributeName) const;
-template float XmlNode::getAttributeAs(const std::string& attributeName) const;
-template bool XmlNode::getAttributeAs(const std::string& attributeName) const;
-template long long XmlNode::getAttributeAs(const std::string& attributeName) const;
-template unsigned long long XmlNode::getAttributeAs(const std::string& attributeName) const;
+template int XmlNode::getAttributeAs(const std::string& name) const;
+template unsigned int XmlNode::getAttributeAs(const std::string& name) const;
+template double XmlNode::getAttributeAs(const std::string& name) const;
+template float XmlNode::getAttributeAs(const std::string& name) const;
+template bool XmlNode::getAttributeAs(const std::string& name) const;
+template long long XmlNode::getAttributeAs(const std::string& name) const;
+template unsigned long long XmlNode::getAttributeAs(const std::string& name) const;
 /// @endcond
 
 template <typename T>
-T XmlNode::getAttributeAs(const std::string& attributeName) const
+T XmlNode::getAttributeAs(const std::string& name) const
 {
-  return attribute_to<T>(get_mandatory_attribute(_pimpl->_node, attributeName));
+  return attribute_to<T>(get_mandatory_attribute(_pimpl->_node, name));
 }
 
-std::string XmlNode::getOptionalAttribute(const std::string& attributeName,
+std::string XmlNode::getOptionalAttribute(const std::string& name,
     const std::string& defaultValue) const
 {
-  if (!hasAttribute(attributeName))
+  if (!hasAttribute(name))
   {
     return defaultValue;
   }
 
-  return _pimpl->_node.attribute(attributeName.c_str()).value();
+  return _pimpl->_node.attribute(name.c_str()).value();
 }
 
 bool XmlNode::hasChildNode() const
@@ -394,14 +394,13 @@ unsigned long long text_to(const pugi::xml_text& text)
   return text.as_ullong();
 }
 
-pugi::xml_attribute get_mandatory_attribute(const pugi::xml_node& node,
-    const std::string& attributeName)
+pugi::xml_attribute get_mandatory_attribute(const pugi::xml_node& node, const std::string& name)
 {
-  const auto& attribute = node.attribute(attributeName.c_str());
+  const auto& attribute = node.attribute(name.c_str());
   if (!attribute)
   {
     throw Exception("The current node '" + std::string{node.name()} + "' has no '" +
-        attributeName + "' attribute.");
+        name + "' attribute.");
   }
 
   return attribute;

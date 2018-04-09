@@ -75,15 +75,16 @@ TEST_CASE("Test setting attributes", "[XmlNodeTest][TestSetAttribute]")
   REQUIRE(root.getAttribute("att1") == "value_1");
 
   // Add a second attribute.
-  root.setAttribute("att2", "v_2");
+  root.setAttribute("att2", 1.23);
   REQUIRE(root.hasAttribute("att1"));
   REQUIRE(root.hasAttribute("att2"));
-  REQUIRE(root.getAttribute("att2") == "v_2");
+  REQUIRE(root.getAttribute("att2") == "1.23");
+  REQUIRE(root.getAttributeAs<double>("att2") == 1.23);
 
   // Reset attribute.
   REQUIRE(root.getAttribute("att1") == "value_1");
-  root.setAttribute("att1", "v_1");
-  REQUIRE(root.getAttribute("att1") == "v_1");
+  root.setAttribute<bool>("att1", true);
+  REQUIRE(root.getAttribute("att1") == "true");
 }
 
 TEST_CASE("Test getting child nodes of other XML nodes", "[XmlNodeTest][TestGetChild]")
