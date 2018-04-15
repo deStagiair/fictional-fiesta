@@ -85,6 +85,34 @@ std::string XmlNode::getOptionalAttribute(const std::string& name,
   return _pimpl->_node.attribute(name.c_str()).value();
 }
 
+template int XmlNode::getOptionalAttributeAs(const std::string& name,
+    const int& defaultValue) const;
+template unsigned int XmlNode::getOptionalAttributeAs(const std::string& name,
+    const unsigned int& defaultValue) const;
+template double XmlNode::getOptionalAttributeAs(const std::string& name,
+    const double& defaultValue) const;
+template float XmlNode::getOptionalAttributeAs(const std::string& name,
+    const float& defaultValue) const;
+template bool XmlNode::getOptionalAttributeAs(const std::string& name,
+    const bool& defaultValue) const;
+template long long XmlNode::getOptionalAttributeAs(const std::string& name,
+    const long long& defaultValue) const;
+template unsigned long long XmlNode::getOptionalAttributeAs(
+    const std::string& name, const unsigned long long& defaultValue) const;
+
+template <typename T>
+T XmlNode::getOptionalAttributeAs(const std::string& name, const T& defaultValue) const
+{
+  const auto& attribute = _pimpl->_node.attribute(name.c_str());
+
+  if (!attribute)
+  {
+    return defaultValue;
+  }
+
+  return attribute_to<T>(attribute);
+}
+
 bool XmlNode::hasChildNode() const
 {
   const auto child = _pimpl->_node.first_child();

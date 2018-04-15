@@ -44,11 +44,11 @@ class XmlNode
     /// @throw Exception if there is no attribute with the given name.
     std::string getAttribute(const std::string& attributeName) const;
 
-    /// @brief Get the optionalattribute with the passed name.
+    /// @brief Get the optional attribute with the passed name.
     /// @details Return the default value if there is no attribute with the passed name.
     /// @param attributeName Name of the attribute to be retrieved.
     /// @param defaultValue Value to be returned when there is no such an attribute.
-    /// @return String with the name of the node.
+    /// @return Attribute value or defaultValue if the attribute is not present.
     std::string getOptionalAttribute(const std::string& attributeName,
         const std::string& defaultValue) const;
 
@@ -59,6 +59,14 @@ class XmlNode
     /// @throw Exception if the attribute is not present.
     template <typename T>
     T getAttributeAs(const std::string& attributeName) const;
+
+    /// @brief Get the optional attribute of the node and parse it into @p T type.
+    /// @tparam T Type into which the attribute needs to be parsed.
+    /// @param attributeName Name of the attribute to be retrieved.
+    /// @param defaultValue Value to be returned when there is no such an attribute.
+    /// @return Attribute value or defaultValue if the attribute is not present.
+    template <typename T>
+    T getOptionalAttributeAs(const std::string& attributeName, const T& defaultValue) const;
 
     /// @brief Checks whether the node has any child node.
     /// Note that only element nodes are cosidered for this method.

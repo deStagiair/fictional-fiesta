@@ -43,22 +43,32 @@ TEST_CASE("Test getting attributes", "[XmlNodeTest][TestGetAttribute]")
   REQUIRE(children.size() == 4);
 
   REQUIRE(children[0].hasAttribute("name"));
-  REQUIRE(children[0].getAttribute("name") == "fff");
+  CHECK(children[0].getAttribute("name") == "fff");
   REQUIRE(!children[0].hasAttribute("other_name"));
   REQUIRE_THROWS(children[0].getAttribute("other_name"));
-  REQUIRE(children[0].getOptionalAttribute("other_name", "MyOtherName") == "MyOtherName");
+  CHECK(children[0].getOptionalAttribute("other_name", "MyOtherName") == "MyOtherName");
   REQUIRE(children[0].hasAttribute("property"));
-  REQUIRE(children[0].getAttribute("property") == "false");
-  REQUIRE(!children[0].getAttributeAs<bool>("property"));
+  CHECK(children[0].getAttribute("property") == "false");
+  CHECK(!children[0].getAttributeAs<bool>("property"));
 
   REQUIRE(children[1].hasAttribute("value"));
-  REQUIRE(children[1].getAttribute("value") == "1.23");
-  REQUIRE(children[1].getAttributeAs<double>("value") == 1.23);
+  CHECK(children[1].getAttribute("value") == "1.23");
+  CHECK(children[1].getAttributeAs<double>("value") == 1.23);
 
   REQUIRE(children[3].hasAttribute("name"));
-  REQUIRE(children[3].getAttribute("name") == "MyName");
+  CHECK(children[3].getAttribute("name") == "MyName");
   REQUIRE(children[3].hasAttribute("type"));
-  REQUIRE(children[3].getAttribute("type") == "MyType");
+  CHECK(children[3].getAttribute("type") == "MyType");
+
+  // Get optional attributes.
+  REQUIRE(children[0].hasAttribute("name"));
+  CHECK(children[0].getOptionalAttribute("name", "attr") == "fff");
+
+  REQUIRE(!children[0].hasAttribute("other_name"));
+  CHECK(children[0].getOptionalAttribute("other_name", "attr") == "attr");
+  CHECK(children[0].getOptionalAttributeAs("other_name", 1) == 1);
+  CHECK(children[0].getOptionalAttributeAs("other_name", true) == true);
+  CHECK(children[0].getOptionalAttributeAs("other_name", 0.42) == 0.42);
 }
 
 TEST_CASE("Test setting attributes", "[XmlNodeTest][TestSetAttribute]")
