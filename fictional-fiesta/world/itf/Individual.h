@@ -10,6 +10,8 @@
 namespace fictionalfiesta
 {
 
+class XmlNode;
+
 /// @brief Class that represents an individual.
 class Individual : public Descriptable
 {
@@ -19,6 +21,10 @@ class Individual : public Descriptable
     /// @param genotype Genotype of the new individual.
     /// @param initialEnergy Inital energy of the new individual.
     Individual(const Genotype& genotype, double initialEnergy);
+
+    /// @brief Constructor from a XML node.
+    /// @param node from which to build the class.
+    explicit Individual(const XmlNode& node);
 
     /// @brief Gets the current individual's genotype.
     /// @return Genotype of this individual.

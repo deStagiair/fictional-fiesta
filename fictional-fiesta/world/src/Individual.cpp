@@ -2,7 +2,15 @@
 
 #include "fictional-fiesta/world/itf/Individual.h"
 
+#include "fictional-fiesta/utils/itf/XmlNode.h"
+
 #include <sstream>
+
+namespace
+{
+  constexpr char XML_PHENOTYPE_NODE_NAME[]{"Phenotype"};
+  constexpr char XML_GENOTYPE_NODE_NAME[]{"Genotype"};
+} // anonymous namespace
 
 namespace fictionalfiesta
 {
@@ -10,6 +18,14 @@ namespace fictionalfiesta
 Individual::Individual(const Genotype& genotype, double initialEnergy):
   _genotype(genotype),
   _phenotype(initialEnergy)
+{
+}
+
+Individual::Individual(const XmlNode& node):
+  _genotype(node.getChildNode(XML_GENOTYPE_NODE_NAME)),
+  _phenotype(node.getChildNode(XML_PHENOTYPE_NODE_NAME)),
+  _isDead(node.getOptionalAttributeAs("IsDead", false)),
+  _resourceCount(node.getOptionalAttributeAs("ResourceCount", 0))
 {
 }
 
