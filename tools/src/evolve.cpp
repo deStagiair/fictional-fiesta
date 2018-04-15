@@ -1,10 +1,18 @@
+#include "fictional-fiesta/world/itf/Individual.h"
 #include "fictional-fiesta/world/itf/Location.h"
+#include "fictional-fiesta/utils/itf/XmlDocument.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
 
 #include <boost/program_options.hpp>
 
+#include <experimental/filesystem>
+
 #include <iostream>
 
+namespace fs = std::experimental::filesystem;
 namespace po = boost::program_options;
+
+using namespace fictionalfiesta;
 
 namespace
 {
@@ -58,6 +66,20 @@ int main(int argc, char* argv[])
 
   std::cout << "Evolving " << cycle_count << " cycles...\n";
   std::cout << "Initial state file: " << state_filename << "\n";
+
+
+  const auto& state_path = fs::path(state_filename);
+  const auto& document = XmlDocument{state_path};
+
+  auto rng = FSM::createRng();
+  auto location = Location(document.getRootNode());
+  for (int cycle_index = 0; cycle_index < cycle_count; ++cycle_index)
+  {
+    std::cout << "Cycle " << cycle_index << ":\n";
+    std::cout << "Population : " << location.getIndividuals().size() << std::endl;
+
+    location.cycle(rng);
+  }
 }
 
 namespace
