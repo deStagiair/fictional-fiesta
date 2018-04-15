@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <Location>
-  <Source Type="Constant">
-    <Resource>Light</Resource>
-    <CurrentUnits>10</CurrentUnits>
-    <FixedUnits>10</FixedUnits>
-  </Source>
+  <Resources>
+    <Source Type="Constant">
+      <Resource>Light</Resource>
+      <CurrentUnits>10</CurrentUnits>
+      <FixedUnits>10</FixedUnits>
+    </Source>
+  </Resources>
 </Location>

@@ -12,6 +12,11 @@
 
 #include <algorithm>
 
+namespace
+{
+constexpr char XML_RESOURCES_NODE_NAME[]{"Resources"};
+}
+
 namespace fictionalfiesta
 {
 
@@ -21,7 +26,8 @@ Location::~Location() = default;
 
 Location::Location(const XmlNode& node)
 {
-  const auto& source_nodes = node.getChildNodes(Source::XML_MAIN_NODE_NAME);
+  const auto& source_nodes = node.getChildNode(XML_RESOURCES_NODE_NAME)
+      .getChildNodes(Source::XML_MAIN_NODE_NAME);
   for (const auto& source_node : source_nodes)
   {
     _sources.push_back(SourceFactory::createSource(source_node));
@@ -30,9 +36,10 @@ Location::Location(const XmlNode& node)
 
 void Location::save(XmlNode& node) const
 {
+  auto resources_node = node.appendChildNode(XML_RESOURCES_NODE_NAME);
   for (const auto& source : _sources)
   {
-    source->save(node.appendChildNode(Source::XML_MAIN_NODE_NAME));
+    source->save(resources_node.appendChildNode(Source::XML_MAIN_NODE_NAME));
   }
 }
 
