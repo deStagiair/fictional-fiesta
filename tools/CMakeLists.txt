@@ -1,10 +1,16 @@
 
-find_package(Boost)
+find_package(Boost COMPONENTS program_options)
 
-include_directories(${CMAKE_SOURCE_DIR})
+if (Boost_FOUND)
 
-add_executable(evolve src/evolve.cpp)
+  include_directories(${CMAKE_SOURCE_DIR})
+  include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(evolve fictional-fiesta)
-target_link_libraries(evolve pugixml)
-target_link_libraries(evolve stdc++fs)
+  add_executable(evolve src/evolve.cpp)
+
+  target_link_libraries(evolve fictional-fiesta)
+  target_link_libraries(evolve pugixml)
+  target_link_libraries(evolve stdc++fs)
+  target_link_libraries(evolve ${Boost_LIBRARIES})
+
+endif ()
