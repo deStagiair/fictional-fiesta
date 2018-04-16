@@ -87,6 +87,8 @@ class Genotype : public Descriptable
     /// @return Average genotype.
     static Genotype average(const std::vector<Genotype>& genotypes);
 
+    friend bool operator==(const Genotype& lhs, const Genotype& rhs);
+
   private:
 
     /// Ammount of energy required to be able to reproduce.
@@ -99,6 +101,9 @@ class Genotype : public Descriptable
     /// Mutability ratio that influences how fast the features change upon reproduction.
     double _mutabilityRatio;
 };
+
+bool operator==(const Genotype& lhs, const Genotype& rhs);
+bool operator!=(const Genotype& lhs, const Genotype& rhs);
 
 } // namespace fictionalfiesta
 

@@ -141,6 +141,31 @@ Genotype Genotype::average(const std::vector<Genotype>& genotypes)
       acum_mutability / size);
 }
 
+bool operator==(const Genotype& lhs, const Genotype& rhs)
+{
+  if (lhs._reproductionEnergyThreshold != rhs._reproductionEnergyThreshold)
+  {
+    return false;
+  }
+
+  if (lhs._reproductionProbability != rhs._reproductionProbability)
+  {
+    return false;
+  }
+
+  if (lhs._mutabilityRatio != rhs._mutabilityRatio)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool operator!=(const Genotype& lhs, const Genotype& rhs)
+{
+  return !(lhs == rhs);
+}
+
 namespace
 {
 

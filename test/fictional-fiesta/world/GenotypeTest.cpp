@@ -212,3 +212,34 @@ TEST_CASE("Test genotype distance method", "[GenotypeTest][TestDistance]")
   const Genotype genotype_2{9, 1.1, 0.4};
   CHECK(genotype_0.distance(genotype_2) == Approx(0.14090782511835143));
 }
+
+TEST_CASE("Test (in)equality operators for Genotype instances", "[GenotypeTest][TestEquality]")
+{
+  {
+    const Genotype genotype_0{10, 1, 0.5};
+    CHECK(genotype_0 == genotype_0);
+    CHECK(!(genotype_0 != genotype_0));
+
+    const Genotype genotype_1{10, 1, 0.5};
+    CHECK(genotype_0 == genotype_1);
+    CHECK(!(genotype_0 != genotype_1));
+  }
+  {
+    const Genotype genotype_0{10, 1, 0.5};
+    const Genotype genotype_1{9, 1, 0.5};
+    CHECK(!(genotype_0 == genotype_1));
+    CHECK(genotype_0 != genotype_1);
+  }
+  {
+    const Genotype genotype_0{10, 0.9999, 0.5};
+    const Genotype genotype_1{10, 1, 0.5};
+    CHECK(!(genotype_0 == genotype_1));
+    CHECK(genotype_0 != genotype_1);
+  }
+  {
+    const Genotype genotype_0{10, 1, 0.5001};
+    const Genotype genotype_1{10, 1, 0.5};
+    CHECK(!(genotype_0 == genotype_1));
+    CHECK(genotype_0 != genotype_1);
+  }
+}
