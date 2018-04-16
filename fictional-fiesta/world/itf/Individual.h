@@ -26,6 +26,10 @@ class Individual : public Descriptable
     /// @param node from which to build the class.
     explicit Individual(const XmlNode& node);
 
+    /// @brief Save this Individual instance in a XmlNode.
+    /// @param node Node where the Individual instance will be saved.
+    void save(XmlNode node) const;
+
     /// @brief Gets the current individual's genotype.
     /// @return Genotype of this individual.
     const Genotype& getGenotype() const;
@@ -53,7 +57,8 @@ class Individual : public Descriptable
 
     /// @brief The individual consumes @p units of resource.
     /// @param units Number of resource units of resource consumed.
-    void feed(unsigned int units);
+    /// @return Current Individual.
+    Individual& feed(unsigned int units);
 
     /// @brief Gets the number of resource units accumulated.
     /// @return Number of units of resource accumulated.

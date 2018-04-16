@@ -3,8 +3,23 @@
 #include "fictional-fiesta/world/itf/Individual.h"
 
 #include "fictional-fiesta/utils/itf/Exception.h"
+#include "fictional-fiesta/utils/itf/XmlDocument.h"
+#include "fictional-fiesta/utils/itf/XmlNode.h"
 
+#include "test/test_utils/itf/BenchmarkFiles.h"
+
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 using namespace fictionalfiesta;
+using namespace testutils;
+
+static const fs::path input_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("fictional-fiesta/world/input");
+static const fs::path result_directory = fs::path(TEST_BINARY_DIRECTORY)
+    / fs::path("fictional-fiesta/world/result");
+static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
+    / fs::path("fictional-fiesta/world/benchmark");
 
 // Important note: Some of these tests force the seed of the RNG to allow testability.
 // Changing the RNG or the order of the statements will probably cause this test to fail.
@@ -36,6 +51,31 @@ TEST_CASE("Test individual stringify method", "[IndividualTest][TestStr]")
 
     CHECK(individual.str(2) == benchmark);
   }
+}
+
+TEST_CASE("Test individual save method", "[IndividualTest][TestSave]")
+{
+  auto document = XmlDocument{};
+  auto root_node = document.appendRootNode("Sources");
+
+  {
+    const Genotype genotype{10, 1, 0.1};
+    const auto individual = Individual{genotype, 0};
+
+    individual.save(root_node.appendChildNode("First"));
+  }
+  {
+    const Genotype genotype{3, 0.44, 0.5};
+    const auto individual = Individual{genotype, 1}.die().feed(140);
+
+    individual.save(root_node.appendChildNode("Second"));
+  }
+
+  const auto& result_file = result_directory / fs::path("individual_0.xml");
+  REQUIRE_NOTHROW(document.save(result_file));
+
+  const auto& benchmark_file = benchmark_directory / fs::path("individual_0.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
 }
 
 TEST_CASE("Test individual willReproduce method", "[IndividualTest][TestWillReproduce]")

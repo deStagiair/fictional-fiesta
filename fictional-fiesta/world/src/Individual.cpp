@@ -29,6 +29,21 @@ Individual::Individual(const XmlNode& node):
 {
 }
 
+void Individual::save(XmlNode node) const
+{
+  _genotype.save(node.appendChildNode("Genotype"));
+  _phenotype.save(node.appendChildNode("Phenotype"));
+  if (_isDead)
+  {
+    node.setAttribute("IsDead", true);
+  }
+
+  if (_resourceCount)
+  {
+    node.setAttribute("ResourceCount", _resourceCount);
+  }
+}
+
 const Genotype& Individual::getGenotype() const
 {
   return _genotype;
@@ -61,9 +76,10 @@ bool Individual::isHungry() const
   return true;
 }
 
-void Individual::feed(unsigned int units)
+Individual& Individual::feed(unsigned int units)
 {
   _resourceCount += units;
+  return *this;
 }
 
 unsigned int Individual::getResourceCount() const
