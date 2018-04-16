@@ -57,4 +57,19 @@ std::string Phenotype::str(unsigned int indentLevel) const
   return result.str();
 }
 
+bool operator==(const Phenotype& lhs, const Phenotype& rhs)
+{
+  if (lhs._energy != rhs._energy)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool operator!=(const Phenotype& lhs, const Phenotype& rhs)
+{
+  return !(lhs == rhs);
+}
+
 } // namespace fictionalfiesta

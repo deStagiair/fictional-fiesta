@@ -102,3 +102,23 @@ TEST_CASE("Test phenotype split method", "[PhenotypeTest][TestSplit]")
     CHECK(splitted_1.getEnergy() == 4.025);
   }
 }
+
+TEST_CASE("Test (in)equality operators for Phenotype instances", "[PhenotypeTest][TestEquality]")
+{
+  {
+    const Phenotype phenotype_0{13};
+    CHECK(phenotype_0 == phenotype_0);
+    CHECK(!(phenotype_0 != phenotype_0));
+
+    const Phenotype phenotype_1{13};
+    CHECK(phenotype_0 == phenotype_1);
+    CHECK(!(phenotype_0 != phenotype_1));
+  }
+  {
+    const Phenotype phenotype_0{13};
+    const Phenotype phenotype_1{12.999};
+
+    CHECK(!(phenotype_0 == phenotype_1));
+    CHECK(phenotype_0 != phenotype_1);
+  }
+}

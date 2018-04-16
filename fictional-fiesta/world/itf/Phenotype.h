@@ -50,11 +50,16 @@ class Phenotype : public Descriptable
     /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const override;
 
+    friend bool operator==(const Phenotype& lhs, const Phenotype& rhs);
+
   private:
 
     /// Energy level of the individual.
     double _energy;
 };
+
+bool operator==(const Phenotype& lhs, const Phenotype& rhs);
+bool operator!=(const Phenotype& lhs, const Phenotype& rhs);
 
 } // namespace fictionalfiesta
 
