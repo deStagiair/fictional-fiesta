@@ -60,10 +60,14 @@ TEST_CASE("Test individual constructor from XML", "[IndividualTest][TestFromXml]
   const auto& root_node = document.getRootNode();
 
   {
-    const auto first = Individual{root_node.getChildNode("First")};
+    const auto loaded = Individual{root_node.getChildNode("First")};
+    const auto benchmark = Individual{Genotype{10, 1, 0.1}, 0};
+    CHECK(loaded == benchmark);
   }
   {
-    const auto second = Individual{root_node.getChildNode("Second")};
+    const auto loaded = Individual{root_node.getChildNode("Second")};
+    const auto benchmark = Individual{Genotype{3, 0.44, 0.5}, 1}.die().feed(140);
+    CHECK(loaded == benchmark);
   }
 }
 
