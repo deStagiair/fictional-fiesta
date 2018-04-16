@@ -79,6 +79,8 @@ class Individual : public Descriptable
     /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const override;
 
+    friend bool operator==(const Individual& lhs, const Individual& rhs);
+
   private:
 
     /// Genotype of the individual (inherited features).
@@ -93,6 +95,9 @@ class Individual : public Descriptable
     /// Resource units accumulated.
     unsigned int _resourceCount = 0;
 };
+
+bool operator==(const Individual& lhs, const Individual& rhs);
+bool operator!=(const Individual& lhs, const Individual& rhs);
 
 } // namespace fictionalfiesta
 

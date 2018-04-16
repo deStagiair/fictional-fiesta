@@ -142,4 +142,34 @@ std::string Individual::str(unsigned int indentLevel) const
   return result.str();
 }
 
+bool operator==(const Individual& lhs, const Individual& rhs)
+{
+  if (lhs._genotype != rhs._genotype)
+  {
+    return false;
+  }
+
+  if (lhs._phenotype != rhs._phenotype)
+  {
+    return false;
+  }
+
+  if (lhs._isDead != rhs._isDead)
+  {
+    return false;
+  }
+
+  if (lhs._resourceCount != rhs._resourceCount)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool operator!=(const Individual& lhs, const Individual& rhs)
+{
+  return !(lhs == rhs);
+}
+
 } // namespace fictionalfiesta

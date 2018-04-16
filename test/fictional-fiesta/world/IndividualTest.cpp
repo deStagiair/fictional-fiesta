@@ -53,6 +53,20 @@ TEST_CASE("Test individual stringify method", "[IndividualTest][TestStr]")
   }
 }
 
+TEST_CASE("Test individual constructor from XML", "[IndividualTest][TestFromXml]")
+{
+  const auto& input_file = input_directory / fs::path("individual_0.xml");
+  const auto& document = XmlDocument{input_file};
+  const auto& root_node = document.getRootNode();
+
+  {
+    const auto first = Individual{root_node.getChildNode("First")};
+  }
+  {
+    const auto second = Individual{root_node.getChildNode("Second")};
+  }
+}
+
 TEST_CASE("Test individual save method", "[IndividualTest][TestSave]")
 {
   auto document = XmlDocument{};
@@ -207,5 +221,45 @@ TEST_CASE("Test individual maintenance", "[IndividualTest][TestPerformMaintenana
     CHECK(dude.getResourceCount() == 0);
     CHECK(dude.getPhenotype().getEnergy() == 25);
     CHECK(dude.isDead());
+  }
+}
+
+TEST_CASE("Test (in)equality operators for Individual instances", "[IndividualTest][TestEquality]")
+{
+  const Genotype genotype_0{10, 1, 0.5};
+  const Genotype genotype_1{10, 0, 0.5};
+
+  {
+    const Individual individual_0{genotype_0, 1};
+    CHECK(individual_0 == individual_0);
+    CHECK(!(individual_0 != individual_0));
+
+    const Individual individual_1{genotype_0, 1};
+    CHECK(individual_0 == individual_1);
+    CHECK(!(individual_0 != individual_1));
+  }
+  {
+    const Individual individual_0{genotype_0, 1};
+    const Individual individual_1{genotype_1, 1};
+    CHECK(!(individual_0 == individual_1));
+    CHECK(individual_0 != individual_1);
+  }
+  {
+    const Individual individual_0{genotype_0, 1};
+    const Individual individual_1{genotype_0, 0.99};
+    CHECK(!(individual_0 == individual_1));
+    CHECK(individual_0 != individual_1);
+  }
+  {
+    const auto individual_0 = Individual{genotype_0, 1}.die();
+    const Individual individual_1{genotype_0, 1};
+    CHECK(!(individual_0 == individual_1));
+    CHECK(individual_0 != individual_1);
+  }
+  {
+    const auto individual_0 = Individual{genotype_0, 1}.feed(1);
+    const Individual individual_1{genotype_0, 1};
+    CHECK(!(individual_0 == individual_1));
+    CHECK(individual_0 != individual_1);
   }
 }
