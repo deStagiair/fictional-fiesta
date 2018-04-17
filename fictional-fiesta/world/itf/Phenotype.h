@@ -2,6 +2,7 @@
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_PHENOTYPE_H
 
 #include "fictional-fiesta/utils/itf/Descriptable.h"
+#include "fictional-fiesta/utils/itf/Xmlable.h"
 
 #include "fictional-fiesta/world/itf/FSM.h"
 
@@ -14,7 +15,7 @@ class XmlNode;
 
 /// @brief Class that represents the set of features that are the expression of the genotype
 ///     in an individual.
-class Phenotype : public Descriptable
+class Phenotype : public Descriptable, public Xmlable
 {
   public:
 
@@ -25,10 +26,6 @@ class Phenotype : public Descriptable
     /// @brief Constructor from a XmlNode.
     /// @param node XML node from which to construct the Phenotype.
     explicit Phenotype(const XmlNode& node);
-
-    /// @brief Save this instance in a XmlNode.
-    /// @param node node where the instance will be saved.
-    void save(XmlNode node) const;
 
     /// @brief Gets the current energy level.
     /// @return Current energy level.
@@ -53,6 +50,15 @@ class Phenotype : public Descriptable
     friend bool operator==(const Phenotype& lhs, const Phenotype& rhs);
 
   private:
+
+    /// @copydoc Xmlable::doLoad
+    virtual void doLoad(const XmlNode& node) override;
+
+    /// @copydoc Xmlable::doSave
+    void doSave(XmlNode& node) const override;
+
+    /// @copydoc Xmlable::getDefaultXmlName
+    std::string getDefaultXmlName() const override;
 
     /// Energy level of the individual.
     double _energy;

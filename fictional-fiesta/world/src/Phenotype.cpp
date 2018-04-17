@@ -12,6 +12,7 @@ namespace fictionalfiesta
 namespace
 {
   constexpr char XML_ENERGY_NAME[]{"Energy"};
+  constexpr char XML_PHENOTYPE_NODE_NAME[]{"Phenotype"};
 } // anonymous namespace
 
 Phenotype::Phenotype(double initialEnergy):
@@ -22,12 +23,6 @@ Phenotype::Phenotype(double initialEnergy):
 Phenotype::Phenotype(const XmlNode& node):
   _energy(node.getChildNodeTextAs<double>(XML_ENERGY_NAME))
 {
-}
-
-void Phenotype::save(XmlNode node) const
-{
-  auto energy_node = node.appendChildNode(XML_ENERGY_NAME);
-  energy_node.setText(_energy);
 }
 
 double Phenotype::getEnergy() const
@@ -55,6 +50,23 @@ std::string Phenotype::str(unsigned int indentLevel) const
       indent(indentLevel) << "Energy: " << _energy << "\n";
 
   return result.str();
+}
+
+void Phenotype::doLoad(const XmlNode& node)
+{
+  auto loaded = Phenotype(node);
+  std::swap(*this, loaded);
+}
+
+void Phenotype::doSave(XmlNode& node) const
+{
+  auto energy_node = node.appendChildNode(XML_ENERGY_NAME);
+  energy_node.setText(_energy);
+}
+
+std::string Phenotype::getDefaultXmlName() const
+{
+  return XML_PHENOTYPE_NODE_NAME;
 }
 
 bool operator==(const Phenotype& lhs, const Phenotype& rhs)
