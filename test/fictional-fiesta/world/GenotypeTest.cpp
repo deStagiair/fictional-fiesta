@@ -72,13 +72,10 @@ TEST_CASE("Test genotype constructor from XML", "[GenotypeTest][TestGenotypeCons
 
 TEST_CASE("Test genotype XML save method", "[GenotypeTest][TestGenotypeSaveToXml]")
 {
-  auto document = XmlDocument{};
-
   const Genotype genotype{43, 0.5, 0.66};
-  genotype.save(document.appendRootNode("Genotype"));
 
   const auto& result_file = result_directory / fs::path("genotype_0.xml");
-  REQUIRE_NOTHROW(document.save(result_file));
+  REQUIRE_NOTHROW(genotype.save(result_file));
 
   const auto& benchmark_file = benchmark_directory / fs::path("genotype_0.xml");
   benchmarkFiles(benchmark_file, result_file, result_directory);

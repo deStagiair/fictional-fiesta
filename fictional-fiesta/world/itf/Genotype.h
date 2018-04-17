@@ -94,6 +94,8 @@ class Genotype : public Descriptable, public Xmlable
     /// @copydoc Xmlable::doSave
     virtual void doSave(XmlNode& node) const override;
 
+    /// @copydoc Xmlable::getDefaultXmlName
+    virtual std::string getDefaultXmlName() const override;
 
     /// Ammount of energy required to be able to reproduce.
     double _reproductionEnergyThreshold;

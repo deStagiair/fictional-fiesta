@@ -19,6 +19,7 @@ double normalized_distance(const double first, const double second);
 constexpr char XML_REPRODUCTION_ENERGY_THRESHOLD_NAME[]{"ReproductionEnergyThreshold"};
 constexpr char XML_REPRODUCTION_PROBABILITY_NAME[]{"ReproductionProbability"};
 constexpr char XML_MUTABILITY_RATIO_NAME[]{"MutabilityRatio"};
+constexpr char XML_GENOTYPE_NODE_NAME[]{"Genotype"};
 
 } // anonymous namespace
 
@@ -145,6 +146,11 @@ Genotype Genotype::average(const std::vector<Genotype>& genotypes)
   return Genotype(acum_repr_threshold / size,
       acum_repr_probability / size,
       acum_mutability / size);
+}
+
+std::string Genotype::getDefaultXmlName() const
+{
+  return XML_GENOTYPE_NODE_NAME;
 }
 
 bool operator==(const Genotype& lhs, const Genotype& rhs)

@@ -20,6 +20,10 @@ class Xmlable
     /// @param node XML node where to save the XML contents.
     void save(XmlNode node) const;
 
+    /// @brief Save the class contents into a file.
+    /// @param filePath Path where the XML will be saved.
+    void save(const std::experimental::filesystem::path& filePath) const;
+
   private:
 
     /// @brief Load the class contents from a XML node.
@@ -29,6 +33,10 @@ class Xmlable
     /// @brief Save the class contents into a XML node.
     /// @param node XML node where to save the XML contents.
     virtual void doSave(XmlNode& node) const = 0;
+
+    /// @brief Get the default main XML node name for the class.
+    /// @return Default main XML node name.
+    virtual std::string getDefaultXmlName() const = 0;
 };
 
 } // namespace fictionalfiesta
