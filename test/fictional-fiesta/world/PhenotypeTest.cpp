@@ -44,13 +44,10 @@ TEST_CASE("Test phenotype constructor and getters", "[PhenotypeTest][TestConstru
 
 TEST_CASE("Test phenotype XML save method", "[PhenotypeTest][TestPhenotypeSaveToXml]")
 {
-  auto document = XmlDocument{};
-
   const Phenotype phenotype{42.01};
-  phenotype.save(document.appendRootNode("Phenotype"));
 
   const auto& result_file = result_directory / fs::path("phenotype_0.xml");
-  REQUIRE_NOTHROW(document.save(result_file));
+  REQUIRE_NOTHROW(phenotype.save(result_file));
 
   const auto& benchmark_file = benchmark_directory / fs::path("phenotype_0.xml");
   benchmarkFiles(benchmark_file, result_file, result_directory);
