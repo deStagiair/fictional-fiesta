@@ -2,6 +2,7 @@
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_GENOTYPE_H
 
 #include "fictional-fiesta/utils/itf/Descriptable.h"
+#include "fictional-fiesta/utils/itf/Xmlable.h"
 
 #include "fictional-fiesta/world/itf/FSM.h"
 
@@ -12,7 +13,7 @@ class Phenotype;
 class XmlNode;
 
 /// @brief Class that represents the set of features that are inherited by individuals.
-class Genotype : public Descriptable
+class Genotype : public Descriptable, public Xmlable
 {
   public:
 
@@ -29,10 +30,6 @@ class Genotype : public Descriptable
     /// @brief Construction from an XmlNode.
     /// @param node XML node from which the genotype will be loaded.
     Genotype(const XmlNode& node);
-
-    /// @brief Save this instance in a XmlNode.
-    /// @param node node where the instance will be saved.
-    void save(XmlNode node) const;
 
     /// @brief Get the reproduction energy threshold.
     /// @return Reproduction energy threshold.
@@ -91,6 +88,13 @@ class Genotype : public Descriptable
 
   private:
 
+    /// @copydoc Xmlable::doLoad
+    virtual void doLoad(const XmlNode& node) override;
+
+    /// @copydoc Xmlable::doSave
+    virtual void doSave(XmlNode& node) const override;
+
+
     /// Ammount of energy required to be able to reproduce.
     double _reproductionEnergyThreshold;
 
@@ -102,7 +106,16 @@ class Genotype : public Descriptable
     double _mutabilityRatio;
 };
 
+/// @brief Genotype equality comparison.
+/// @param lhs Left hand side operand.
+/// @param rhs Right hand side operand.
+/// @return @e true if the two operands are exactly equal and @e false if not.
 bool operator==(const Genotype& lhs, const Genotype& rhs);
+
+/// @brief Genotype inequality comparison.
+/// @param lhs Left hand side operand.
+/// @param rhs Right hand side operand.
+/// @return @e false if the two operands are exactly equal and @e true if not.
 bool operator!=(const Genotype& lhs, const Genotype& rhs);
 
 } // namespace fictionalfiesta
