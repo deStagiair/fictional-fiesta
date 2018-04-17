@@ -96,7 +96,16 @@ class Individual : public Descriptable
     unsigned int _resourceCount = 0;
 };
 
+/// @brief Individual equality comparison.
+/// @param lhs Left hand side operand.
+/// @param rhs Right hand side operand.
+/// @return @e true if the two operands are exactly equal and @e false if not.
 bool operator==(const Individual& lhs, const Individual& rhs);
+
+/// @brief Individual inequality comparison.
+/// @param lhs Left hand side operand.
+/// @param rhs Right hand side operand.
+/// @return @e false if the two operands are exactly equal and @e true if not.
 bool operator!=(const Individual& lhs, const Individual& rhs);
 
 } // namespace fictionalfiesta

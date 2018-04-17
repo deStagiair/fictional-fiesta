@@ -58,7 +58,16 @@ class Phenotype : public Descriptable
     double _energy;
 };
 
+/// @brief Phenotype equality comparison.
+/// @param lhs Left hand side operand.
+/// @param rhs Right hand side operand.
+/// @return @e true if the two operands are exactly equal and @e false if not.
 bool operator==(const Phenotype& lhs, const Phenotype& rhs);
+
+/// @brief Phenotype inequality comparison.
+/// @param lhs Left hand side operand.
+/// @param rhs Right hand side operand.
+/// @return @e false if the two operands are exactly equal and @e true if not.
 bool operator!=(const Phenotype& lhs, const Phenotype& rhs);
 
 } // namespace fictionalfiesta
