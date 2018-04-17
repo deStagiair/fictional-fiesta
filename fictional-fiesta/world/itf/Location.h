@@ -1,6 +1,8 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_LOCATION_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_LOCATION_H
 
+#include "fictional-fiesta/utils/itf/XmlSavable.h"
+
 #include "fictional-fiesta/world/itf/FSM.h"
 
 #include <memory>
@@ -15,7 +17,7 @@ class XmlNode;
 
 /// @brief Class that represents a location in the world.
 /// @details A location has a set of Sources.
-class Location
+class Location : public XmlSavable
 {
   public:
 
@@ -28,10 +30,6 @@ class Location
     /// @brief Constructor from an XmlNode.
     /// @param node XmlNode with the class contents.
     Location(const XmlNode& node);
-
-    /// @brief Save this Location instance in a XmlNode.
-    /// @param node Node where the Source instance will be saved.
-    void save(XmlNode& node) const;
 
     /// @brief Splits resources between individuals.
     /// @param rng Random number generator.
@@ -73,7 +71,16 @@ class Location
     /// @param rng Random number generator.
     void cycle(FSM::Rng& rng);
 
+    /// @brief Name of the main XML node for this class.
+    static constexpr char XML_MAIN_NODE_NAME[]{"Location"};
+
   private:
+
+    /// @copydoc XmlSavable::doSave
+    void doSave(XmlNode& node) const override;
+
+    /// @copydoc XmlSavable::getDefaultXmlName
+    virtual std::string getDefaultXmlName() const override;
 
     std::vector<std::unique_ptr<Source>> _sources;
     std::vector<Individual> _individuals;

@@ -34,15 +34,6 @@ Location::Location(const XmlNode& node)
   }
 }
 
-void Location::save(XmlNode& node) const
-{
-  auto resources_node = node.appendChildNode(XML_RESOURCES_NODE_NAME);
-  for (const auto& source : _sources)
-  {
-    source->save(resources_node.appendChildNode(Source::XML_MAIN_NODE_NAME));
-  }
-}
-
 static unsigned int draw_resource_unit(
     const std::vector<double>& weights,
     FSM::Rng& rng)
@@ -161,6 +152,20 @@ void Location::cycle(FSM::Rng& rng)
   resourcePhase(rng);
   maintenancePhase(rng);
   reproductionPhase(rng);
+}
+
+void Location::doSave(XmlNode& node) const
+{
+  auto resources_node = node.appendChildNode(XML_RESOURCES_NODE_NAME);
+  for (const auto& source : _sources)
+  {
+    source->save(resources_node.appendChildNode(Source::XML_MAIN_NODE_NAME));
+  }
+}
+
+std::string Location::getDefaultXmlName() const
+{
+  return XML_MAIN_NODE_NAME;
 }
 
 } // namespace fictionalfiesta

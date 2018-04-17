@@ -34,11 +34,7 @@ TEST_CASE("Test loading and saving locations from/to XML", "[LocationTest][TestL
   const auto& location = Location{document.getRootNode()};
 
   const auto& result_file = result_directory / fs::path("location_0.xml");
-
-  auto result_document = XmlDocument{};
-  auto node = result_document.appendRootNode("Location");
-  location.save(node);
-  REQUIRE_NOTHROW(result_document.save(result_file));
+  REQUIRE_NOTHROW(location.save(result_file));
 
 
   const auto& benchmark_file = benchmark_directory / fs::path("location_0.xml");
@@ -52,11 +48,7 @@ TEST_CASE("Test creating a location and saving it to XML", "[LocationTest][TestC
 
   const auto& result_file = result_directory / fs::path("location_1.xml");
 
-  auto result_document = XmlDocument{};
-  auto node = result_document.appendRootNode("Location");
-  location.save(node);
-  REQUIRE_NOTHROW(result_document.save(result_file));
-
+  REQUIRE_NOTHROW(location.save(result_file));
 
   const auto& benchmark_file = benchmark_directory / fs::path("location_1.xml");
   benchmarkFiles(benchmark_file, result_file, result_directory);
