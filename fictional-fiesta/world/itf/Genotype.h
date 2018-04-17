@@ -88,10 +88,10 @@ class Genotype : public Descriptable, public XmlSavable
 
   private:
 
-    /// @copydoc Xmlable::doSave
+    /// @copydoc XmlSavable::doSave
     virtual void doSave(XmlNode& node) const override;
 
-    /// @copydoc Xmlable::getDefaultXmlName
+    /// @copydoc XmlSavable::getDefaultXmlName
     virtual std::string getDefaultXmlName() const override;
 
     /// Ammount of energy required to be able to reproduce.

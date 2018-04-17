@@ -1,23 +1,11 @@
 <?xml version="1.0"?>
-<Sources>
-  <First>
-    <Genotype>
-      <ReproductionEnergyThreshold>10</ReproductionEnergyThreshold>
-      <ReproductionProbability>1</ReproductionProbability>
-      <MutabilityRatio>0.1</MutabilityRatio>
-    </Genotype>
-    <Phenotype>
-      <Energy>0</Energy>
-    </Phenotype>
-  </First>
-  <Second IsDead="true" ResourceCount="140">
-    <Genotype>
-      <ReproductionEnergyThreshold>3</ReproductionEnergyThreshold>
-      <ReproductionProbability>0.44</ReproductionProbability>
-      <MutabilityRatio>0.5</MutabilityRatio>
-    </Genotype>
-    <Phenotype>
-      <Energy>1</Energy>
-    </Phenotype>
-  </Second>
-</Sources>
+<Individual>
+  <Genotype>
+    <ReproductionEnergyThreshold>10</ReproductionEnergyThreshold>
+    <ReproductionProbability>1</ReproductionProbability>
+    <MutabilityRatio>0.1</MutabilityRatio>
+  </Genotype>
+  <Phenotype>
+    <Energy>0</Energy>
+  </Phenotype>
+</Individual>

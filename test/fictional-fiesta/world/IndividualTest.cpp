@@ -73,27 +73,29 @@ TEST_CASE("Test individual constructor from XML", "[IndividualTest][TestFromXml]
 
 TEST_CASE("Test individual save method", "[IndividualTest][TestSave]")
 {
-  auto document = XmlDocument{};
-  auto root_node = document.appendRootNode("Sources");
-
   {
+    const auto& result_file = result_directory / fs::path("individual_0.xml");
+
     const Genotype genotype{10, 1, 0.1};
     const auto individual = Individual{genotype, 0};
 
-    individual.save(root_node.appendChildNode("First"));
+    individual.save(result_file);
+
+    const auto& benchmark_file = benchmark_directory / fs::path("individual_0.xml");
+    benchmarkFiles(benchmark_file, result_file, result_directory);
   }
+
   {
+    const auto& result_file = result_directory / fs::path("individual_1.xml");
+
     const Genotype genotype{3, 0.44, 0.5};
     const auto individual = Individual{genotype, 1}.die().feed(140);
 
-    individual.save(root_node.appendChildNode("Second"));
+    individual.save(result_file);
+
+    const auto& benchmark_file = benchmark_directory / fs::path("individual_1.xml");
+    benchmarkFiles(benchmark_file, result_file, result_directory);
   }
-
-  const auto& result_file = result_directory / fs::path("individual_0.xml");
-  REQUIRE_NOTHROW(document.save(result_file));
-
-  const auto& benchmark_file = benchmark_directory / fs::path("individual_0.xml");
-  benchmarkFiles(benchmark_file, result_file, result_directory);
 }
 
 TEST_CASE("Test individual willReproduce method", "[IndividualTest][TestWillReproduce]")

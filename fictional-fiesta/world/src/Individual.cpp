@@ -8,8 +8,11 @@
 
 namespace
 {
+
   constexpr char XML_PHENOTYPE_NODE_NAME[]{"Phenotype"};
   constexpr char XML_GENOTYPE_NODE_NAME[]{"Genotype"};
+  constexpr char XML_INDIVIDUAL_NODE_NAME[]{"Individual"};
+
 } // anonymous namespace
 
 namespace fictionalfiesta
@@ -27,21 +30,6 @@ Individual::Individual(const XmlNode& node):
   _isDead(node.getOptionalAttributeAs("IsDead", false)),
   _resourceCount(node.getOptionalAttributeAs("ResourceCount", 0))
 {
-}
-
-void Individual::save(XmlNode node) const
-{
-  _genotype.save(node.appendChildNode("Genotype"));
-  _phenotype.save(node.appendChildNode("Phenotype"));
-  if (_isDead)
-  {
-    node.setAttribute("IsDead", true);
-  }
-
-  if (_resourceCount)
-  {
-    node.setAttribute("ResourceCount", _resourceCount);
-  }
 }
 
 const Genotype& Individual::getGenotype() const
@@ -140,6 +128,26 @@ std::string Individual::str(unsigned int indentLevel) const
       _phenotype.str(indentLevel);
 
   return result.str();
+}
+
+void Individual::doSave(XmlNode& node) const
+{
+  _genotype.save(node.appendChildNode("Genotype"));
+  _phenotype.save(node.appendChildNode("Phenotype"));
+  if (_isDead)
+  {
+    node.setAttribute("IsDead", true);
+  }
+
+  if (_resourceCount)
+  {
+    node.setAttribute("ResourceCount", _resourceCount);
+  }
+}
+
+std::string Individual::getDefaultXmlName() const
+{
+  return XML_INDIVIDUAL_NODE_NAME;
 }
 
 bool operator==(const Individual& lhs, const Individual& rhs)

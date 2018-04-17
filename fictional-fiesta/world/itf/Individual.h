@@ -2,6 +2,7 @@
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_INDIVIDUAL_H
 
 #include "fictional-fiesta/utils/itf/Descriptable.h"
+#include "fictional-fiesta/utils/itf/XmlSavable.h"
 
 #include "fictional-fiesta/world/itf/FSM.h"
 #include "fictional-fiesta/world/itf/Genotype.h"
@@ -13,7 +14,7 @@ namespace fictionalfiesta
 class XmlNode;
 
 /// @brief Class that represents an individual.
-class Individual : public Descriptable
+class Individual : public Descriptable, public XmlSavable
 {
   public:
 
@@ -25,10 +26,6 @@ class Individual : public Descriptable
     /// @brief Constructor from a XML node.
     /// @param node from which to build the class.
     explicit Individual(const XmlNode& node);
-
-    /// @brief Save this Individual instance in a XmlNode.
-    /// @param node Node where the Individual instance will be saved.
-    void save(XmlNode node) const;
 
     /// @brief Gets the current individual's genotype.
     /// @return Genotype of this individual.
@@ -82,6 +79,12 @@ class Individual : public Descriptable
     friend bool operator==(const Individual& lhs, const Individual& rhs);
 
   private:
+
+    /// @copydoc XmlSavable::doSave
+    void doSave(XmlNode& node) const override;
+
+    /// @copydoc XmlSavable::getDefaultXmlName
+    virtual std::string getDefaultXmlName() const override;
 
     /// Genotype of the individual (inherited features).
     Genotype _genotype;

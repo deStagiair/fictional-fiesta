@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Individual IsDead="true" ResourceCount="140">
+  <Genotype>
+    <ReproductionEnergyThreshold>3</ReproductionEnergyThreshold>
+    <ReproductionProbability>0.44</ReproductionProbability>
+    <MutabilityRatio>0.5</MutabilityRatio>
+  </Genotype>
+  <Phenotype>
+    <Energy>1</Energy>
+  </Phenotype>
+</Individual>
