@@ -34,6 +34,13 @@ namespace
 std::vector<Location> load_locations(const XmlNode& node)
 {
   std::vector<Location> locations;
+
+  const std::vector<XmlNode> location_nodes = node.getChildNodes(XML_LOCATIONS_NODE_NAME);
+  for (const auto& location_node : location_nodes)
+  {
+    locations.push_back(std::move(Location(location_node)));
+  }
+
   return locations;
 }
 

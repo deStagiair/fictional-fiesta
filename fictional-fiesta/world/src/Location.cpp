@@ -2,8 +2,6 @@
 
 #include "fictional-fiesta/world/itf/Location.h"
 
-
-#include "fictional-fiesta/world/itf/Individual.h"
 #include "fictional-fiesta/world/itf/Source.h"
 #include "fictional-fiesta/world/itf/SourceFactory.h"
 
@@ -21,6 +19,8 @@ namespace fictionalfiesta
 {
 
 Location::Location() = default;
+
+Location::Location(Location&& other) = default;
 
 Location::~Location() = default;
 

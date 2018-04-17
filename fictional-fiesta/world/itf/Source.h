@@ -24,6 +24,8 @@ class Source
     /// @param initialUnitCount Inital number of units of the resource available.
     Source(const XmlNode& node, unsigned int initialUnitCount);
 
+    //Source(Source&&) = default;
+
     /// @brief Default destructor.
     virtual ~Source() = default;
 

@@ -4,6 +4,7 @@
 #include "fictional-fiesta/utils/itf/XmlSavable.h"
 
 #include "fictional-fiesta/world/itf/FSM.h"
+#include "fictional-fiesta/world/itf/Individual.h"
 
 #include <memory>
 #include <vector>
@@ -25,6 +26,11 @@ class Location : public XmlSavable
     /// @details Constructs an empty location (no sources).
     Location();
 
+    /// @brief Move constructor.
+    /// @param other Instance to be moved.
+    Location(Location&& other);
+
+    /// @brief Default destructor.
     ~Location();
 
     /// @brief Constructor from an XmlNode.
