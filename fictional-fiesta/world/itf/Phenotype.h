@@ -47,6 +47,9 @@ class Phenotype : public Descriptable, public XmlSavable
     /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const override;
 
+    /// @brief Name of the main node of this class.
+    static constexpr char XML_MAIN_NODE_NAME[]{"Phenotype"};
+
     friend bool operator==(const Phenotype& lhs, const Phenotype& rhs);
 
   private:

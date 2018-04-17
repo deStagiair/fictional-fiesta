@@ -19,7 +19,6 @@ double normalized_distance(const double first, const double second);
 constexpr char XML_REPRODUCTION_ENERGY_THRESHOLD_NAME[]{"ReproductionEnergyThreshold"};
 constexpr char XML_REPRODUCTION_PROBABILITY_NAME[]{"ReproductionProbability"};
 constexpr char XML_MUTABILITY_RATIO_NAME[]{"MutabilityRatio"};
-constexpr char XML_GENOTYPE_NODE_NAME[]{"Genotype"};
 
 } // anonymous namespace
 
@@ -144,7 +143,7 @@ void Genotype::doSave(XmlNode& node) const
 
 std::string Genotype::getDefaultXmlName() const
 {
-  return XML_GENOTYPE_NODE_NAME;
+  return XML_MAIN_NODE_NAME;
 }
 
 bool operator==(const Genotype& lhs, const Genotype& rhs)

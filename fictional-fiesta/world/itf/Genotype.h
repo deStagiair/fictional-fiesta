@@ -84,6 +84,9 @@ class Genotype : public Descriptable, public XmlSavable
     /// @return Average genotype.
     static Genotype average(const std::vector<Genotype>& genotypes);
 
+    /// Name of the main XML node for this class.
+    static constexpr char XML_MAIN_NODE_NAME[]{"Genotype"};
+
     friend bool operator==(const Genotype& lhs, const Genotype& rhs);
 
   private:

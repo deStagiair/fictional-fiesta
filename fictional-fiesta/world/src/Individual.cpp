@@ -25,8 +25,8 @@ Individual::Individual(const Genotype& genotype, double initialEnergy):
 }
 
 Individual::Individual(const XmlNode& node):
-  _genotype(node.getChildNode(XML_GENOTYPE_NODE_NAME)),
-  _phenotype(node.getChildNode(XML_PHENOTYPE_NODE_NAME)),
+  _genotype(node.getChildNode(Genotype::XML_MAIN_NODE_NAME)),
+  _phenotype(node.getChildNode(Phenotype::XML_MAIN_NODE_NAME)),
   _isDead(node.getOptionalAttributeAs("IsDead", false)),
   _resourceCount(node.getOptionalAttributeAs("ResourceCount", 0))
 {

@@ -12,7 +12,6 @@ namespace fictionalfiesta
 namespace
 {
   constexpr char XML_ENERGY_NAME[]{"Energy"};
-  constexpr char XML_PHENOTYPE_NODE_NAME[]{"Phenotype"};
 } // anonymous namespace
 
 Phenotype::Phenotype(double initialEnergy):
@@ -60,7 +59,7 @@ void Phenotype::doSave(XmlNode& node) const
 
 std::string Phenotype::getDefaultXmlName() const
 {
-  return XML_PHENOTYPE_NODE_NAME;
+  return XML_MAIN_NODE_NAME;
 }
 
 bool operator==(const Phenotype& lhs, const Phenotype& rhs)
