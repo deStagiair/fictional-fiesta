@@ -41,12 +41,6 @@ Genotype::Genotype(const XmlNode& node):
 {
 }
 
-void Genotype::doLoad(const XmlNode& node)
-{
-  auto loaded = Genotype(node);
-  std::swap(*this, loaded);
-}
-
 void Genotype::doSave(XmlNode& node) const
 {
   auto reproduction_threshold_node = node.appendChildNode(XML_REPRODUCTION_ENERGY_THRESHOLD_NAME);

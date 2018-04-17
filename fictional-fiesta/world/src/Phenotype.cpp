@@ -52,12 +52,6 @@ std::string Phenotype::str(unsigned int indentLevel) const
   return result.str();
 }
 
-void Phenotype::doLoad(const XmlNode& node)
-{
-  auto loaded = Phenotype(node);
-  std::swap(*this, loaded);
-}
-
 void Phenotype::doSave(XmlNode& node) const
 {
   auto energy_node = node.appendChildNode(XML_ENERGY_NAME);

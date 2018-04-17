@@ -1,5 +1,5 @@
-#ifndef INCLUDE_FICTIONAL_FIESTA_UTILS_XMLABLE_H
-#define INCLUDE_FICTIONAL_FIESTA_UTILS_XMLABLE_H
+#ifndef INCLUDE_FICTIONAL_FIESTA_UTILS_XML_SAVABLE_H
+#define INCLUDE_FICTIONAL_FIESTA_UTILS_XML_SAVABLE_H
 
 #include <string>
 
@@ -10,9 +10,9 @@ namespace fictionalfiesta
 
 class XmlNode;
 
-/// @class Xmlable
-/// @brief Interface for all the classes that can be loaded/saved from/to XML.
-class Xmlable
+/// @class XmlSavable
+/// @brief Interface for all the classes that can be saved to XML.
+class XmlSavable
 {
   public:
 
@@ -25,10 +25,6 @@ class Xmlable
     void save(const std::experimental::filesystem::path& filePath) const;
 
   private:
-
-    /// @brief Load the class contents from a XML node.
-    /// @param node XML node from were to load the class contents.
-    virtual void doLoad(const XmlNode& node) = 0;
 
     /// @brief Save the class contents into a XML node.
     /// @param node XML node where to save the XML contents.

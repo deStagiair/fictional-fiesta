@@ -1,21 +1,18 @@
-/// @file Xmlable.cpp Implementation of the Xmlable interface.
-
-#include "fictional-fiesta/world/itf/Genotype.h"
-
-#include "fictional-fiesta/world/itf/Phenotype.h"
+/// @file XmlSavable.cpp Implementation of the XmlSavable interface.
 
 #include "fictional-fiesta/utils/itf/XmlDocument.h"
 #include "fictional-fiesta/utils/itf/XmlNode.h"
+#include "fictional-fiesta/utils/itf/XmlSavable.h"
 
 namespace fictionalfiesta
 {
 
-void Xmlable::save(XmlNode node) const
+void XmlSavable::save(XmlNode node) const
 {
   doSave(node);
 }
 
-void Xmlable::save(const std::experimental::filesystem::path& filePath) const
+void XmlSavable::save(const std::experimental::filesystem::path& filePath) const
 {
   auto result_document = XmlDocument{};
   auto node = result_document.appendRootNode(getDefaultXmlName());

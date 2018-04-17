@@ -2,7 +2,7 @@
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_PHENOTYPE_H
 
 #include "fictional-fiesta/utils/itf/Descriptable.h"
-#include "fictional-fiesta/utils/itf/Xmlable.h"
+#include "fictional-fiesta/utils/itf/XmlSavable.h"
 
 #include "fictional-fiesta/world/itf/FSM.h"
 
@@ -15,7 +15,7 @@ class XmlNode;
 
 /// @brief Class that represents the set of features that are the expression of the genotype
 ///     in an individual.
-class Phenotype : public Descriptable, public Xmlable
+class Phenotype : public Descriptable, public XmlSavable
 {
   public:
 
@@ -50,9 +50,6 @@ class Phenotype : public Descriptable, public Xmlable
     friend bool operator==(const Phenotype& lhs, const Phenotype& rhs);
 
   private:
-
-    /// @copydoc Xmlable::doLoad
-    virtual void doLoad(const XmlNode& node) override;
 
     /// @copydoc Xmlable::doSave
     void doSave(XmlNode& node) const override;
