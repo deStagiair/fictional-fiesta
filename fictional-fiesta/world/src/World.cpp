@@ -28,6 +28,19 @@ World::World(const std::experimental::filesystem::path& xmlPath)
   _locations = load_locations(document.getRootNode());
 }
 
+void World::doSave(XmlNode& node) const
+{
+  for (const auto& location : _locations)
+  {
+    location.save(node.appendChildNode(Location::XML_MAIN_NODE_NAME));
+  }
+}
+
+std::string World::getDefaultXmlName() const
+{
+  return XML_MAIN_NODE_NAME;
+}
+
 namespace
 {
 

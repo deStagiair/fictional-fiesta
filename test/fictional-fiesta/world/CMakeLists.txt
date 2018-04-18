@@ -7,4 +7,5 @@ set(WORLD_TESTS
   ${CMAKE_CURRENT_SOURCE_DIR}/LocationTest.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/PhenotypeTest.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SourceFactoryTest.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/WorldTest.cpp
   CACHE INTERNAL "")

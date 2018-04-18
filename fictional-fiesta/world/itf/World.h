@@ -1,7 +1,7 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_WORLD_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_WORLD_H
 
-//#include "fictional-fiesta/utils/itf/Descriptable.h"
+#include "fictional-fiesta/utils/itf/XmlSavable.h"
 
 //#include "fictional-fiesta/world/itf/FSM.h"
 #include "fictional-fiesta/world/itf/Location.h"
@@ -13,7 +13,7 @@ namespace fictionalfiesta
 {
 
 /// @brief Class that represents the world.
-class World// : public Descriptable
+class World : public XmlSavable
 {
   public:
 
@@ -24,10 +24,6 @@ class World// : public Descriptable
     /// @param xmlPath Path to the world XML document.
     explicit World(const std::experimental::filesystem::path& xmlPath);
 
-    /// @brief Save this Individual instance in a XmlNode.
-    /// @param node Node where the Individual instance will be saved.
-    void save(XmlNode node) const;
-
     /// Name of the main XML node for this class.
     static constexpr char XML_MAIN_NODE_NAME[]{"World"};
 
@@ -36,6 +32,12 @@ class World// : public Descriptable
     /// @brief Constructor from a XmlNode.
     /// @param node XML node from where to load the class contents.
     explicit World(const XmlNode& node);
+
+    /// @copydoc XmlSavable::doSave
+    void doSave(XmlNode& node) const override;
+
+    /// @copydoc XmlSavable::getDefaultXmlName
+    virtual std::string getDefaultXmlName() const override;
 
     /// Location vector.
     std::vector<Location> _locations;
