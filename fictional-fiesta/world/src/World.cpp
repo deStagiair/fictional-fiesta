@@ -28,6 +28,11 @@ World::World(const std::experimental::filesystem::path& xmlPath)
   _locations = load_locations(document.getRootNode());
 }
 
+void World::addLocation(Location&& location)
+{
+  _locations.push_back(std::move(location));
+}
+
 void World::doSave(XmlNode& node) const
 {
   for (const auto& location : _locations)

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<World>
+  <Location>
+    <Resources>
+      <Source Type="Constant">
+        <Resource>Light</Resource>
+        <CurrentUnits>10</CurrentUnits>
+        <FixedUnits>10</FixedUnits>
+      </Source>
+      <Source Type="Constant">
+        <Resource>Water</Resource>
+        <CurrentUnits>3</CurrentUnits>
+        <FixedUnits>3</FixedUnits>
+      </Source>
+    </Resources>
+  </Location>
+  <Location>
+    <Resources>
+      <Source Type="Constant">
+        <Resource>Heat</Resource>
+        <CurrentUnits>1</CurrentUnits>
+        <FixedUnits>1</FixedUnits>
+      </Source>
+    </Resources>
+  </Location>
+</World>

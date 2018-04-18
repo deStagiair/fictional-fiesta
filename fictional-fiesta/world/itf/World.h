@@ -24,6 +24,10 @@ class World : public XmlSavable
     /// @param xmlPath Path to the world XML document.
     explicit World(const std::experimental::filesystem::path& xmlPath);
 
+    /// @brief Add a location to the world.
+    /// @param location Location to be added.
+    void addLocation(Location&& location);
+
     /// Name of the main XML node for this class.
     static constexpr char XML_MAIN_NODE_NAME[]{"World"};
 
