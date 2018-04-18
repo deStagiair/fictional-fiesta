@@ -35,9 +35,11 @@ void World::addLocation(Location&& location)
 
 void World::doSave(XmlNode& node) const
 {
+  auto locations_node = node.appendChildNode(XML_LOCATIONS_NODE_NAME);
+
   for (const auto& location : _locations)
   {
-    location.save(node.appendChildNode(Location::XML_MAIN_NODE_NAME));
+    location.save(locations_node.appendChildNode(Location::XML_MAIN_NODE_NAME));
   }
 }
 
@@ -53,10 +55,11 @@ std::vector<Location> load_locations(const XmlNode& node)
 {
   std::vector<Location> locations;
 
-  const std::vector<XmlNode> location_nodes = node.getChildNodes(XML_LOCATIONS_NODE_NAME);
+  const std::vector<XmlNode> location_nodes = node.getChildNode(XML_LOCATIONS_NODE_NAME).
+      getChildNodes(Location::XML_MAIN_NODE_NAME);
   for (const auto& location_node : location_nodes)
   {
-    locations.push_back(std::move(Location(location_node)));
+    locations.push_back(Location(location_node));
   }
 
   return locations;

@@ -1,2 +1,4 @@
 <?xml version="1.0"?>
-<World />
+<World>
+  <Locations />
+</World>

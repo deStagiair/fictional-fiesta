@@ -61,17 +61,16 @@ TEST_CASE("Test saving a world to XML", "[WorldTest][TestSave]")
   }
 }
 
-//TEST_CASE("Test loading a world from XML", "[WorldTest][TestLoad]")
-//{
-  //const auto& input_file = input_directory / fs::path("world_0.xml");
-  //const auto& document = XmlDocument{input_file};
+TEST_CASE("Test loading and saving a world from XML", "[WorldTest][TestLoadSave]")
+{
+  const auto& input_file = input_directory / fs::path("world_1.xml");
 
-  //const auto& location = Location{input_file.getRootNode()};
+  const auto& world = World{input_file};
 
-  //const auto& result_file = result_directory / fs::path("location_0.xml");
-  //REQUIRE_NOTHROW(location.save(result_file));
+  const auto& result_file = result_directory / fs::path("loaded_world_1.xml");
+  REQUIRE_NOTHROW(world.save(result_file));
 
 
-  //const auto& benchmark_file = benchmark_directory / fs::path("location_0.xml");
-  //benchmarkFiles(benchmark_file, result_file, result_directory);
-//}
+  const auto& benchmark_file = benchmark_directory / fs::path("loaded_world_1.xml");
+  benchmarkFiles(benchmark_file, result_file, result_directory);
+}
