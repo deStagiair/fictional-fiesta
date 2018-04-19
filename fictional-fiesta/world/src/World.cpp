@@ -33,6 +33,14 @@ void World::addLocation(Location&& location)
   _locations.push_back(std::move(location));
 }
 
+void World::cycle(FSM::Rng& rng)
+{
+  for (auto& location : _locations)
+  {
+    location.cycle(rng);
+  }
+}
+
 void World::doSave(XmlNode& node) const
 {
   auto locations_node = node.appendChildNode(XML_LOCATIONS_NODE_NAME);

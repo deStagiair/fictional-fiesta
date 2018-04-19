@@ -59,13 +59,13 @@ int main(int argc, char* argv[])
   std::cout << "Initial world file: " << world_filename << "\n";
 
   const auto& world_path = fs::path(world_filename);
-  const auto& world = World{world_path};
+  auto world = World{world_path};
 
   auto rng = FSM::createRng();
   for (int cycle_index = 0; cycle_index < cycle_count; ++cycle_index)
   {
     std::cout << "Cycle " << cycle_index << ":\n";
-    //world.cycle(rng);
+    world.cycle(rng);
     //std::cout << "Population : " << location.getIndividuals().size() << std::endl;
 
     //location.cycle(rng);

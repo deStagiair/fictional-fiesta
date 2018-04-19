@@ -3,7 +3,7 @@
 
 #include "fictional-fiesta/utils/itf/XmlSavable.h"
 
-//#include "fictional-fiesta/world/itf/FSM.h"
+#include "fictional-fiesta/world/itf/FSM.h"
 #include "fictional-fiesta/world/itf/Location.h"
 
 #include <experimental/filesystem>
@@ -27,6 +27,10 @@ class World : public XmlSavable
     /// @brief Add a location to the world.
     /// @param location Location to be added.
     void addLocation(Location&& location);
+
+    /// @brief Run a cycle over all the locations of the world.
+    /// @param rng Random number generator.
+    void cycle(FSM::Rng& rng);
 
     /// Name of the main XML node for this class.
     static constexpr char XML_MAIN_NODE_NAME[]{"World"};
