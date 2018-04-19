@@ -13,6 +13,7 @@
 namespace
 {
 constexpr char XML_RESOURCES_NODE_NAME[]{"Resources"};
+constexpr char XML_INDIVIDUALS_NODE_NAME[]{"Individuals"};
 }
 
 namespace fictionalfiesta
@@ -154,12 +155,41 @@ void Location::cycle(FSM::Rng& rng)
   reproductionPhase(rng);
 }
 
+std::string Location::str(unsigned int indentLevel) const
+{
+  std::stringstream ss;
+  ss << indent(indentLevel) << "Location:\n";
+
+  ss << indent(indentLevel) << "-Sources:\n";
+
+  for (const auto& source : _sources)
+  {
+    ss << source->str(indentLevel + 1);
+  }
+
+  ss << indent(indentLevel) << "-Individuals:\n";
+
+  for (const auto& individual : _individuals)
+  {
+    ss << individual.str(indentLevel + 1);
+  }
+
+  return ss.str();
+}
+
 void Location::doSave(XmlNode& node) const
 {
   auto resources_node = node.appendChildNode(XML_RESOURCES_NODE_NAME);
   for (const auto& source : _sources)
   {
     source->save(resources_node.appendChildNode(Source::XML_MAIN_NODE_NAME));
+  }
+
+  auto individuals_node = node.appendChildNode(XML_INDIVIDUALS_NODE_NAME);
+
+  for (const auto& individual : _individuals)
+  {
+    individual.save(individuals_node.appendChildNode(Individual::XML_MAIN_NODE_NAME));
   }
 }
 

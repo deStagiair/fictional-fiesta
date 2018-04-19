@@ -14,6 +14,7 @@
           <FixedUnits>3</FixedUnits>
         </Source>
       </Resources>
+      <Individuals />
     </Location>
     <Location>
       <Resources>
@@ -23,6 +24,7 @@
           <FixedUnits>1</FixedUnits>
         </Source>
       </Resources>
+      <Individuals />
     </Location>
   </Locations>
 </World>

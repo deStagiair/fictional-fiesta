@@ -1,6 +1,7 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_LOCATION_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_LOCATION_H
 
+#include "fictional-fiesta/utils/itf/Descriptable.h"
 #include "fictional-fiesta/utils/itf/XmlSavable.h"
 
 #include "fictional-fiesta/world/itf/FSM.h"
@@ -18,7 +19,7 @@ class XmlNode;
 
 /// @brief Class that represents a location in the world.
 /// @details A location has a set of Sources.
-class Location : public XmlSavable
+class Location : public XmlSavable, public Descriptable
 {
   public:
 
@@ -76,6 +77,9 @@ class Location : public XmlSavable
     /// @brief Performs a full cycle.
     /// @param rng Random number generator.
     void cycle(FSM::Rng& rng);
+
+    /// @copydoc Descriptable::str
+    std::string str(unsigned int indentLevel) const override;
 
     /// @brief Name of the main XML node for this class.
     static constexpr char XML_MAIN_NODE_NAME[]{"Location"};
