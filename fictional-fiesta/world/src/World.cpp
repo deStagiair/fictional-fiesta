@@ -41,6 +41,20 @@ void World::cycle(FSM::Rng& rng)
   }
 }
 
+std::string World::str(unsigned int indentLevel) const
+{
+  std::stringstream ss;
+
+  ss << indent(indentLevel) << "World:\n";
+
+  for (const auto& location : _locations)
+  {
+    ss << location.str(indentLevel + 1);
+  }
+
+  return ss.str();
+}
+
 void World::doSave(XmlNode& node) const
 {
   auto locations_node = node.appendChildNode(XML_LOCATIONS_NODE_NAME);

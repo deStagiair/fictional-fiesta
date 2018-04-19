@@ -39,6 +39,9 @@ class ConstantSource : public Source
     /// @copydoc Source::regenerate
     void regenerate() override;
 
+    /// @copydoc Descriptable::str
+    std::string str(unsigned int indentLevel) const override;
+
     /// Name of the node with the fixed unit count.
     static constexpr char XML_FIXED_UNIT_COUNT_NODE_NAME[]{"FixedUnits"};
 

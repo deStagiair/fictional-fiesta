@@ -76,6 +76,9 @@ class Individual : public Descriptable, public XmlSavable
     /// @copydoc Descriptable::str
     virtual std::string str(unsigned int indentLevel) const override;
 
+    /// @brief Name of the main XML node for this class.
+    static constexpr char XML_MAIN_NODE_NAME[]{"Individual"};
+
     friend bool operator==(const Individual& lhs, const Individual& rhs);
 
   private:

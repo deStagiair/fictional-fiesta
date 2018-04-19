@@ -64,12 +64,15 @@ int main(int argc, char* argv[])
   auto rng = FSM::createRng();
   for (int cycle_index = 0; cycle_index < cycle_count; ++cycle_index)
   {
+    std::cout << world << std::endl;
     std::cout << "Cycle " << cycle_index << ":\n";
     world.cycle(rng);
     //std::cout << "Population : " << location.getIndividuals().size() << std::endl;
 
     //location.cycle(rng);
   }
+  std::cout << "End:\n";
+  std::cout << world << std::endl;
 }
 
 namespace

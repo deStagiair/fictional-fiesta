@@ -11,7 +11,6 @@ namespace
 
   constexpr char XML_PHENOTYPE_NODE_NAME[]{"Phenotype"};
   constexpr char XML_GENOTYPE_NODE_NAME[]{"Genotype"};
-  constexpr char XML_INDIVIDUAL_NODE_NAME[]{"Individual"};
 
 } // anonymous namespace
 
@@ -147,7 +146,7 @@ void Individual::doSave(XmlNode& node) const
 
 std::string Individual::getDefaultXmlName() const
 {
-  return XML_INDIVIDUAL_NODE_NAME;
+  return XML_MAIN_NODE_NAME;
 }
 
 bool operator==(const Individual& lhs, const Individual& rhs)

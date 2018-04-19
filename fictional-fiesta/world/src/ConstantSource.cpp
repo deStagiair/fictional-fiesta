@@ -52,6 +52,16 @@ void ConstantSource::regenerate()
   setCurrentUnitCount(_fixedUnitCount);
 }
 
+std::string ConstantSource::str(unsigned int indentLevel) const
+{
+  std::stringstream ss;
+  ss << indent(indentLevel) << "Constant source '" << getResourceId() << "' ( " <<
+      _fixedUnitCount << ")\n";
+
+  ss << indent(indentLevel) << "Current units: " << getCurrentUnitCount() << "\n";
+  return ss.str();
+}
+
 void ConstantSource::doSave(XmlNode& node) const
 {
   node.setAttribute(XML_SOURCE_TYPE_ATTRIBUTE_NAME, XML_SOURCE_TYPE_ATTRIBUTE_VALUE);

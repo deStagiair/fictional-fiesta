@@ -1,6 +1,8 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_WORLD_SOURCE_H
 #define INCLUDE_FICTIONAL_FIESTA_WORLD_SOURCE_H
 
+#include "fictional-fiesta/utils/itf/Descriptable.h"
+
 #include <limits>
 #include <string>
 
@@ -10,7 +12,7 @@ namespace fictionalfiesta
 class XmlNode;
 
 /// @brief Class that represents a source that generates a given resource.
-class Source
+class Source : public Descriptable
 {
   public:
 
