@@ -55,7 +55,7 @@ static bool die_during_feed(
     const Individual& individual,
     FSM::Rng& rng)
 {
-  return std::bernoulli_distribution(0.01)(rng);
+  return std::bernoulli_distribution(0.04)(rng);
 }
 
 void Location::splitResources(FSM::Rng& rng)
