@@ -55,7 +55,7 @@ void ConstantSource::regenerate()
 std::string ConstantSource::str(unsigned int indentLevel) const
 {
   std::stringstream ss;
-  ss << indent(indentLevel) << "Constant source '" << getResourceId() << "' ( " <<
+  ss << indent(indentLevel) << "Constant source '" << getResourceId() << "' (" <<
       _fixedUnitCount << ")\n";
 
   ss << indent(indentLevel) << "Current units: " << getCurrentUnitCount() << "\n";

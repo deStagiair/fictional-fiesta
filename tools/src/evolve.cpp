@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
   description.add_options()
     ("help,h", "Produce help message.")
     ("cycles,c", po::value<int>(), "Number of cycles (iterations).")
+    ("seed,s", po::value<int>(), "Seed of the RNG engine.")
     ("world,w", po::value<std::string>(), "Path to the initial world state.");
 
   po::variables_map vm;
@@ -53,6 +54,12 @@ int main(int argc, char* argv[])
     return 1;
   }
 
+  constexpr auto rng_seed_option = "seed";
+
+  auto rng = vm.count(rng_seed_option) ?
+      FSM::createRng(vm[rng_seed_option].as<int>()) :
+      FSM::createRng();
+
   const auto world_filename = vm[world_option].as<std::string>();
 
   std::cout << "Evolving " << cycle_count << " cycles...\n";
@@ -61,7 +68,6 @@ int main(int argc, char* argv[])
   const auto& world_path = fs::path(world_filename);
   auto world = World{world_path};
 
-  auto rng = FSM::createRng();
   for (int cycle_index = 0; cycle_index < cycle_count; ++cycle_index)
   {
     std::cout << world << std::endl;
