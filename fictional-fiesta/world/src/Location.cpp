@@ -72,7 +72,7 @@ void Location::splitResources(FSM::Rng& rng)
       double total_weight = 0;
       for (const auto& individual : _individuals)
       {
-        const auto& weight = (individual.isDead() && individual.isHungry()) ?
+        const auto& weight = (individual.isDead() || !individual.isHungry()) ?
           0 : individual.getPhenotype().getEnergy();
         weights.push_back(weight);
         total_weight += weight;
