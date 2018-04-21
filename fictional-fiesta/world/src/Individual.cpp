@@ -104,10 +104,10 @@ void Individual::performMaintenance(FSM::Rng& rng)
   else
   {
     // The units of resource are always consumed as integers.
-    _resourceCount -= maintenance_cost;
+    const auto remaining_energy = static_cast<double>(_resourceCount) - maintenance_cost;
 
     // TODO: Currently the individual consumes all the resources.
-    _phenotype.feed(_resourceCount, _genotype);
+    _phenotype.feed(remaining_energy, _genotype);
     _resourceCount = 0;
   }
 }

@@ -29,11 +29,11 @@ double Phenotype::getEnergy() const
   return _energy;
 }
 
-void Phenotype::feed(unsigned int resourceUnits, const Genotype& genotype)
+void Phenotype::feed(double energyConsumed, const Genotype& genotype)
 {
   // Currently the phenotype is just energy, so we just increase it in the same ammount than the
   // resource units aquired.
-  _energy += resourceUnits;
+  _energy += energyConsumed;
 }
 
 Phenotype Phenotype::split(const Genotype& genotype)

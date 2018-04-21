@@ -33,9 +33,9 @@ class Phenotype : public Descriptable, public XmlSavable
 
     /// @brief Feed the phenotype with a given number of resource units.
     /// @details The phenotype will change depending on the units fed and the genotype.
-    /// @param resourceUnits Unnits fet to the individual.
+    /// @param energyConsumed Energy units to be consumed.
     /// @param genotype Genotype of the individual.
-    void feed(unsigned int resourceUnits, const Genotype& genotype);
+    void feed(double energyConsumed, const Genotype& genotype);
 
     /// @brief Splits the current Phenotype in two parts.
     /// @details Currently, the splitting is done in two equal parts and without energy loss.
