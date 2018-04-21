@@ -59,8 +59,7 @@ bool Individual::isDead() const noexcept
 
 bool Individual::isHungry() const
 {
-  // Temporary implementation, it should be influenced by the genotype and the phenotype.
-  return true;
+  return _resourceCount < _phenotype.getEnergy();
 }
 
 Individual& Individual::feed(unsigned int units)
