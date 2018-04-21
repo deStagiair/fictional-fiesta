@@ -14,7 +14,18 @@
           <FixedUnits>3</FixedUnits>
         </Source>
       </Resources>
-      <Individuals />
+      <Individuals>
+        <Individual>
+          <Genotype>
+            <ReproductionEnergyThreshold>10</ReproductionEnergyThreshold>
+            <ReproductionProbability>0.5</ReproductionProbability>
+            <MutabilityRatio>0.5</MutabilityRatio>
+          </Genotype>
+          <Phenotype>
+            <Energy>60</Energy>
+          </Phenotype>
+        </Individual>
+      </Individuals>
     </Location>
     <Location>
       <Resources>

@@ -33,6 +33,13 @@ Location::Location(const XmlNode& node)
   {
     _sources.push_back(SourceFactory::createSource(source_node));
   }
+
+  const auto& individual_nodes = node.getChildNode(XML_INDIVIDUALS_NODE_NAME)
+      .getChildNodes(Individual::XML_MAIN_NODE_NAME);
+  for (const auto& individual_node : individual_nodes)
+  {
+    _individuals.push_back(Individual(individual_node));
+  }
 }
 
 static unsigned int draw_resource_unit(

@@ -12,5 +12,16 @@
       <FixedUnits>infinite</FixedUnits>
     </Source>
   </Resources>
-  <Individuals />
+  <Individuals>
+    <Individual>
+      <Genotype>
+        <ReproductionEnergyThreshold>10</ReproductionEnergyThreshold>
+        <ReproductionProbability>0.5</ReproductionProbability>
+        <MutabilityRatio>0.5</MutabilityRatio>
+      </Genotype>
+      <Phenotype>
+        <Energy>6</Energy>
+      </Phenotype>
+    </Individual>
+  </Individuals>
 </Location>
