@@ -19,4 +19,5 @@ find_program(VERA_EXE vera++)
 
 add_subdirectory(fictional-fiesta)
 add_subdirectory(test)
+add_subdirectory(evolve)
 add_subdirectory(tools)
