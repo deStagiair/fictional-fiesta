@@ -19,6 +19,7 @@ public:
 
 private slots:
     void on_actionLoad_World_triggered();
+    void on_actionSave_World_as_triggered();
 
     void on_actionQuit_triggered();
 

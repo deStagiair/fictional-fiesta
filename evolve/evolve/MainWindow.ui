@@ -28,7 +28,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_World"/>
-    <addaction name="actionSave_World"/>
+    <addaction name="actionSave_World_as"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -45,12 +45,12 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLoad_World">
    <property name="text">
-    <string>Load World</string>
+    <string>Load World...</string>
    </property>
   </action>
-  <action name="actionSave_World">
+  <action name="actionSave_World_as">
    <property name="text">
-    <string>Save World</string>
+    <string>Save World as...</string>
    </property>
   </action>
   <action name="actionQuit">

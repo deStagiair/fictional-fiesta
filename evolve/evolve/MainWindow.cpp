@@ -44,6 +44,24 @@ void MainWindow::on_actionLoad_World_triggered()
   }
 }
 
+void MainWindow::on_actionSave_World_as_triggered()
+{
+  const QString q_filename = QFileDialog::getSaveFileName(this, "Save as",
+      "", tr("XML Files (*.xml)"));
+
+  if (!q_filename.isEmpty())
+  {
+    try
+    {
+      _world.save(fs::path(q_filename.toStdString()));
+    }
+    catch (const Exception& e)
+    {
+      QMessageBox::warning(this, "fictional-fiesta exception", e.what());
+    }
+  }
+}
+
 void MainWindow::on_actionQuit_triggered()
 {
   QCoreApplication::quit();
