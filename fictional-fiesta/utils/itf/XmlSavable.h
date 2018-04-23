@@ -1,9 +1,10 @@
 #ifndef INCLUDE_FICTIONAL_FIESTA_UTILS_XML_SAVABLE_H
 #define INCLUDE_FICTIONAL_FIESTA_UTILS_XML_SAVABLE_H
 
-#include <string>
-
 #include <experimental/filesystem>
+
+#include <string>
+#include <ostream>
 
 namespace fictionalfiesta
 {
@@ -23,6 +24,10 @@ class XmlSavable
     /// @brief Save the class contents into a file.
     /// @param filePath Path where the XML will be saved.
     void save(const std::experimental::filesystem::path& filePath) const;
+
+    /// @brief Save the class contents into a file.
+    /// @param filePath Path where the XML will be saved.
+    void save(std::ostream& stream) const;
 
   private:
 

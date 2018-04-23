@@ -27,12 +27,17 @@ class XmlDocument
     ~XmlDocument();
 
     /// @brief Save the document to a file in disk.
-    ///
     /// @param savePath path where the XML document will be written.
     /// @param prettyPrint whether the document will be saved formated or not.
     ///   Defaults to true.
     /// @throw Exception if the file could not be written.
     void save(const std::experimental::filesystem::path& savePath, bool prettyPrint = true) const;
+
+    /// @brief Save the document to an output stream.
+    /// @param stream stream where to write the document.
+    /// @param prettyPrint whether the document will be saved formated or not.
+    ///   Defaults to true.
+    void save(std::ostream& stream, bool prettyPrint = true) const;
 
     /// @brief Obtain the root node of the document.
     /// @return Root node of the document.

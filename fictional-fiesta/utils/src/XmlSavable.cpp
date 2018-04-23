@@ -20,4 +20,12 @@ void XmlSavable::save(const std::experimental::filesystem::path& filePath) const
   result_document.save(filePath);
 }
 
+void XmlSavable::save(std::ostream& stream) const
+{
+  auto result_document = XmlDocument{};
+  auto node = result_document.appendRootNode(getDefaultXmlName());
+  doSave(node);
+  result_document.save(stream);
+}
+
 }

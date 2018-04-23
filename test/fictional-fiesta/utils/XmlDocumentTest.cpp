@@ -7,6 +7,7 @@
 #include "test/test_utils/itf/BenchmarkFiles.h"
 
 #include <experimental/filesystem>
+#include <fstream>
 
 namespace fs = std::experimental::filesystem;
 using namespace fictionalfiesta;
@@ -90,6 +91,17 @@ TEST_CASE("Test loading and saving a XML document", "[XmlDocumentTest][TestSave]
     REQUIRE_NOTHROW(document.save(result_file, false));
 
     const fs::path benchmark_file = benchmark_directory / fs::path("example_0_raw.xml");
+    benchmarkFiles(benchmark_file, result_file, result_directory);
+  }
+
+  // Save to stream.
+  {
+    const fs::path result_file = result_directory / fs::path("example_0_stream.xml");
+    std::fstream file_stream(result_file.string(), file_stream.out);
+
+    REQUIRE_NOTHROW(document.save(file_stream, true));
+
+    const fs::path benchmark_file = benchmark_directory / fs::path("example_0.xml");
     benchmarkFiles(benchmark_file, result_file, result_directory);
   }
 }

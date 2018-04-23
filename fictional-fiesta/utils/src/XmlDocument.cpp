@@ -67,6 +67,13 @@ void XmlDocument::save(const fs::path& savePath, bool prettyPrint) const
   }
 }
 
+void XmlDocument::save(std::ostream& stream, bool prettyPrint) const
+{
+  const unsigned int format = (prettyPrint ? pugi::format_default : pugi::format_raw);
+
+  _pimpl->_document.save(stream, INDENT_STRING, format);
+}
+
 XmlNode XmlDocument::getRootNode() const
 {
   return XmlNode{XmlNodeImpl(_pimpl->_document.first_child())};
