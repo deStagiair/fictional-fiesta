@@ -161,15 +161,12 @@ TEST_CASE("Test individual reproduce method", "[IndividualTest][TestReproduce]")
   {
     auto rng{FSM::createRng(0)};
 
-    // Mutability = 0: no change and always alive offspring.
-    const Genotype genotype{10, 0.5, 0};
+    // Mutability = min: small chance of dying.
+    const Genotype genotype{10, 0.5, 0.001};
 
     auto parent = Individual{genotype, 30};
 
     auto offspring = parent.reproduce(rng);
-
-    // Distance between genotypes must be 0.
-    CHECK(parent.getGenotype().distance(offspring.getGenotype()) == 0);
 
     CHECK(!offspring.isDead());
     CHECK(!parent.reproduce(rng).isDead());
@@ -199,8 +196,7 @@ TEST_CASE("Test individual maintenance", "[IndividualTest][TestPerformMaintenana
   {
     auto rng{FSM::createRng(0)};
 
-    // Mutability = 0: no change and always alive offspring.
-    const Genotype genotype{10, 0.5, 0};
+    const Genotype genotype{10, 0.5, 0.01};
 
     auto dude = Individual{genotype, 10};
 

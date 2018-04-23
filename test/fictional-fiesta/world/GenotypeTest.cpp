@@ -32,6 +32,10 @@ static const fs::path benchmark_directory = fs::path(TEST_SOURCE_DIRECTORY)
 TEST_CASE("Test genotype constructor and getters", "[GenotypeTest][TestGenotypeConstructor]")
 {
   {
+    REQUIRE_THROWS_AS(Genotype(10, 1, 0), Exception);
+  }
+
+  {
     const Genotype genotype{43, 0.5, 0.66};
     REQUIRE(genotype.getReproductionEnergyThreshold() == 43);
     REQUIRE(genotype.getReproductionProbability() == 0.5);
@@ -39,10 +43,10 @@ TEST_CASE("Test genotype constructor and getters", "[GenotypeTest][TestGenotypeC
   }
 
   {
-    const Genotype genotype{0, 0.001, 0};
+    const Genotype genotype{0, 0.001, 0.99};
     CHECK(genotype.getReproductionEnergyThreshold() == 0);
     CHECK(genotype.getReproductionProbability() == 0.001);
-    CHECK(genotype.getMutabilityRatio() == 0);
+    CHECK(genotype.getMutabilityRatio() == 0.99);
   }
 }
 
@@ -124,28 +128,16 @@ TEST_CASE("Test genotype willReproduce method", "[GenotypeTest][TestWillReproduc
 TEST_CASE("Test genotype reproduce method", "[GenotypeTest][TestReproduce]")
 {
   {
-    auto rng{FSM::createRng(0)};
-
-    const Genotype genotype{10, 1, 0};
-
-    const Genotype mutated{genotype.reproduce(rng)};
-
-    // No changes (mutabilityRatio = 0).
-    CHECK(mutated.getReproductionEnergyThreshold() == genotype.getReproductionEnergyThreshold());
-    CHECK(mutated.getReproductionProbability() == genotype.getReproductionProbability());
-    CHECK(mutated.getMutabilityRatio() == genotype.getMutabilityRatio());
-  }
-
-  {
     auto rng{FSM::createRng(1)};
 
-    const Genotype genotype{10, 1, 0.1};
+    const auto genotype = Genotype{10, 1, 0.1};
 
     const Genotype mutated{genotype.reproduce(rng)};
 
     // Small variation.
     CHECK(mutated.getReproductionEnergyThreshold() == Approx(9.450253821));
-    CHECK(mutated.getReproductionProbability() == Approx(1.1582752292));
+    // Maximum 1.
+    CHECK(mutated.getReproductionProbability() == 1);
     CHECK(mutated.getMutabilityRatio() == Approx(0.1025759354));
   }
 
@@ -178,9 +170,9 @@ TEST_CASE("Test genotype producedDeadlyMutation method", "[GenotypeTest][TestPro
   {
     auto rng{FSM::createRng(1)};
 
-    const Genotype genotype{10, 1, 0};
+    const Genotype genotype{10, 1, 0.001};
 
-    // Never produce (mutabilityRatio = 0).
+    /// Almost never produce (mutabilityRatio = 0.001).
     CHECK(!genotype.producedDeadlyMutation(rng));
     CHECK(!genotype.producedDeadlyMutation(rng));
     CHECK(!genotype.producedDeadlyMutation(rng));

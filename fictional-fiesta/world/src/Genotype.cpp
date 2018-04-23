@@ -4,6 +4,7 @@
 
 #include "fictional-fiesta/world/itf/Phenotype.h"
 
+#include "fictional-fiesta/utils/itf/Exception.h"
 #include "fictional-fiesta/utils/itf/XmlNode.h"
 
 #include <sstream>
@@ -20,6 +21,8 @@ constexpr char XML_REPRODUCTION_ENERGY_THRESHOLD_NAME[]{"ReproductionEnergyThres
 constexpr char XML_REPRODUCTION_PROBABILITY_NAME[]{"ReproductionProbability"};
 constexpr char XML_MUTABILITY_RATIO_NAME[]{"MutabilityRatio"};
 
+constexpr double MINIMUM_MUTABILITY = 0.001;
+
 } // anonymous namespace
 
 Genotype::Genotype(
@@ -30,13 +33,20 @@ Genotype::Genotype(
   _reproductionProbability(reproductionProbability),
   _mutabilityRatio(mutabilityRatio)
 {
+  if (mutabilityRatio < MINIMUM_MUTABILITY)
+  {
+    std::stringstream ss;
+    ss << "Invalid value for mutability ratio (" << mutabilityRatio <<
+        "). Should be greater or equal than " << MINIMUM_MUTABILITY << ".";
+
+    throw Exception(ss.str());
+  }
 }
 
 Genotype::Genotype(const XmlNode& node):
-  _reproductionEnergyThreshold(
-      node.getChildNodeTextAs<double>(XML_REPRODUCTION_ENERGY_THRESHOLD_NAME)),
-  _reproductionProbability(node.getChildNodeTextAs<double>(XML_REPRODUCTION_PROBABILITY_NAME)),
-  _mutabilityRatio(node.getChildNodeTextAs<double>(XML_MUTABILITY_RATIO_NAME))
+  Genotype(node.getChildNodeTextAs<double>(XML_REPRODUCTION_ENERGY_THRESHOLD_NAME),
+      node.getChildNodeTextAs<double>(XML_REPRODUCTION_PROBABILITY_NAME),
+      node.getChildNodeTextAs<double>(XML_MUTABILITY_RATIO_NAME))
 {
 }
 
@@ -74,8 +84,8 @@ Genotype Genotype::reproduce(FSM::Rng& rng) const
   const auto reproduction_probability = std::min(1.0,
       std::normal_distribution(_reproductionProbability,
       _mutabilityRatio * _reproductionProbability)(rng));
-  const auto mutabilityRatio = std::max(0.001, std::normal_distribution(_mutabilityRatio,
-      _mutabilityRatio * _mutabilityRatio)(rng));
+  const auto mutabilityRatio = std::max(MINIMUM_MUTABILITY, std::normal_distribution(
+      _mutabilityRatio, _mutabilityRatio * _mutabilityRatio)(rng));
 
   return Genotype{reproduction_energy_threshold, reproduction_probability, mutabilityRatio};
 }

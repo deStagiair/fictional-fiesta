@@ -72,7 +72,7 @@ TEST_CASE("Test phenotype stringify method", "[PhenotypeTest][TestStr]")
 TEST_CASE("Test phenotype feed method", "[PhenotypeTest][TestFeed]")
 {
   {
-    const auto genotype = Genotype{0, 0, 0};
+    const auto genotype = Genotype{0, 0, 1};
     auto phenotype = Phenotype{16.1};
     CHECK(phenotype.getEnergy() == 16.1);
     phenotype.feed(1, genotype);
@@ -87,7 +87,7 @@ TEST_CASE("Test phenotype feed method", "[PhenotypeTest][TestFeed]")
 TEST_CASE("Test phenotype split method", "[PhenotypeTest][TestSplit]")
 {
   {
-    const auto genotype = Genotype{0, 0, 0};
+    const auto genotype = Genotype{0, 0, 1};
     auto phenotype = Phenotype{16.1};
 
     const auto splitted_0 = phenotype.split(genotype);

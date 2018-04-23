@@ -100,6 +100,7 @@ TEST_CASE("Test loading and saving a XML document", "[XmlDocumentTest][TestSave]
     std::fstream file_stream(result_file.string(), file_stream.out);
 
     REQUIRE_NOTHROW(document.save(file_stream, true));
+    file_stream.close();
 
     const fs::path benchmark_file = benchmark_directory / fs::path("example_0.xml");
     benchmarkFiles(benchmark_file, result_file, result_directory);
