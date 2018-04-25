@@ -29,6 +29,10 @@ class XmlSavable
     /// @param stream Stream where the XML will be saved.
     void save(std::ostream& stream) const;
 
+    /// @brief Save the class contents into a string.
+    /// @return String whith the class contents in XML format.
+    std::string saveXmlToString() const;
+
   private:
 
     /// @brief Save the class contents into a XML node.

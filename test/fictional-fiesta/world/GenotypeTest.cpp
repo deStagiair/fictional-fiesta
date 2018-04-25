@@ -78,11 +78,26 @@ TEST_CASE("Test genotype XML save method", "[GenotypeTest][TestGenotypeSaveToXml
 {
   const Genotype genotype{43, 0.5, 0.66};
 
-  const auto& result_file = result_directory / fs::path("genotype_0.xml");
-  REQUIRE_NOTHROW(genotype.save(result_file));
+  {
+    const auto& result_file = result_directory / fs::path("genotype_0.xml");
+    REQUIRE_NOTHROW(genotype.save(result_file));
 
-  const auto& benchmark_file = benchmark_directory / fs::path("genotype_0.xml");
-  benchmarkFiles(benchmark_file, result_file, result_directory);
+    const auto& benchmark_file = benchmark_directory / fs::path("genotype_0.xml");
+    benchmarkFiles(benchmark_file, result_file, result_directory);
+  }
+
+  // Save to a string.
+  {
+    const std::string benchmark =
+        "<?xml version=\"1.0\"?>\n"
+        "<Genotype>\n"
+        "  <ReproductionEnergyThreshold>43</ReproductionEnergyThreshold>\n"
+        "  <ReproductionProbability>0.5</ReproductionProbability>\n"
+        "  <MutabilityRatio>0.66</MutabilityRatio>\n"
+        "</Genotype>\n";
+
+    CHECK(genotype.saveXmlToString() == benchmark);
+  }
 }
 
 TEST_CASE("Test genotype willReproduce method", "[GenotypeTest][TestWillReproduce]")

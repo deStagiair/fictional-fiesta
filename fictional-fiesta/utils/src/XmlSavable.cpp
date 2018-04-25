@@ -28,4 +28,13 @@ void XmlSavable::save(std::ostream& stream) const
   result_document.save(stream);
 }
 
+std::string XmlSavable::saveXmlToString() const
+{
+  std::stringstream ss;
+
+  save(ss);
+
+  return ss.str();
+}
+
 }
