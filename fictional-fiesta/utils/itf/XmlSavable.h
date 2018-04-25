@@ -26,7 +26,7 @@ class XmlSavable
     void save(const std::experimental::filesystem::path& filePath) const;
 
     /// @brief Save the class contents into a file.
-    /// @param filePath Path where the XML will be saved.
+    /// @param stream Stream where the XML will be saved.
     void save(std::ostream& stream) const;
 
   private:

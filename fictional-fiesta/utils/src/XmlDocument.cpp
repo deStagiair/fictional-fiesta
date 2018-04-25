@@ -58,7 +58,8 @@ XmlDocument::XmlDocument(const std::experimental::filesystem::path& documentPath
 
 XmlDocument::~XmlDocument() = default;
 
-void XmlDocument::save(const fs::path& savePath, bool prettyPrint) const
+// Don't use the namespace alias to avoid Doxygen problems with the overloads.
+void XmlDocument::save(const std::experimental::filesystem::path& savePath, bool prettyPrint) const
 {
   const unsigned int format = (prettyPrint ? pugi::format_default : pugi::format_raw);
   if (!_pimpl->_document.save_file(savePath.c_str(), INDENT_STRING, format))
