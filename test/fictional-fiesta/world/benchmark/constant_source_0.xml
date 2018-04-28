@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Source Type="Constant">
+  <Resource>Water</Resource>
+  <FixedUnits>100</FixedUnits>
+  <CurrentUnits>3</CurrentUnits>
+</Source>

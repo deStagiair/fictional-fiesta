@@ -4,6 +4,7 @@
 #include "fictional-fiesta/utils/itf/Descriptable.h"
 
 #include <limits>
+#include <memory>
 #include <string>
 
 namespace fictionalfiesta
@@ -26,10 +27,12 @@ class Source : public Descriptable
     /// @param initialUnitCount Inital number of units of the resource available.
     Source(const XmlNode& node, unsigned int initialUnitCount);
 
-    //Source(Source&&) = default;
-
     /// @brief Default destructor.
     virtual ~Source() = default;
+
+    /// @brief Clone this Source.
+    /// @return Owning pointer to the cloned Source.
+    std::unique_ptr<Source> clone() const;
 
     /// @brief Get the resource identifier.
     /// @return Resource identifier.
@@ -78,6 +81,8 @@ class Source : public Descriptable
     static std::string unitsToString(unsigned int units);
 
   private:
+
+    virtual Source* doClone() const = 0;
 
     virtual void doSave(XmlNode& node) const = 0;
 

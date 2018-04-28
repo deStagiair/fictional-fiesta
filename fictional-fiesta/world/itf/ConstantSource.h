@@ -53,6 +53,8 @@ class ConstantSource : public Source
     ConstantSource(const XmlNode& node, unsigned int fixedUnitCount);
     void doSave(XmlNode& node) const override;
 
+    ConstantSource* doClone() const override;
+
     /// Nuber of units at the begining of each cycle.
     unsigned int _fixedUnitCount;
 };

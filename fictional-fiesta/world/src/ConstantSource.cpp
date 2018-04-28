@@ -70,6 +70,11 @@ void ConstantSource::doSave(XmlNode& node) const
   fixed_units_node.setText(unitsToString(_fixedUnitCount));
 }
 
+ConstantSource* ConstantSource::doClone() const
+{
+  return new ConstantSource(*this);
+}
+
 namespace
 {
 

@@ -27,6 +27,11 @@ Source::Source(const XmlNode& node, unsigned int initialUnitCount):
 {
 }
 
+std::unique_ptr<Source> Source::clone() const
+{
+  return std::unique_ptr<Source>(doClone());
+}
+
 const std::string& Source::getResourceId() const
 {
   return _resourceId;

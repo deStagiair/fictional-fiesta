@@ -39,7 +39,7 @@ TEST_CASE("Test constructor from resource name", "[ConstantSourceTest][TestConst
 
 TEST_CASE("Test constructor from XML node", "[ConstantSourceTest][TestConstructorFromXmlNode]")
 {
-  const auto& input_file = input_directory / fs::path("example_0.xml");
+  const auto& input_file = input_directory / fs::path("sources_0.xml");
   const auto& document = XmlDocument{input_file};
   const auto& root_node = document.getRootNode();
 
