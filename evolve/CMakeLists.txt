@@ -5,14 +5,12 @@ if (Qt5Widgets_FOUND)
   set(EVOLVE_GUI_ITF
     ${CMAKE_CURRENT_SOURCE_DIR}/evolve/MainWindow.h
     ${CMAKE_CURRENT_SOURCE_DIR}/evolve/WorldView.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/evolve/itf/QtWorld.h
     CACHE INTERNAL "")
 
   set(EVOLVE_GUI_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/evolve/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/evolve/MainWindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/evolve/WorldView.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/evolve/src/QtWorld.cpp
     CACHE INTERNAL "")
   
   set(EVOLVE_GUI_FORMS
