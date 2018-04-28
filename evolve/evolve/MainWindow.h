@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "fictional-fiesta/world/itf/World.h"
+#include "evolve/evolve/itf/QtWorld.h"
 
 #include <QMainWindow>
 
@@ -23,10 +23,12 @@ private slots:
 
     void on_actionQuit_triggered();
 
+signals:
+
+    void loadWorld(const QString& path);
+
 private:
     Ui::MainWindow *ui;
-
-    fictionalfiesta::World _world;
 };
 
 #endif // MAINWINDOW_H

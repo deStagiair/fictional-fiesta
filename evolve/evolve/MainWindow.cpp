@@ -6,6 +6,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QObject>
 
 #include <experimental/filesystem>
 #include <iostream>
@@ -18,12 +19,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
+  QObject::connect(this, SIGNAL(loadWorld(const QString&)), ui->_worldTab, SLOT(load(const QString&)));
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  delete ui;
 }
 
 void MainWindow::on_actionLoad_World_triggered()
@@ -35,7 +37,7 @@ void MainWindow::on_actionLoad_World_triggered()
   {
     try
     {
-      _world = World(fs::path(q_filename.toStdString()));
+      emit loadWorld(q_filename);
     }
     catch (const Exception& e)
     {
@@ -53,7 +55,7 @@ void MainWindow::on_actionSave_World_as_triggered()
   {
     try
     {
-      _world.save(fs::path(q_filename.toStdString()));
+      //_world.save(fs::path(q_filename.toStdString()));
     }
     catch (const Exception& e)
     {

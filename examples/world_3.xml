@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<World>
+  <Locations>
+    <Location>
+      <Resources>
+        <Source Type="Constant">
+          <Resource>Light</Resource>
+          <CurrentUnits>10</CurrentUnits>
+          <FixedUnits>12</FixedUnits>
+        </Source>
+        <Source Type="Constant">
+          <Resource>Water</Resource>
+          <CurrentUnits>3</CurrentUnits>
+          <FixedUnits>5</FixedUnits>
+        </Source>
+      </Resources>
+      <Individuals>
+        <Individual>
+          <Genotype>
+            <ReproductionEnergyThreshold>10</ReproductionEnergyThreshold>
+            <ReproductionProbability>0.95</ReproductionProbability>
+            <MutabilityRatio>0.1</MutabilityRatio>
+          </Genotype>
+          <Phenotype>
+            <Energy>1</Energy>
+          </Phenotype>
+        </Individual>
+        <Individual>
+          <Genotype>
+            <ReproductionEnergyThreshold>3</ReproductionEnergyThreshold>
+            <ReproductionProbability>0.5</ReproductionProbability>
+            <MutabilityRatio>0.1</MutabilityRatio>
+          </Genotype>
+          <Phenotype>
+            <Energy>1</Energy>
+          </Phenotype>
+        </Individual>
+        <Individual>
+          <Genotype>
+            <ReproductionEnergyThreshold>5</ReproductionEnergyThreshold>
+            <ReproductionProbability>0.9</ReproductionProbability>
+            <MutabilityRatio>0.1</MutabilityRatio>
+          </Genotype>
+          <Phenotype>
+            <Energy>1</Energy>
+          </Phenotype>
+        </Individual>
+        <Individual>
+          <Genotype>
+            <ReproductionEnergyThreshold>2</ReproductionEnergyThreshold>
+            <ReproductionProbability>0.9</ReproductionProbability>
+            <MutabilityRatio>0.1</MutabilityRatio>
+          </Genotype>
+          <Phenotype>
+            <Energy>1</Energy>
+          </Phenotype>
+        </Individual>
+      </Individuals>
+    </Location>
+    <Location>
+      <Resources>
+        <Source Type="Constant">
+          <Resource>Heat</Resource>
+          <CurrentUnits>1</CurrentUnits>
+          <FixedUnits>1</FixedUnits>
+        </Source>
+      </Resources>
+      <Individuals />
+    </Location>
+  </Locations>
+</World>
