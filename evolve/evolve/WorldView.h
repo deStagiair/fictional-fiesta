@@ -22,6 +22,7 @@ class WorldView : public QWidget
   public slots:
 
     void load(const QString& filename);
+    void reset();
     void worldChanged();
 
     void simulate();
@@ -34,6 +35,8 @@ class WorldView : public QWidget
 
     fictionalfiesta::FSM::Rng _rng;
     fictionalfiesta::World _world;
+
+    fictionalfiesta::World _initialWorld;
 };
 
 #endif // WORLDVIEW_H

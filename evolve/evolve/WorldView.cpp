@@ -9,6 +9,7 @@ WorldView::WorldView(QWidget *parent) :
 {
     ui->setupUi(this);
     QObject::connect(ui->evolvePushButton, SIGNAL(clicked()), this, SLOT(simulate()));
+    QObject::connect(ui->resetPushButton, SIGNAL(clicked()), this, SLOT(reset()));
 }
 
 WorldView::~WorldView()
@@ -20,6 +21,14 @@ void WorldView::load(const QString& filename)
 {
   const std::experimental::filesystem::path path(filename.toStdString());
   _world = World{path};
+  _initialWorld = _world;
+
+  worldChanged();
+}
+
+void WorldView::reset()
+{
+  _world = _initialWorld;
 
   worldChanged();
 }
