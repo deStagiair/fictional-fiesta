@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "evolve/evolve/itf/QtWorld.h"
-
 #include <QMainWindow>
 
 namespace Ui {
