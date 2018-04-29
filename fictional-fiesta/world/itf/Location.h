@@ -27,16 +27,25 @@ class Location : public XmlSavable, public Descriptable
     /// @details Constructs an empty location (no sources).
     Location();
 
+    /// @brief Constructor from an XmlNode.
+    /// @param node XmlNode with the class contents.
+    Location(const XmlNode& node);
+
     /// @brief Move constructor.
     /// @param other Instance to be moved.
     Location(Location&& other);
 
+    /// @brief Copy constructor.
+    /// @param other Instance to be copied.
+    Location(const Location& other);
+
+    /// @brief Assignment operator.
+    /// @param other Location to be assigned.
+    /// @return Reference to the current Location.
+    Location& operator=(Location other);
+
     /// @brief Default destructor.
     ~Location();
-
-    /// @brief Constructor from an XmlNode.
-    /// @param node XmlNode with the class contents.
-    Location(const XmlNode& node);
 
     /// @brief Splits resources between individuals.
     /// @param rng Random number generator.
@@ -85,6 +94,10 @@ class Location : public XmlSavable, public Descriptable
     static constexpr char XML_MAIN_NODE_NAME[]{"Location"};
 
   private:
+
+    /// @brief Swaps the contents of this instance with the one passed per parameter.
+    /// @param other Instance to be swapped.
+    void swap(Location& other);
 
     /// @copydoc XmlSavable::doSave
     void doSave(XmlNode& node) const override;

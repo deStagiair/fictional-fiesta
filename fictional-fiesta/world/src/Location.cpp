@@ -10,20 +10,26 @@
 
 #include <algorithm>
 
-namespace
-{
-constexpr char XML_RESOURCES_NODE_NAME[]{"Resources"};
-constexpr char XML_INDIVIDUALS_NODE_NAME[]{"Individuals"};
-}
-
 namespace fictionalfiesta
 {
 
+namespace
+{
+
+constexpr char XML_RESOURCES_NODE_NAME[]{"Resources"};
+constexpr char XML_INDIVIDUALS_NODE_NAME[]{"Individuals"};
+
+unsigned int draw_resource_unit(
+    const std::vector<double>& weights,
+    FSM::Rng& rng);
+
+bool die_during_feed(
+    const Individual& individual,
+    FSM::Rng& rng);
+
+} // anonymous namespace
+
 Location::Location() = default;
-
-Location::Location(Location&& other) = default;
-
-Location::~Location() = default;
 
 Location::Location(const XmlNode& node)
 {
@@ -42,20 +48,24 @@ Location::Location(const XmlNode& node)
   }
 }
 
-static unsigned int draw_resource_unit(
-    const std::vector<double>& weights,
-    FSM::Rng& rng)
+Location::Location(const Location& other):
+    _individuals(other._individuals)
 {
-  std::discrete_distribution<unsigned int> distribution(weights.begin(), weights.end());
-
-  return distribution(rng);
+  for (const auto& source : other._sources)
+  {
+    _sources.push_back(source->clone());
+  }
 }
 
-static bool die_during_feed(
-    const Individual& individual,
-    FSM::Rng& rng)
+Location::Location(Location&& other) = default;
+
+Location::~Location() = default;
+
+Location& Location::operator=(Location other)
 {
-  return std::bernoulli_distribution(0.04)(rng);
+  // We cannot use std::swap because it uses the assignment operation.
+  swap(other);
+  return *this;
 }
 
 void Location::splitResources(FSM::Rng& rng)
@@ -184,6 +194,12 @@ std::string Location::str(unsigned int indentLevel) const
   return ss.str();
 }
 
+void Location::swap(Location& other)
+{
+  std::swap(this->_individuals, other._individuals);
+  std::swap(this->_sources, other._sources);
+}
+
 void Location::doSave(XmlNode& node) const
 {
   auto resources_node = node.appendChildNode(XML_RESOURCES_NODE_NAME);
@@ -204,5 +220,26 @@ std::string Location::getDefaultXmlName() const
 {
   return XML_MAIN_NODE_NAME;
 }
+
+namespace
+{
+
+unsigned int draw_resource_unit(
+    const std::vector<double>& weights,
+    FSM::Rng& rng)
+{
+  std::discrete_distribution<unsigned int> distribution(weights.begin(), weights.end());
+
+  return distribution(rng);
+}
+
+bool die_during_feed(
+    const Individual& individual,
+    FSM::Rng& rng)
+{
+  return std::bernoulli_distribution(0.04)(rng);
+}
+
+} // anonymous namespace
 
 } // namespace fictionalfiesta
